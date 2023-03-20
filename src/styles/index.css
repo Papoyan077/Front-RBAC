@@ -1,0 +1,118 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none !important;
+    list-style: none !important;
+}
+body{
+    background-color: rgba(64, 150, 255, 0.04) !important;
+}
+#generalDiv{
+    display: flex;
+}
+*{
+    margin: 0;
+    padding: 0;
+}
+.bgColor{
+    background-color: #4096ff;
+    color: white;
+}
+.tbBgc:hover{
+    background-color: rgba(64, 150, 255, 0.04) !important;
+
+}
+.btnStyle{
+    text-decoration:none;
+    border-radius: 5px;
+    margin: 10px 0px 10px 0px;
+    width: 100%;
+}
+.btnStyle:hover{
+    background-color: rgba(64, 150, 255, 0.04) !important;
+    border: solid 1px #4096ff ;
+    border-radius: 5px;
+    color: #4096ff !important;
+    box-shadow: 0px 2px 1px -1px rgba(64, 150, 255, 0.44), 0px 1px 1px 0px rgba(64, 150, 255, 0.45), 0px 1px 3px 0px rgba(64, 150, 255, 0.44);
+}
+.btnLogout{
+    text-decoration:none;
+    border-radius: 5px;
+    margin: 10px 0px 10px 0px;
+    width: 100%;
+}
+.btnLogout:hover{
+    background-color: rgba(64, 150, 255, 0.04) !important;
+    border-radius: 5px;
+    color: #4096ff !important;
+    box-shadow: 0px 2px 1px -1px rgba(64, 150, 255, 0.44), 0px 1px 1px 0px rgba(64, 150, 255, 0.45), 0px 1px 3px 0px rgba(64, 150, 255, 0.44);
+
+}
+.border-blue{
+    background-color: white;
+    border: solid 1px #4096ff ;
+    border-radius: 5px;
+    box-shadow: 0px 2px 1px -1px rgba(64, 150, 255, 0.44), 0px 1px 1px 0px rgba(64, 150, 255, 0.45), 0px 1px 3px 0px rgba(64, 150, 255, 0.44);
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+}
+::-webkit-scrollbar-track {
+    background: rgba(241, 241, 241, 0);
+}
+::-webkit-scrollbar-thumb {
+    background: rgba(136, 136, 136, 0.37);
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(85, 85, 85, 0.63);
+}
+.LoginPage{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.SignIn{
+    width: 35vw;
+    height: 50vh;
+}
+.loginText{
+    text-align: center;
+    margin: 10px;
+    padding: 10px;
+    color: mediumblue;
+}
+.Moduls{
+    width: 20vw;
+    height: 85vh;
+    margin: 5px;
+    background-color: white;
+
+}
+.Main{
+    width: 80vw;
+    height: 70vh;
+    margin: 5px;
+    background-color: white;
+}
+.Home{
+    display: flex;
+    flex-direction: column;
+}
+.Header{
+    margin: 5px;
+    width: 99vw;
+    height: 10vh;
+    background-color: white;
+}
+.ModulBar{
+    max-height: 85vh;
+    overflow: auto;
+}
+a{
+    text-decoration:none;
+}
