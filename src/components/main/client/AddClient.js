@@ -1,14 +1,12 @@
-import { Button, Input, Modal } from 'antd';
+import { Button, Input, Modal , Select, Space } from 'antd';
 import { useState } from 'react';
 import instance from '../../../utils/axios';
-
-
 
 const AddClient = () => {
   const [title, settitle] = useState('');
   const [open, setOpen] = useState(false);
 
-  const AddClients = async () => {
+  const AddClient = async () => {
     await instance.post('/client/' , {title:title})
     .then(resp => {
       console.log(resp);
@@ -18,16 +16,15 @@ const AddClient = () => {
     setOpen(false);
   }
   return (
-    <>
-        <div style={{width:"15%"}}>
-            <Button className="btnStyle" type="text" onClick={() => {setOpen(true)}}>
-                Add
-            </Button></div>
+    <><div style={{width:"15%"}}>
+      <Button className="btnStyle" type="text" onClick={() => {setOpen(true)}}>
+        Add
+      </Button></div>
       <Modal
         title="Add Client"
         centered
         open={open}
-        onOk={() => AddClients()}
+        onOk={() => AddClient()}
         onCancel={() => setOpen(false)}
         width={1000}
       >

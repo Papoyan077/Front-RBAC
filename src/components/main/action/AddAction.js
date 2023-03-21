@@ -10,13 +10,12 @@ import { useState } from 'react';
 const AddAction = () => {
   // const [options, setOptions] = useState([]);
   const [open, setOpen] = useState(false);
-
+  
   return (
-    <>
-        <div style={{width:"15%"}}>
-            <Button className="btnStyle" type="text" onClick={() => setOpen(true)}>
-                Add
-            </Button></div>
+    <><div style={{width:"15%"}}>
+      <Button className="btnStyle" type="text" onClick={() => setOpen(true)}>
+        Add
+      </Button></div>
       <Modal
         title="Add Action"
         centered

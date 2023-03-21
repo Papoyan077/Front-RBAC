@@ -11,12 +11,12 @@ const Employees = () => {
         navigate("/general/detail/" + id);
     }
     useEffect(() => {
-        instance.get(`/employees/`)
-            .then(resp => {
-                empdatachange(resp.data);
-            }).catch((err) => {
-            console.log(err.message);
-        })
+          instance.get(`/employees/`)
+          .then(resp => {
+              empdatachange(resp.data);
+          }).catch((err) => {
+                console.log(err.message);
+            })
     }, []);
     console.log(empdata);
     return (

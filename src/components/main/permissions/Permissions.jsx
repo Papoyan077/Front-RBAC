@@ -7,11 +7,11 @@ const Permissions = () => {
     const [permissiondata, permissiondatachange] = useState(null);
     useEffect(() => {
         instance.get(`/permission/`)
-            .then(resp => {
-                permissiondatachange(resp.data);
-            }).catch((err) => {
-            console.log(err.message);
-        })
+        .then(resp => {
+            permissiondatachange(resp.data);
+        }).catch((err) => {
+              console.log(err.message);
+          })
     }, []);
     return (
         <div style={{display:"flex",flexDirection:"column",marginRight:"10px", marginTop:"10px",width:"100vw",height:"85vh"}}>

@@ -7,10 +7,6 @@ import { useState } from "react";
 import { Box } from "@mui/material";
 const { SHOW_PARENT } = TreeSelect;
 const { Panel } = Collapse;
-// const { Option } = Select;
-// import axios from "axios";
-// let JWTTOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibG9naW4iOiJhZG1pbiIsImlhdCI6MTY3ODQ0NjU1Mn0.vsg37gZ-pPRq4qDKrTg9mswSuZ3Ij1RjRBiJ9mafig4' ;
-
 
 const treeData = [
   {
@@ -97,26 +93,25 @@ const Modules = () => {
     return (
         <div style={{display:"flex",flexDirection:"column",marginRight:"10px", marginTop:"10px",width:"100vw",height:"85vh"}}>
             <div className="card-title">
-                <h2>Modules</h2> 
+                <h2>Modules</h2>
             </div>
-            <Box sx={{border: 1, backgroundColor:"white",borderColor: 'primary.main', borderRadius:4, boxShadow:4,width:"100%",height:"100%" , overflow : "scroll"}}>
-                <Box sx={{margin:4}}>
+            <Box className="border-blue" sx={{width:"100%",height:"100%" , overflow : "scroll"}}>
+                <Box sx={{margin:"10px"}}>
                     <div className="card-body">
-                    {/* {clientdata &&
+                        {/* {clientdata &&
                                 clientdata.map(item => ( */}
-                      <Collapse
-                          defaultActiveKey={['1']}
-                          onChange={onChange}
-                      >
-                        <Panel header="Client1" key="1" extra={genExtra()}>
-                          <TreeSelect {...tProps} />
-                        </Panel>
-                      </Collapse>
+                        <Collapse
+                            defaultActiveKey={['1']}
+                            onChange={onChange}
+                        >
+                            <Panel header="Client1" key="1" extra={genExtra()}>
+                                <TreeSelect {...tProps} />
+                            </Panel>
+                        </Collapse>
                     </div>
                 </Box>
             </Box>
         </div>
-
     );
 }
 

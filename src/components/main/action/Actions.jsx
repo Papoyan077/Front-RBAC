@@ -11,7 +11,7 @@ const Actions = () => {
         instance.get('/action/').then(resp => {
             Actionsdatachange(resp.data);
         }).catch((err) => {
-            console.log(err.message);
+                console.log(err.message);
         });
     }, []);
     return (

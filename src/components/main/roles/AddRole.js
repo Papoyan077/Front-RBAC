@@ -27,33 +27,33 @@ const AddRole = () => {
     maxTagCount: 'responsive',
   };
   return (
-      <>
-        <div style={{width:"15%"}}>
-          <Button className="btnStyle" type="text" onClick={() => setOpen(true)}>
-            Add
-          </Button></div>
-        <Modal
-            title="Add Role"
-            centered
-            open={open}
-            onOk={() => setOpen(false)}
-            onCancel={() => setOpen(false)}
-            width={1000}
+    <>
+      <div style={{width:"15%"}}>
+      <Button className="btnStyle" type="text" onClick={() => setOpen(true)}>
+        Add
+      </Button></div>
+      <Modal
+        title="Add Role"
+        centered
+        open={open}
+        onOk={() => setOpen(false)}
+        onCancel={() => setOpen(false)}
+        width={1000}
+      >
+        <Input placeholder="Title" />
+
+        <Space
+          direction="vertical"
+          style={{
+            width: '100%',
+          }}
         >
-          <Input placeholder="Title" />
-
-          <Space
-              direction="vertical"
-              style={{
-                width: '100%',
-              }}
-          >
-            <Select {...selectProps} />
-          </Space>
+          <Select {...selectProps} />
+        </Space>
 
 
-        </Modal>
-      </>
+      </Modal>
+    </>
   );
 };
 export default AddRole;

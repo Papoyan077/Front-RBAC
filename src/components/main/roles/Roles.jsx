@@ -7,9 +7,9 @@ const Roles = () => {
     const [Roledata, Roledatachange] = useState(null);
     useEffect(() => {
         instance.get(`/role/`)
-            .then(resp => {
-                Roledatachange(resp.data);
-            }).catch((err) => {
+        .then(resp => {
+            Roledatachange(resp.data);
+        }).catch((err) => {
             console.log(err.message);
         })
     }, []);

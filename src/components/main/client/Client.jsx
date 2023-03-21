@@ -11,17 +11,17 @@ const Employees = () => {
         instance.get('/client/').then(resp => {
             clientdatachange(resp.data);
         }).catch((err) => {
-            console.log(err.message);
+                console.log(err.message);
         });
     }, []);
 
     const deleteClient = (id) => {
-        clientdatachange(clientdata.filter((item) => item.id !== id));
         instance.delete(`/client/${id}`)
-            .then(res => {
-                console.log('DELETED RECORD::::', res)
-            })
-            .catch(err => console.log(err))
+        .then(res => {
+            clientdatachange(clientdata.filter(res.data.id !== id));
+           console.log('DELETD RECORD::::', res)
+        })
+        .catch(err => console.log(err))
     };
     return (
         <div style={{display:"flex",flexDirection:"column",marginRight:"10px", marginTop:"10px",width:"100vw",height:"85vh"}}>
@@ -50,7 +50,7 @@ const Employees = () => {
                                         <td style={{display:"flex",justifyContent:"flex-end"}}>
                                             <div style={{width: "25%"}}>
                                                 <Button className="btnStyle" type="text">Edit</Button></div>
-                                            <div style={{width: "25%"}}><Button className="btnStyle" type="text"  onClick={() => deleteClient(item.id)}>Delete</Button>
+                                            <div style={{width: "25%"}}><Button className="btnStyle" type="text">Delete</Button>
                                             </div>
                                         </td>
                                     </tr>

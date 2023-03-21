@@ -21,11 +21,10 @@ for (let i = 0; i < 10; i++) {
   });
 }
   return (
-    <>
-        <div style={{width:"15%"}}>
-            <Button className="btnStyle" type="text" onClick={() => setOpen(true)}>
-                Add
-            </Button></div>
+    <><div style={{width:"15%"}}>
+      <Button className="btnStyle" type="text" onClick={() => setOpen(true)}>
+        Add
+      </Button></div>
       <Modal
         title="Add Module"
         centered

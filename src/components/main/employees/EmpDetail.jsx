@@ -9,7 +9,7 @@ const EmpDetail = () => {
     const [empdata, empdatachange] = useState([]);
 
     useEffect(() => {
-        instance.get(`/employees/${empid.id}`)
+        instance.get(`/employees/${empid.id}?expandRole=true&expandPermission=true`)
         .then(resp => {
             empdatachange(resp.data);
         }).catch((err) => {
@@ -29,7 +29,7 @@ console.log(empdata);
                             <div>
                                 <h2>FirstName : {empdata.firstName}</h2>
                                 <h5>LastName : {empdata.lastName}</h5>
-                                <h5>username : {empdata.userName}</h5>
+                                <h5>username : {empdata.username}</h5>
                                 <Link className="btn btn-danger" to="/general/employees">Back to Listing</Link>
                             </div>
                         }

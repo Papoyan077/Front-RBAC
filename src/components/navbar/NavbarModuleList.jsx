@@ -12,7 +12,7 @@ export default function HeaderModuleList() {
                 <Button className="btnStyle" type="text">Clients</Button>
             </Link>
             <Link style={{width:"70%"}} to={"actions"}>
-                <Button className="btnStyle" type="text">Actions</Button>
+                    <Button className="btnStyle" type="text">Actions</Button>
             </Link>
             <Link style={{width:"70%"}} to={"modules"}>
                 <Button className="btnStyle" type="text">Modules</Button>
