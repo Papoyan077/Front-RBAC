@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import instance from "../../../utils/axios";
-import { useNavigate } from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import Table from 'react-bootstrap/Table';
 import {Button} from "antd";
+
 const Employees = () => {
     const [empdata, empdatachange] = useState(null);
     const navigate = useNavigate();
@@ -11,12 +12,12 @@ const Employees = () => {
         navigate("/general/detail/" + id);
     }
     useEffect(() => {
-          instance.get(`/employees/`)
-          .then(resp => {
-              empdatachange(resp.data);
-          }).catch((err) => {
-                console.log(err.message);
-            })
+        instance.get(`/employees/`)
+            .then(resp => {
+                empdatachange(resp.data);
+            }).catch((err) => {
+            console.log(err.message);
+        })
     }, []);
     console.log(empdata);
     return (
@@ -31,7 +32,7 @@ const Employees = () => {
             <div className="card-title">
                 <h2>Employees</h2>
             </div>
-            <div className="border-blue" style={{width: "100%", height: "100%"}}>
+            <div className="border-blue" style={{width: "100%", height: "100%", overflow: "scroll"}}>
                 <div style={{margin: "20px"}}>
                     <div className="card-body">
                         <Table size="sm">
@@ -55,7 +56,8 @@ const Employees = () => {
                                         <td>
                                             <a onClick={() => {
                                                 LoadDetail(item.id)
-                                            }}><Button className="btnStyle" type="text">Details</Button></a>
+                                            }}><Button style={{width: "25%"}} className="btnStyle"
+                                                       type="text">Details</Button></a>
                                         </td>
                                     </tr>
                                 ))

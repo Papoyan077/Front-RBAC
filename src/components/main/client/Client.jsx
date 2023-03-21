@@ -29,13 +29,13 @@ const Clients = () => {
                 marginRight: "10px",
                 marginTop: "10px",
                 width: "100vw",
-                height: "85vh"
+                height: "85vh",
             }}>
                 <div className="card-title">
                     <h2>Clients</h2>
                     <AddClient/>
                 </div>
-                <div className="border-blue" style={{width: "100%", height: "100%"}}>
+                <div className="border-blue" style={{width: "100%", height: "100%",overflow: "scroll"}}>
                     <div style={{margin: "20px"}}>
                         <div className="card-body">
                             <Table size="sm">

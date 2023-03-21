@@ -9,6 +9,7 @@ import Modules from "../components/main/modules/Modules";
 import Roles from "../components/main/roles/Roles";
 import Actions from "../components/main/action/Actions";
 import Permissions from "../components/main/permissions/Permissions";
+import Policies from "../components/main/policies/Policies";
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -24,6 +25,7 @@ const router = createBrowserRouter(
                         <Route path="permissions" element={<Permissions />} />
                         <Route path="roles" element={<Roles />} />
                         <Route path="actions" element={<Actions />} />
+                        <Route path="policies" element={<Policies/>} />
                         </Route>
                     </Route>
                 <Route path="/" element={<Login />} />

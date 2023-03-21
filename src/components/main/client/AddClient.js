@@ -3,7 +3,7 @@ import { useState } from 'react';
 import instance from '../../../utils/axios';
 
 const AddClient = () => {
-  const [title, settitle] = useState('');
+  const [title, setTitle] = useState('');
   const [open, setOpen] = useState(false);
 
   const AddClient = async () => {
@@ -14,6 +14,7 @@ const AddClient = () => {
           console.log(err.message);
     });
     setOpen(false);
+    setTitle("")
   }
   return (
     <><div style={{width:"15%"}}>
@@ -28,7 +29,7 @@ const AddClient = () => {
         onCancel={() => setOpen(false)}
         width={1000}
       >
-        <Input value={title} onChange={e => settitle(e.target.value)} placeholder="Client Title" />
+        <Input value={title} onChange={e => setTitle(e.target.value)} placeholder="Client Title" />
       </Modal>
     </>
   );
