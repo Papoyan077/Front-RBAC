@@ -5,7 +5,7 @@ import Table from 'react-bootstrap/Table';
 import {Button} from "antd";
 
 const Employees = () => {
-    const [empdata, empdatachange] = useState(null);
+    const [employeesData, employeesDataChange] = useState(null);
     const navigate = useNavigate();
 
     const LoadDetail = (id) => {
@@ -14,12 +14,11 @@ const Employees = () => {
     useEffect(() => {
         instance.get(`/employees/`)
             .then(resp => {
-                empdatachange(resp.data);
+                employeesDataChange(resp.data);
             }).catch((err) => {
             console.log(err.message);
         })
     }, []);
-    console.log(empdata);
     return (
         <div style={{
             display: "flex",
@@ -46,8 +45,8 @@ const Employees = () => {
                             </tr>
                             </thead>
                             <tbody>
-                            {empdata &&
-                                empdata.map(item => (
+                            {employeesData &&
+                                employeesData.map(item => (
                                     <tr className="tbBgc" key={item.id}>
                                         <td>{item.id}</td>
                                         <td>{item.username}</td>
@@ -62,9 +61,7 @@ const Employees = () => {
                                     </tr>
                                 ))
                             }
-
                             </tbody>
-
                         </Table>
                     </div>
                 </div>

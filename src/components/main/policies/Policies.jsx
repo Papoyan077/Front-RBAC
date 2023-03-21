@@ -1,15 +1,16 @@
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import Table from 'react-bootstrap/Table';
 import {Button} from "antd";
 import instance from "../../../utils/axios";
 import AddRole from "../roles/AddRole";
+
 const Policies = () => {
     const [policiesData, PoliciesDataChange] = useState(null);
     useEffect(() => {
         instance.get(`/policy/`)
-        .then(resp => {
-            PoliciesDataChange(resp.data);
-        }).catch((err) => {
+            .then(resp => {
+                PoliciesDataChange(resp.data);
+            }).catch((err) => {
             console.log(err.message);
         })
     }, []);
@@ -62,8 +63,6 @@ const Policies = () => {
                 </div>
             </div>
         </div>
-
     );
 }
-
 export default Policies;

@@ -4,11 +4,8 @@ import {PlusOutlined} from '@ant-design/icons';
 import {Collapse} from 'antd';
 import {TreeSelect} from 'antd';
 import {useState} from "react";
-import {Box} from "@mui/material";
-
 const {SHOW_PARENT} = TreeSelect;
 const {Panel} = Collapse;
-
 const treeData = [
     {
         title: 'Node1',
@@ -60,9 +57,7 @@ const Modules = () => {
     //             console.log(err.message);
     //         })
     // }, []);
-
     const [value, setValue] = useState(['0-0-0']);
-
     const onChange = (key) => {
         console.log(key);
     };
@@ -74,7 +69,6 @@ const Modules = () => {
             }}
         />
     );
-
     const onChanged = (newValue) => {
         console.log('onChange ', value);
         setValue(newValue);
@@ -90,7 +84,6 @@ const Modules = () => {
             width: '100%',
         },
     };
-
     return (
         <div style={{
             display: "flex",
@@ -103,8 +96,8 @@ const Modules = () => {
             <div className="card-title">
                 <h2>Modules</h2>
             </div>
-            <Box className="border-blue" sx={{width: "100%", height: "100%", overflow: "scroll"}}>
-                <Box sx={{margin: "10px"}}>
+            <div className="border-blue" style={{width: "100%", height: "100%", overflow: "scroll"}}>
+                <div style={{margin: "10px"}}>
                     <div className="card-body">
                         {/* {clientdata &&
                                 clientdata.map(item => ( */}
@@ -117,10 +110,9 @@ const Modules = () => {
                             </Panel>
                         </Collapse>
                     </div>
-                </Box>
-            </Box>
+                </div>
+            </div>
         </div>
     );
 }
-
 export default Modules;

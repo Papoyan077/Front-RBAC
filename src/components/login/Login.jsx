@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {Link} from 'react-router-dom';
 import {LockOutlined, UserOutlined} from '@ant-design/icons';
-import {Button,  Form, Input, Row} from 'antd';
+import {Button,  Form, Input} from 'antd';
 function Login() {
     return (
         <div style={{display:"flex",justifyContent:"center",alignItems:"center",flexDirection:"column",width:"100vw",height:"100vh"}}>

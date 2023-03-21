@@ -2,13 +2,11 @@ import {Button, Input, Modal} from 'antd';
 import {useState} from 'react';
 import instance from '../../../utils/axios';
 
-
-const AddAction = ({render, setRender}) => {
+const UpdateClient = ({render, setRender, id}) => {
     const [title, setTitle] = useState('');
     const [open, setOpen] = useState(false);
-
-    const AddActions = async () => {
-        await instance.post('/action/', {title: title})
+    const UpdateClients = async () => {
+        await instance.put(`/client/${id}`, {title: title, status: "published"})
             .then(resp => {
                 setRender(!render)
                 console.log(resp);
@@ -19,23 +17,22 @@ const AddAction = ({render, setRender}) => {
     }
     return (
         <>
-            <div style={{width: "15%"}}>
-                <Button className="btnStyle" type="text" onClick={() => {
-                    setOpen(true)
-                }}>
-                    Add Action
-                </Button></div>
+            <Button style={{marginLeft: "5px"}} variant="contained" onClick={() => {
+                setOpen(true)
+            }}>
+                Update
+            </Button>
             <Modal
-                title="Add Action"
+                title="Update Client"
                 centered
                 open={open}
-                onOk={() => AddActions()}
+                onOk={() => UpdateClients()}
                 onCancel={() => setOpen(false)}
                 width={1000}
             >
-                <Input value={title} onChange={e => setTitle(e.target.value)} placeholder="Action Title"/>
+                <Input value={title} onChange={e => setTitle(e.target.value)} placeholder="Client Title"/>
             </Modal>
         </>
     );
 };
-export default AddAction;
+export default UpdateClient;

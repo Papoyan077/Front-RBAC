@@ -3,13 +3,12 @@ import Table from 'react-bootstrap/Table';
 import {Button} from "antd";
 import AddPermission from "./AddPermission";
 import instance from "../../../utils/axios";
-
 const Permissions = () => {
-    const [permissiondata, permissiondatachange] = useState(null);
+    const [permissionData, permissionDataChange] = useState(null);
     useEffect(() => {
         instance.get(`/permission/`)
             .then(resp => {
-                permissiondatachange(resp.data);
+                permissionDataChange(resp.data);
             }).catch((err) => {
             console.log(err.message);
         })
@@ -40,8 +39,8 @@ const Permissions = () => {
                             </tr>
                             </thead>
                             <tbody>
-                            {permissiondata &&
-                                permissiondata.map(item => (
+                            {permissionData &&
+                                permissionData.map(item => (
                                     <tr className="tbBgc" key={item.id}>
                                         <td>{item.id}</td>
                                         <td>{item.title}</td>

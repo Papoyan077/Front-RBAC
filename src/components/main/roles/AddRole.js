@@ -1,7 +1,5 @@
 import { Button, Input, Modal , Select, Space } from 'antd';
 import { useState } from 'react';
-
-
 const options = [];
 for (let i = 10; i < 36; i++) {
   const value = i.toString(36) + i;
@@ -30,7 +28,7 @@ const AddRole = () => {
     <>
       <div style={{width:"15%"}}>
       <Button className="btnStyle" type="text" onClick={() => setOpen(true)}>
-        Add
+        Add Role
       </Button></div>
       <Modal
         title="Add Role"
@@ -41,7 +39,6 @@ const AddRole = () => {
         width={1000}
       >
         <Input placeholder="Title" />
-
         <Space
           direction="vertical"
           style={{
@@ -50,8 +47,6 @@ const AddRole = () => {
         >
           <Select {...selectProps} />
         </Space>
-
-
       </Modal>
     </>
   );

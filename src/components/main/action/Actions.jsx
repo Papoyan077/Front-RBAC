@@ -2,18 +2,28 @@ import {useEffect, useState} from "react";
 import {Button} from "antd";
 import Table from 'react-bootstrap/Table';
 import instance from "../../../utils/axios";
-import AddClient from "../client/AddClient";
+import UpdateAction from "./UpdateAction";
+import AddAction from "./AddAction";
 
 const Actions = () => {
-    const [Actionsdata, Actionsdatachange] = useState(null);
+    const [render, setRender] = useState(false);
+    const [ActionsData, ActionsDataChange] = useState(null);
 
     useEffect(() => {
         instance.get('/action/').then(resp => {
-            Actionsdatachange(resp.data);
+            ActionsDataChange(resp.data);
         }).catch((err) => {
             console.log(err.message);
         });
-    }, []);
+    }, [render]);
+    const deleteAction = (id) => {
+        ActionsDataChange(ActionsData.filter((item) => item.id !== id));
+        instance.delete(`/action/${id}`)
+            .then(res => {
+                console.log('DELETED RECORD::::', res)
+            })
+            .catch(err => console.log(err))
+    };
     return (
         <div style={{
             display: "flex",
@@ -24,8 +34,8 @@ const Actions = () => {
             height: "85vh"
         }}>
             <div className="card-title">
-                <h2>Clients</h2>
-                <AddClient/>
+                <h2>Actions</h2>
+                <AddAction render={render} setRender={setRender}/>
             </div>
             <div className="border-blue" style={{width: "100%", height: "100%", overflow: "scroll"}}>
                 <div style={{margin: "20px"}}>
@@ -39,16 +49,16 @@ const Actions = () => {
                             </tr>
                             </thead>
                             <tbody>
-                            {Actionsdata &&
-                                Actionsdata.map(item => (
+                            {ActionsData &&
+                                ActionsData.map(item => (
                                     <tr key={item.id}>
                                         <td>{item.id}</td>
                                         <td>{item.title}</td>
                                         <td>
                                             <Button style={{width: "25%"}} className="btnStyle"
-                                                    type="text">Delete</Button>
-                                            <Button style={{width: "25%"}} className="btnStyle"
-                                                    type="text">Update</Button>
+                                                    type="text" onClick={() => deleteAction(item.id)}>Delete</Button>
+                                            <UpdateAction render={render} setRender={setRender} id={item.id} />
+
                                         </td>
                                     </tr>
                                 ))
