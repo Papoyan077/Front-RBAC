@@ -9,14 +9,16 @@ const EmpDetail = () => {
     const [empdata, empdatachange] = useState([]);
 
     useEffect(() => {
-        instance.get(`/employees/${empid.id}?expandRole=true&expandPermission=true`)
-        .then(resp => {
-            empdatachange(resp.data);
-        }).catch((err) => {
+        instance.get(`/employees/${empid.id}` , {params: {
+                expandPermission : true
+            }})
+            .then(resp => {
+                empdatachange(resp.data);
+            }).catch((err) => {
             console.log(err.message);
         })
-    }, []);
-console.log(empdata);
+    }, [empid]);
+    console.log(empdata);
     return (
         <div style={{display:"flex",flexDirection:"column",marginRight:"10px", marginTop:"10px",width:"100vw",height:"85vh"}}>
             <div className="card-title">

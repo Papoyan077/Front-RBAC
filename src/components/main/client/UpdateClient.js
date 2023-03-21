@@ -17,11 +17,12 @@ const UpdateClient = ({render, setRender, id}) => {
     }
     return (
         <>
-            <Button style={{marginLeft: "5px"}} variant="contained" onClick={() => {
-                setOpen(true)
-            }}>
-                Update
-            </Button>
+
+                <Button className="btnStyle" type="text" onClick={() => {
+                    setOpen(true)
+                }}>
+                    Update
+                </Button>
             <Modal
                 title="Update Client"
                 centered

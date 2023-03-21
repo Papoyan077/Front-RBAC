@@ -21,7 +21,7 @@ console.log(id);
   }
   return (
     <>
-      <Button style={{marginLeft: "5px"}} variant="contained" onClick={() => {setOpen(true)}}>
+      <Button style={{width:"15%"}} className="btnStyle" type="text" onClick={() => {setOpen(true)}}>
         Update
       </Button>
       <Modal

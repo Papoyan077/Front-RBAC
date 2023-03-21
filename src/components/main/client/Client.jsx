@@ -56,11 +56,11 @@ const Clients = () => {
                                         <td>{item.id}</td>
                                         <td>{item.title}</td>
                                         <td style={{display: "flex", justifyContent: "flex-end"}}>
-                                            <div style={{width: "25%"}}>
+                                            <div>
                                                 <UpdateClient render={render} setRender={setRender} id={item.id}/></div>
-                                            <div style={{width: "25%"}}><Button className="btnStyle"
-                                                                                type="text"
-                                                                                onClick={() => deleteClient(item.id)}>Delete</Button>
+                                            <div><Button className="btnStyle"
+                                                         type="text"
+                                                         onClick={() => deleteClient(item.id)}>Delete</Button>
                                             </div>
                                         </td>
                                     </tr>

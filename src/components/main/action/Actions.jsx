@@ -54,8 +54,8 @@ const Actions = () => {
                                     <tr key={item.id}>
                                         <td>{item.id}</td>
                                         <td>{item.title}</td>
-                                        <td>
-                                            <Button style={{width: "25%"}} className="btnStyle"
+                                        <td style={{display: "flex", justifyContent: "flex-end"}}>
+                                            <Button style={{width:"15%"}} className="btnStyle"
                                                     type="text" onClick={() => deleteAction(item.id)}>Delete</Button>
                                             <UpdateAction render={render} setRender={setRender} id={item.id} />
 
