@@ -7,8 +7,8 @@ import EmpDetail from "../components/main/employees/EmpDetail";
 import Client from "../components/main/client/Client"
 import Modules from "../components/main/modules/Modules";
 import Roles from "../components/main/roles/Roles";
-import Permisions from "../components/main/permissions/Permissions";
 import Actions from "../components/main/action/Actions";
+import Permissions from "../components/main/permissions/Permissions";
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -21,7 +21,7 @@ const router = createBrowserRouter(
                         <Route path='detail/:id' element={<EmpDetail />}></Route>
                         <Route path="clients" element={<Client />} />
                         <Route path="modules" element={<Modules />} />
-                        <Route path="permissions" element={<Permisions />} />
+                        <Route path="permissions" element={<Permissions />} />
                         <Route path="roles" element={<Roles />} />
                         <Route path="actions" element={<Actions />} />
                         </Route>
