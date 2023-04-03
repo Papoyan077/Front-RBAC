@@ -6,7 +6,8 @@ function Login() {
     return (
         <div style={{display:"flex",justifyContent:"center",alignItems:"center",flexDirection:"column",width:"100vw",height:"100vh"}}>
             <div>
-                <h1 style={{color:"#4096ff"}}>LOGIN</h1>
+                {/* <h1 style={{color:"#4096ff"}}>LOGIN</h1> */}
+                <img src="#" alt="Logo" />
             </div>
             <div style={{backgroundColor:"white", width:"30vw"}} className="border-blue">
                 <div style={{margin:"5%"}}>

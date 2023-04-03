@@ -1,34 +1,26 @@
-import {Button, Input, Modal} from 'antd';
+import {Input, Modal} from 'antd';
 import {useState} from 'react';
-import instance from '../../../utils/axios';
+import { EditOutlined } from "@ant-design/icons";
+import { PutClients } from '../../../utils/Route';
 
-const UpdateClient = ({render, setRender, id}) => {
-    const [title, setTitle] = useState('');
+const UpdateClient = ({render, setRender, id , titl}) => {
+    const [title, setTitle] = useState(titl);
     const [open, setOpen] = useState(false);
     const UpdateClients = async () => {
-        await instance.put(`/client/${id}`, {title: title, status: "published"})
-            .then(resp => {
-                setRender(!render)
-                console.log(resp);
-            }).catch((err) => {
-                console.log(err.message);
-            });
+        PutClients(id , title , render , setRender);
         setOpen(false);
     }
     return (
         <>
-
-                <Button className="btnStyle" type="text" onClick={() => {
-                    setOpen(true)
-                }}>
-                    Update
-                </Button>
+            <EditOutlined onClick={() => {setOpen(true)}} />
             <Modal
                 title="Update Client"
                 centered
                 open={open}
                 onOk={() => UpdateClients()}
-                onCancel={() => setOpen(false)}
+                onCancel={() => {
+                    setOpen(false)}
+                  }
                 width={1000}
             >
                 <Input value={title} onChange={e => setTitle(e.target.value)} placeholder="Client Title"/>

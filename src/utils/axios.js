@@ -6,9 +6,6 @@ const instance = axios.create({
     timeout: 1000,
     headers: {'Authorization': 'Bearer '+ JWTTOKEN}
   });
-// const {empdata , empdatachange} = useState(null);
-    // export default getEmployees  => {
-    //     instance.get(`/employees/`)     
-    // }
-export default instance
+
+export default instance;
 

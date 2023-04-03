@@ -1,8 +1,10 @@
 #navbar{
-    width: 15vw;
-    margin: 10px;
-    height: 85vh;
+    width: 120px;
+    margin: 0px 9px 5px 0px;
+    height: 400px;
 }
-.btnStyle{
-    text-decoration:none;
+.navbarLink{
+    display: block;
+    padding-bottom: 15px;
+    color: black;
 }

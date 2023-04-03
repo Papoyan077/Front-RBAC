@@ -1,75 +1,80 @@
-import {useEffect, useState} from "react";
-import {Button} from "antd";
-import Table from 'react-bootstrap/Table';
-import instance from "../../../utils/axios";
-import UpdateAction from "./UpdateAction";
-import AddAction from "./AddAction";
+import { Table , Modal } from 'antd';
+import { DeleteOutlined } from "@ant-design/icons";
+import { useEffect, useState } from 'react';
+import { ExclamationCircleFilled } from "@ant-design/icons";
+import UpdateAction from './UpdateAction';
+import AddAction from './AddAction';
+import SearchFunc from '../../search';
+import instance from '../../../utils/axios';
+import {getActions} from '../../../utils/Route';
+const { confirm } = Modal;
 
 const Actions = () => {
-    const [render, setRender] = useState(false);
-    const [ActionsData, ActionsDataChange] = useState(null);
+  const [render, setRender] = useState(false);
+  const [ActionsData, ActionsDataChange] = useState(null);
 
-    useEffect(() => {
-        instance.get('/action/').then(resp => {
-            ActionsDataChange(resp.data);
-        }).catch((err) => {
-            console.log(err.message);
+  useEffect(() => {
+    getActions(ActionsDataChange)
+  }, [render]);
+
+  const [columns] = useState([
+    {
+      title : "Title" ,
+      dataIndex : "title",
+      ...SearchFunc('title'),
+      // ...getColumnSearchProps('title'),
+    },
+    {
+      title: "Actions",
+      render: (record) => {
+        return (
+          <>
+            <UpdateAction titl={record.title} render={render} setRender={setRender} id={record.id}/>
+            <DeleteOutlined onClick={() => { showDeleteConfirm(record) }} style={{ color: "red", marginLeft: 12 }}/>
+          </>
+        );
+      },
+    },
+  ]);
+
+  const showDeleteConfirm = (record) => {
+    confirm({
+      title: 'Are you sure delete this action?',
+      icon: <ExclamationCircleFilled />,
+      content: `Action name is (${record.title}):`,
+      okText: 'Yes',
+      okType: 'danger',
+      cancelText: 'No',
+      onOk() {
+        ActionsDataChange((action) => {
+          return action.filter((item) => item.id !== record.id);
         });
-    }, [render]);
-    const deleteAction = (id) => {
-        ActionsDataChange(ActionsData.filter((item) => item.id !== id));
-        instance.delete(`/action/${id}`)
-            .then(res => {
-                console.log('DELETED RECORD::::', res)
-            })
-            .catch(err => console.log(err))
-    };
-    return (
-        <div style={{
-            display: "flex",
-            flexDirection: "column",
-            marginRight: "10px",
-            marginTop: "10px",
-            width: "100vw",
-            height: "85vh"
-        }}>
-            <div className="card-title">
-                <h2>Actions</h2>
-                <AddAction render={render} setRender={setRender}/>
-            </div>
-            <div className="border-blue" style={{width: "100%", height: "100%", overflow: "scroll"}}>
-                <div style={{margin: "20px"}}>
-                    <div className="card-body">
-                        <Table size="sm">
-                            <thead className="bgColor">
-                            <tr>
-                                <th>ID</th>
-                                <th>Title</th>
-                                <th>Params</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {ActionsData &&
-                                ActionsData.map(item => (
-                                    <tr key={item.id}>
-                                        <td>{item.id}</td>
-                                        <td>{item.title}</td>
-                                        <td style={{display: "flex", justifyContent: "flex-end"}}>
-                                            <Button style={{width:"15%"}} className="btnStyle"
-                                                    type="text" onClick={() => deleteAction(item.id)}>Delete</Button>
-                                            <UpdateAction render={render} setRender={setRender} id={item.id} />
+        instance.delete(`/action/${record.id}`)
+        .then(res => {
+            console.log(res);
+        })
+        .catch(err => console.log(err))
+      },
+      onCancel() {
+            console.log("Deletion pcrocess is canceled");
+      },
+    });
+  };
 
-                                        </td>
-                                    </tr>
-                                ))
-                            }
-                            </tbody>
-                        </Table>
-                    </div>
-                </div>
-            </div>
+  return (
+    <div style={{
+        paddingLeft: "10px",
+        marginRight: "10px",
+        marginTop: "10px",
+        width: "100%",
+        height: "85vh",
+    }}>
+        <div className="card-title">
+            <h2>Actions</h2>
         </div>
-    );
-}
-
+        <AddAction render={render} setRender={setRender} />
+        <Table columns={columns} dataSource={ActionsData} scroll={{y : 350}} style={{width: "98%"}} />
+    </div>
+  )
+};
 export default Actions;

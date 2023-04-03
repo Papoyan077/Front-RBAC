@@ -15,10 +15,9 @@ const AddModule = () => {
     }
     return (
         <>
-            <div style={{width: "15%"}}>
-                <Button className="btnStyle" type="text" onClick={() => setOpen(true)}>
-                    Add
-                </Button></div>
+            <Button onClick={() => setOpen(true)}>
+                Add Module
+            </Button>
             <Modal
                 title="Add Module"
                 centered

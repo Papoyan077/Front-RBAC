@@ -1,35 +1,26 @@
-import {Button, Input, Modal} from 'antd';
+import { Input, Modal} from 'antd';
 import { useState } from 'react';
-import instance from '../../../utils/axios';
+import { EditOutlined } from "@ant-design/icons";
+import { PutActions } from '../../../utils/Route';
 
-
-
-const UpdateAction = ({render, setRender , id}) => {
-  const [title, setTitle] = useState('');
+const UpdateAction = ({render, setRender , id , titl}) => {
+  const [title, setTitle] = useState(titl);
   const [open, setOpen] = useState(false);
-console.log(id);
+
   const UpdateActions = async () => {
-    await instance.put(`/action/${id}` , {title:title , status: "published"})
-    .then(resp => {
-      setRender(!render)
-      console.log(resp);
-    }).catch((err) => {
-          console.log(err.message);
-    });
+    PutActions(id , title , render , setRender);
     setOpen(false);
-    setTitle("")
   }
+
   return (
     <>
-      <Button style={{width:"15%"}} className="btnStyle" type="text" onClick={() => {setOpen(true)}}>
-        Update
-      </Button>
+      <EditOutlined onClick={() => {setOpen(true)}}/>
       <Modal
         title="Update Action"
         centered
         open={open}
         onOk={() => UpdateActions()}
-        onCancel={() => setOpen(false)}
+        onCancel={() => { setOpen(false)} }
         width={1000}
       >
         <Input value={title} onChange={e => setTitle(e.target.value)} placeholder="Action Title" />

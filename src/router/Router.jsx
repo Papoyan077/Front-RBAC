@@ -4,7 +4,7 @@ import PrivateRoutes from "../utils/PrivateRoutes";
 import General from "../components/main/General";
 import Employees from "../components/main/employees/Employees";
 import EmpDetail from "../components/main/employees/EmpDetail";
-import Client from "../components/main/client/Client"
+import Clients from "../components/main/client/Clients"
 import Modules from "../components/main/modules/Modules";
 import Roles from "../components/main/roles/Roles";
 import Actions from "../components/main/action/Actions";
@@ -20,7 +20,7 @@ const router = createBrowserRouter(
                         <Route index={'employees'} element={<Employees />} />
                         <Route path={'employees'} element={<Employees />} />
                         <Route path='detail/:id' element={<EmpDetail />}></Route>
-                        <Route path="clients" element={<Client />} />
+                        <Route path="clients" element={<Clients />} />
                         <Route path="modules" element={<Modules />} />
                         <Route path="permissions" element={<Permissions />} />
                         <Route path="roles" element={<Roles />} />

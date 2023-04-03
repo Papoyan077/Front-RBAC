@@ -25,10 +25,10 @@ const AddPermission = () => {
     maxTagCount: 'responsive',
   };
   return (
-    <><div style={{width:"15%"}}>
-      <Button className="btnStyle" type="text" onClick={() => setOpen(true)}>
+    <>
+      <Button onClick={() => setOpen(true)}>
         Add Permission
-      </Button></div>
+      </Button>
       <Modal
         title="Add Permission"
         centered
