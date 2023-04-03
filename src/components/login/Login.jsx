@@ -1,15 +1,17 @@
 import * as React from 'react';
 import {LockOutlined, UserOutlined} from '@ant-design/icons';
 import {Button, Form, Input} from 'antd';
-import {useEffect, useState} from "react";
 import instance from "../../utils/axios";
+import {useNavigate} from "react-router-dom";
 
 function Login() {
-    const [login, setLogin] = useState(null)
+    const navigate = useNavigate();
     const onFinish = (values) => {
         instance.post(`/login/`, {"login": values.username, "password": values.password})
             .then(resp => {
-                console.log(resp);
+                if (resp.status===200){
+                    navigate("/general/")
+                }
             }).catch((err) => {
             console.log(err.message);
         })
