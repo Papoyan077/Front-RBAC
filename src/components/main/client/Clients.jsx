@@ -68,10 +68,10 @@ const Clients = () => {
         width: "100%",
         height: "85vh",
     }}>
-        <div className="card-title">
-            <h2>Clients</h2>
+        <div style={{display:"flex",alignItems:"center",fontSize:"25px"}}>
+            <span>Clients</span>
+            <AddClient render={render} setRender={setRender} />
         </div>
-        <AddClient render={render} setRender={setRender} />
         <Table columns={columns} dataSource={clientData} scroll={{y : 350}} style={{width: "98%"}} />
     </div>
   )

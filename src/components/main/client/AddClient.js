@@ -1,6 +1,7 @@
 import {Button, Input, Modal} from 'antd';
 import {useState} from 'react';
 import { PostClients } from '../../../utils/Route';
+import {AppstoreAddOutlined} from "@ant-design/icons";
 
 const AddClient = ({render, setRender}) => {
     const [title, setTitle] = useState('');
@@ -13,8 +14,8 @@ const AddClient = ({render, setRender}) => {
     
     return (
         <>
-            <Button onClick={() => { setOpen(true) }}>
-                Add Client
+            <Button style={{display:"flex",justifyContent:"center",alignItems:"center",fontSize:"20px"}} type={"text"} onClick={() => { setOpen(true) }}>
+             <AppstoreAddOutlined />
             </Button>
             <Modal
                 title="Add Client"

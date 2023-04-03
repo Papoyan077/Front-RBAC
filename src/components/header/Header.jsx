@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import {Button} from "antd";
+import {LogoutOutlined} from "@ant-design/icons";
 
 
 export default function Header() {
@@ -10,7 +11,7 @@ export default function Header() {
                 <div>INSTIGATE MOBILE</div>
                 <div style={{display: "flex" , height: "50px",alignItems: "center"}}>
                     <Link style={{marginLeft: "10px",width:"100%",listStyle:"none"}} to='/'>
-                        <Button>Logout</Button>
+                        <Button style={{display:"flex",justifyContent:"center",alignItems:"center",fontSize:"20px"}} type={"text"}><LogoutOutlined /></Button>
                     </Link>
                 </div>
             </div>

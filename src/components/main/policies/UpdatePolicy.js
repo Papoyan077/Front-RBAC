@@ -26,11 +26,9 @@ const UpdatePolicy = ({render, setRender, id, moduleTitle, record}) => {
     };
 
     const UpdatePolicies = async () => {
-        console.log(permissions)
-        await instance.put(`/policy/${id}`, {body: {actions:permissions}, status: "published"})
+        await instance.put(`/policy/${id}`, {actions:permissions, status: "published"})
             .then(resp => {
                 setRender(!render)
-                console.log(resp);
             }).catch((err) => {
                 console.log(err.message);
             });
