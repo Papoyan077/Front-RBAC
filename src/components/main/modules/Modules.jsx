@@ -145,10 +145,11 @@ const Roles = () => {
         width: "100%",
         height: "85vh",
     }}>
-        <div className="card-title">
+        <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",fontSize:"25px",marginRight:"5vw"}}>
             <h2>Modules</h2>
-        </div>
+
         <AddModule render={render} setRender={setRender} />
+        </div>
         <Table 
             columns={columns} 
             dataSource={modulesData} 

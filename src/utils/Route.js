@@ -77,14 +77,14 @@ const getEmployees = (employeesDataChange) => {
   )
 }
 
-const getEmployeesById = (empdatachange , empid) => {
+const getEmployeesById = (empDataChange , empId) => {
   return (
-    instance.get(`/employees/${empid.id}` , {params: {
+    instance.get(`/employees/${empId.id}` , {params: {
       expandPermission : true,
       expandRole : true
     }})
     .then(resp => {
-      empdatachange(resp.data);
+      empDataChange(resp.data);
     }).catch((err) => {
       console.log(err.message);
     })

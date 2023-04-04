@@ -1,5 +1,6 @@
 import { Button, Input, Modal , Select, Space } from 'antd';
 import { useState } from 'react';
+import {PlusCircleOutlined} from "@ant-design/icons";
 const options = [];
 for (let i = 10; i < 36; i++) {
   const value = i.toString(36) + i;
@@ -26,8 +27,8 @@ const AddPermission = () => {
   };
   return (
     <>
-      <Button onClick={() => setOpen(true)}>
-        Add Permission
+      <Button style={{display:"flex",justifyContent:"center",alignItems:"center",fontSize:"20px"}} type={"text"} onClick={() => { setOpen(true) }}>
+        <PlusCircleOutlined  style={{color:"green",fontSize:"25px"}}/>
       </Button>
       <Modal
         title="Add Permission"

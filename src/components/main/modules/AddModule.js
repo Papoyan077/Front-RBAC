@@ -1,5 +1,6 @@
 import {Button, Input, Modal, Select, Space} from 'antd';
 import {useState} from 'react';
+import {PlusCircleOutlined} from "@ant-design/icons";
 
 const AddModule = () => {
     const [open, setOpen] = useState(false);
@@ -15,8 +16,8 @@ const AddModule = () => {
     }
     return (
         <>
-            <Button onClick={() => setOpen(true)}>
-                Add Module
+            <Button style={{display:"flex",justifyContent:"center",alignItems:"center",fontSize:"20px"}} type={"text"} onClick={() => { setOpen(true) }}>
+                <PlusCircleOutlined  style={{color:"green",fontSize:"25px"}}/>
             </Button>
             <Modal
                 title="Add Module"

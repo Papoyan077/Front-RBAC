@@ -81,10 +81,10 @@ const Permissions = () => {
         width: "100%",
         height: "85vh",
     }}>
-        <div className="card-title">
+        <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",fontSize:"25px",marginRight:"5vw"}}>
             <h2>Permissions</h2>
-        </div>
         <AddPermission render={render} setRender={setRender} />
+        </div>
         <Table 
             columns={columns} 
             dataSource={permissionData} 

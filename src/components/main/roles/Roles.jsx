@@ -84,10 +84,10 @@ const Roles = () => {
         width: "100%",
         height: "85vh",
     }}>
-        <div className="card-title">
+        <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",fontSize:"25px",marginRight:"5vw"}}>
             <h2>Roles</h2>
-        </div>
         <AddRole render={render} setRender={setRender} />
+        </div>
         <Table 
             columns={columns} 
             dataSource={roleData} 
