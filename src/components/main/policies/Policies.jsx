@@ -15,7 +15,7 @@ const Policies = () => {
         const [render, setRender] = useState(false);
         const [policiesData, policiesDataChange] = useState([]);
         useEffect(() => {
-            getPolicy(policiesData);
+            getPolicy(policiesDataChange);
         }, [render]);
 
         const [columns] = useState([

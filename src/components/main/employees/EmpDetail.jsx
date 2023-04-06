@@ -18,7 +18,8 @@ const EmpDetail = () => {
             title: 'Title',
             dataIndex: 'title',
             key: 'name',
-        },]
+        },
+    ]
     return (
         <div style={{
             display: "flex",

@@ -57,7 +57,7 @@ const AddPolicy = () => {
                     style={{
                         width: 200,
                     }}
-                    placeholder="Search to Select"
+                    placeholder="Select Module"
                     optionFilterProp="children"
                     filterOption={(input, option) => (option?.label ?? '').includes(input)}
                     filterSort={(optionA, optionB) =>

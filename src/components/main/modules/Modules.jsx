@@ -1,23 +1,21 @@
-import { Space, Switch, Table , Modal } from 'antd';
+import { Table , Modal } from 'antd';
 import { useEffect, useState } from 'react';
 import AddModule from './AddModule';
 import {getModulesTree} from '../../../utils/Route';
 import SearchFunc from '../../search';
 import { DeleteOutlined, ExclamationCircleFilled } from '@ant-design/icons';
 import instance from '../../../utils/axios';
-import { Children } from 'react';
 const { confirm } = Modal;
 
 const Modules = () => {
   const [render, setRender] = useState(false);
-  const [checkStrictly, setCheckStrictly] = useState(false);
   const [modulesData, modulesDataChange] = useState(null);
-  const [Key , setKey] = useState('');
   
   useEffect( () => {
     getModulesTree(modulesDataChange);
   }, [render]);
   console.log(modulesData);
+
   modulesData &&
     modulesData.map((e)=>{
        e.key = e.id
@@ -31,13 +29,24 @@ const Modules = () => {
                 }
             })
         }
-  })
+  });
+
   const [columns] = useState([
     {
       title : "Title" ,
       dataIndex : "title",
       key : "title",
       ...SearchFunc('title'),
+    },
+    {
+      title: "Actions",
+      render: (record) => {
+        return (
+          <>
+            <DeleteOutlined onClick={() => { showDeleteConfirm(record) }} style={{ color: "red", marginLeft: 12 }}/>
+          </>
+        );
+      },
     },
   ]);
   const showDeleteConfirm = (record) => {
@@ -64,18 +73,7 @@ const Modules = () => {
       },
     });
   };
-  const rowSelection = {
-      onChange: (selectedRowKeys, selectedRows) => {
-        console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
-        console.log(columns, "---------")
-      },
-      onSelect: (record, selected, selectedRows) => {
-        console.log(record, selected, selectedRows);
-      },
-      onSelectAll: (selected, selectedRows, changeRows) => {
-        console.log(selected, selectedRows, changeRows);
-      },
-  };
+
   return (
     <div style={{
         paddingLeft: "10px",
@@ -88,20 +86,9 @@ const Modules = () => {
             <h2>Modules</h2>
         <AddModule render={render} setRender={setRender} />
         </div>
-        <Space
-        align="center"
-        style={{
-          marginBottom: 16,
-        }}
-      >
-        CheckStrictly: <Switch checked={checkStrictly} onChange={setCheckStrictly} />
-      </Space>
+
         <Table 
           columns={columns}
-          rowSelection={{
-            ...rowSelection,
-            checkStrictly,
-          }}
           dataSource={modulesData} 
           scroll={{y : 350}} 
           style={{width: "98%"}} />
