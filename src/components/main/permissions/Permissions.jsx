@@ -16,8 +16,6 @@ const Permissions = () => {
         getPermissions(permissionDataChange);
     }, [render]);
 
-    
-
   const [columns] = useState([
     {
       title : "Title" ,

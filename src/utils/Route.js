@@ -2,9 +2,9 @@ import instance from "./axios";
 
 
 ////Actions
-const getActions = (ActionsDataChange) => {
+const getActions = async(ActionsDataChange) => {
   return (
-    instance.get('/action/').then(resp => {
+    await instance.get('/action/').then(resp => {
       ActionsDataChange(resp.data);
     }).catch((err) => {
       console.log(err.message);
@@ -34,9 +34,9 @@ const PutActions = async (id , title , render , setRender) => {
 
 ////Clinets
 
-const getClients = (clientDataChange) => {
+const getClients = async(clientDataChange) => {
   return (
-    instance.get('/client/').then(resp => {
+    await instance.get('/client/').then(resp => {
       clientDataChange(resp.data);
         }).catch((err) => {
       console.log(err.message);
@@ -66,9 +66,9 @@ const PutClients = async (id , title , render , setRender) => {
 
 ////Employees
 
-const getEmployees = (employeesDataChange) => {
+const getEmployees = async(employeesDataChange) => {
   return (
-    instance.get(`/employees/`)
+    await instance.get(`/employees/`)
     .then(resp => {
       employeesDataChange(resp.data);
     }).catch((err) => {
@@ -77,9 +77,9 @@ const getEmployees = (employeesDataChange) => {
   )
 }
 
-const getEmployeesById = (empDataChange , empId) => {
+const getEmployeesById = async(empDataChange , empId) => {
   return (
-    instance.get(`/employees/${empId.id}` , {params: {
+    await instance.get(`/employees/${empId.id}` , {params: {
       expandPermission : true,
       expandRole : true
     }})
@@ -93,9 +93,9 @@ const getEmployeesById = (empDataChange , empId) => {
 
 ////Permissions
 
-const getPermissions = (permissionDataChange) => {
+const getPermissions = async(permissionDataChange) => {
   return (
-    instance.get(`/permission/`)
+    await instance.get(`/permission/`)
     .then(resp => {
       permissionDataChange(resp.data);
     }).catch((err) => {
@@ -106,9 +106,9 @@ const getPermissions = (permissionDataChange) => {
 
 /////Roles
 
-const getRoles = (roleDataChange) => {
+const getRoles = async(roleDataChange) => {
   return (
-    instance.get(`/role/`)
+    await instance.get(`/role/`)
     .then(resp => {
       roleDataChange(resp.data);
     }).catch((err) => {
@@ -170,19 +170,43 @@ const PostModule = async (title , render , setRender , clientId , childId , pare
   });
 }
 
-// const getModules = async () => {
-//   return (
-//    await instance.get(`/module/`, {params: {treeMode: true}})
-//       .then(resp => {
-//         return resp.data;
-//       }).catch((err) => {
-//         console.log(err.message);
-//     })
-//   )
-// }
+////Policy
+
+const getPolicy = async (policiesDataChange) => {
+  return (
+    await instance.get(`/policy/`)
+      .then(resp => {
+        policiesDataChange(resp.data);
+      }).catch((err) => {
+        console.log(err.message);
+      })
+  )
+}
+
+const PostPermissions = async (title , render , setRender , policies) => {
+  await instance.post('/permission/', {title: title , policies: policies})
+    .then(resp => {
+      setRender(!render)
+      console.log(resp);
+    }).catch((err) => {
+      console.log(err.message);
+  });
+}
+
+const PutPermission = async ( id , title , render , setRender , policies ) => {
+  await instance.put(`/permission/${id}` , {title: title , policies: policies, status: "published"})
+    .then(resp => {
+      setRender(!render)
+      console.log(resp);
+    }).catch((err) => {
+      console.log(err.message);
+    });
+}
+
+
 
 
 
 
   
-export {getActions , PostActions , PutActions , getClients , PostClients , PutClients , getEmployees , getEmployeesById , getPermissions , getRoles , PostRoles , PutRoles , getModules , getModulesTree , PostModule};
+export {getActions , PostActions , PutActions , getClients , PostClients , PutClients , getEmployees , getEmployeesById , getPermissions , PostPermissions , PutPermission , getRoles , PostRoles , PutRoles , getModules , getModulesTree , PostModule , getPolicy , };

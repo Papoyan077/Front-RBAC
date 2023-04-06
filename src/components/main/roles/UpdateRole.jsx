@@ -1,13 +1,13 @@
 import { Input, Modal , Select, Space } from 'antd';
 import { EditOutlined } from "@ant-design/icons";
 import { useEffect, useState } from 'react';
-import { getPermissions , PutRoles } from '../../../utils/Route';
+import { getPermissions , PutPermission, PutRoles } from '../../../utils/Route';
 const { Option } = Select;
 
 
 
 
-const UpdateRole = ({render, setRender , id , titl , permissions}) => {
+const UpdateRole = ({render, setRender , id , titl}) => {
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState(titl);
   const [permission , setPermission] = useState('');
@@ -23,7 +23,7 @@ const UpdateRole = ({render, setRender , id , titl , permissions}) => {
   };
 
   const UpdateRoles = async () => {
-    PutRoles(id , title , render , setRender , permission);
+    PutPermission(id , title , render , setRender , permission);
     setOpen(false);
   }
 

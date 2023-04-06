@@ -7,6 +7,7 @@ import UpdatePolicy from "./UpdatePolicy.js";
 import instance from '../../../utils/axios';
 import PolicyActionsMore from './PolicyActionsMore';
 import SearchFunc from '../../search';
+import { getPolicy } from '../../../utils/Route';
 
 const {confirm} = Modal;
 
@@ -14,12 +15,7 @@ const Policies = () => {
         const [render, setRender] = useState(false);
         const [policiesData, policiesDataChange] = useState([]);
         useEffect(() => {
-            instance.get(`/policy/`)
-                .then(resp => {
-                    policiesDataChange(resp.data);
-                }).catch((err) => {
-                console.log(err.message);
-            })
+            getPolicy(policiesData);
         }, [render]);
 
         const [columns] = useState([

@@ -1,57 +1,50 @@
-import { Input, Modal , Select, Space } from 'antd';
-import { EditOutlined } from "@ant-design/icons";
+import { Button, Input, Modal , Select, Space } from 'antd';
 import { useEffect, useState } from 'react';
-import instance from '../../../utils/axios';
+import { getPermissions , getPolicy, PutPermission } from '../../../utils/Route';
+import { EditOutlined } from "@ant-design/icons";
 const { Option } = Select;
 
-
-
-
-const UpdatePermission = ({render, setRender , id , titl}) => {
+const UpdatePermission = ({render, setRender , id}) => {
   const [open, setOpen] = useState(false);
-  const [title, setTitle] = useState(titl);
-  const [permission , setPermission] = useState('');
+  const [title, setTitle] = useState('');
+  const [Policydata, PolicyDataChange] = useState(null);
+  const [policy , setPolicy] = useState('');
   const [permissiondata, permissionDataChange] = useState(null);
+  
   useEffect(() => {
-      instance.get(`/permission/`)
-          .then(resp => {
-              permissionDataChange(resp.data);
-          }).catch((err) => {
-          console.log(err.message);
-      })
+      getPermissions(permissionDataChange);
   }, [render]);
+
+  useEffect(() => {
+    getPolicy(PolicyDataChange)
+  }, [render]);
+
   const handleChange = (value) => {
-    setPermission(value);
+    setPolicy(value);
   };
 
-  const UpdateRoles = async () => {
-    await instance.put(`/role/${id}` , {title:title , permissions: permission , status: "published"})
-    .then(resp => {
-      setRender(!render)
-      console.log(resp);
-    }).catch((err) => {
-      console.log(err.message);
-    });
+  const UpdatePermissions = async () => {
+    PutPermission(id , title , render , setRender , policy);
     setOpen(false);
+    setTitle('');
   }
   return (
     <>
-      <EditOutlined onClick={() => setOpen(true)} />
+        <EditOutlined onClick={() => setOpen(true)} />
       <Modal
         title="Update Permission"
         centered
         open={open}
-        onOk={() => UpdateRoles()}
+        onOk={() => UpdatePermissions()}
         onCancel={() => {
           setOpen(false)}
         }
-        width={1000}
+        width={500}
       >
         <Input
           value={title}
           onChange={e => setTitle(e.target.value)} 
           placeholder="Title"
-          // maxTagCount='responsive'
         />
         <Space
           direction="vertical"
@@ -59,12 +52,12 @@ const UpdatePermission = ({render, setRender , id , titl}) => {
             width: '100%',
           }}
         >
-          <Select defaultValue={permission} mode='multiple' style={{width : "100%"}} placeholder="Select Permissions" onChange={handleChange}>
-            { permissiondata ?
-              permissiondata.map(item => {
+          <Select mode='multiple' style={{width : "100%"}} placeholder="Select Modules" onChange={handleChange}>
+            { Policydata ?
+              Policydata.map(item => {
                 return(
                   <Option key={item.id} value={item.id}>
-                   {item.title}
+                    {item.title}
                   </Option>
                 )
               })
