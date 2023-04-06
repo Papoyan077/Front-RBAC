@@ -1,6 +1,7 @@
 import { Button, Input, Modal , Select, Space } from 'antd';
 import { useEffect, useState } from 'react';
 import { getPermissions , PostRoles } from '../../../utils/Route';
+import {PlusCircleOutlined} from "@ant-design/icons";
 const { Option } = Select;
 
 const AddRole = ({render, setRender}) => {
@@ -24,9 +25,9 @@ const AddRole = ({render, setRender}) => {
   }
   return (
     <>
-      <Button onClick={() => setOpen(true)}>
-        Add Role
-      </Button>
+        <Button style={{display:"flex",justifyContent:"center",alignItems:"center",fontSize:"20px"}} type={"text"} onClick={() => { setOpen(true) }}>
+            <PlusCircleOutlined  style={{color:"green",fontSize:"25px"}}/>
+        </Button>
       <Modal
         title="Add Role"
         centered

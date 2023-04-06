@@ -244,10 +244,11 @@ const Modules = () => {
         width: "100%",
         height: "85vh",
     }}>
-        <div className="card-title">
+        <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",fontSize:"25px",marginRight:"5vw"}}>
             <h2>Modules</h2>
-        </div>
+
         <AddModule render={render} setRender={setRender} />
+        </div>
         <Space
         align="center"
         style={{
@@ -265,13 +266,13 @@ const Modules = () => {
           dataSource={modulesData} 
           scroll={{y : 350}} 
           style={{width: "98%"}} />
-    </div>
+      </div>
   )
 };
 export default Modules;
 
 
-// const createNewKey = (data) => {
+    // const createNewKey = (data) => {
     //    modulesDataChange(data);
     //   return data.forEach((item, index) => {
     //       item.key = index;

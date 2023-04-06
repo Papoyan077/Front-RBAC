@@ -6,7 +6,7 @@ import {useNavigate} from "react-router-dom";
 
 function Login() {
     const navigate = useNavigate();
-    const onFinish = (values) => {
+    const handleSubmit = (values) => {
         instance.post(`/login/`, {"login": values.username, "password": values.password})
             .then(resp => {
                 if (resp.status===200){
@@ -37,7 +37,7 @@ function Login() {
                 initialValues={{
                     remember: true,
                 }}
-                onFinish={onFinish}
+                onFinish={handleSubmit}
             >
                 <Form.Item
                     name="username"

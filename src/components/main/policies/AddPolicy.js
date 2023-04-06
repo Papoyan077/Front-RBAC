@@ -2,6 +2,7 @@ import {Button, Modal, Select} from 'antd';
 import {useEffect, useState} from 'react';
 import instance from "../../../utils/axios";
 import {Checkbox} from 'antd';
+import {PlusCircleOutlined} from "@ant-design/icons";
 
 
 const AddPolicy = () => {
@@ -40,8 +41,8 @@ const AddPolicy = () => {
     };
     return (
         <>
-            <Button onClick={() => setOpen(true)}>
-                AddPolicy
+            <Button style={{display:"flex",justifyContent:"center",alignItems:"center",fontSize:"20px"}} type={"text"} onClick={() => { setOpen(true) }}>
+                <PlusCircleOutlined  style={{color:"green",fontSize:"25px"}}/>
             </Button>
             <Modal
                 title="Add Policy"
