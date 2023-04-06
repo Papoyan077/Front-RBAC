@@ -137,6 +137,52 @@ const PutRoles = async ( id , title , render , setRender , permission ) => {
     });
 }
 
+//// Modules
+const getModules = async (modulesDataChange) => {
+  return (
+    await instance.get(`/module/`)
+      .then(resp => {
+        modulesDataChange(resp.data);
+      }).catch((err) => {
+        console.log(err.message);
+    })
+  )
+}
+
+const getModulesTree = async (modulesDataChange) => {
+  return (
+    await instance.get(`/module/`, {params: {treeMode: true}})
+      .then(resp => {
+        modulesDataChange(resp.data);
+      }).catch((err) => {
+        console.log(err.message);
+    })
+  )
+}
+
+const PostModule = async (title , render , setRender , clientId , childId , parentId) => {
+  await instance.post('/module/', {title: title , clientId:clientId , childId:childId , parentId:parentId})
+    .then(resp => {
+      setRender(!render)
+      console.log(resp);
+    }).catch((err) => {
+      console.log(err.message);
+  });
+}
+
+// const getModules = async () => {
+//   return (
+//    await instance.get(`/module/`, {params: {treeMode: true}})
+//       .then(resp => {
+//         return resp.data;
+//       }).catch((err) => {
+//         console.log(err.message);
+//     })
+//   )
+// }
+
+
+
 
   
-export {getActions , PostActions , PutActions , getClients , PostClients , PutClients , getEmployees , getEmployeesById , getPermissions , getRoles , PostRoles , PutRoles};
+export {getActions , PostActions , PutActions , getClients , PostClients , PutClients , getEmployees , getEmployeesById , getPermissions , getRoles , PostRoles , PutRoles , getModules , getModulesTree , PostModule};

@@ -39,9 +39,9 @@ const Actions = () => {
 
   const showDeleteConfirm = (record) => {
     confirm({
-      title: 'Are you sure delete this action?',
+      title: 'Are you sure delete this Item?',
       icon: <ExclamationCircleFilled />,
-      content: `Action name is (${record.title}):`,
+      content: `Item name is (${record.title}):`,
       okText: 'Yes',
       okType: 'danger',
       cancelText: 'No',
