@@ -8,10 +8,9 @@ const AddModule = ({render, setRender}) => {
   const [title, setTitle] = useState('');
   const [moduleData, setModuleData] = useState(null);
   const [clientData, setClientData] = useState(null);
-  const [client, setClient] = useState('');
-  const [parent , setParent] = useState('');
-  const [child , setChild] = useState('');
-  
+  const [client, setClient] = useState(null);
+  const [parent , setParent] = useState(null);
+
   useEffect(() => {
       getModules(setModuleData);
   }, [render]);
@@ -20,21 +19,15 @@ const AddModule = ({render, setRender}) => {
     getClients(setClientData);
   }, [render]);
 
-
   const ChangeParent = (value) => {
     setParent(value);
-  };
-  const ChangeChild = (value) => {
-    setChild(value);
   };
   const ChangeClient = (value) => {
     setClient(value);
   };
-  
-  console.log("Child ==" ,child ,"Parent ==", parent , "Client ==" , client ,"Title ==" , title);
-
+  console.log("Parent ==", parent , "Client ==" , client ,"Title ==" , title);
   const AddModule = async () => {
-    PostModule(title , render , setRender , client , child , parent);
+    PostModule(title , render , setRender , client  , parent);
     setOpen(false);
     setTitle('');
   }
@@ -75,19 +68,7 @@ const AddModule = ({render, setRender}) => {
               })
             : null}
           </Select>
- 
-          <Select mode='multiple' style={{width : "100%"}} placeholder="Select Child" onChange={ChangeChild}>
-            { moduleData ?
-              moduleData.map(item => {
-                return(
-                  <Option key={item.id} value={item.id}>
-                   {item.title}
-                  </Option>
-                )
-              })
-            : null}
-          </Select>
-  
+
           <Select mode='multiple' style={{width : "100%"}} placeholder="Select Client" onChange={ChangeClient}>
             { clientData ?
               clientData.map(item => {

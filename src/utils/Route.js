@@ -160,8 +160,8 @@ const getModulesTree = async (modulesDataChange) => {
   )
 }
 
-const PostModule = async (title , render , setRender , clientId , childId , parentId) => {
-  await instance.post('/module/', {title: title , clientId:clientId , childId:childId , parentId:parentId})
+const PostModule = async (title , render , setRender , clientId , parentId) => {
+  await instance.post('/module/', {title: title , clientId:clientId  , parentId:parentId})
     .then(resp => {
       setRender(!render)
       console.log(resp);
