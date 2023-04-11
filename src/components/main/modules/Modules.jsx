@@ -5,6 +5,7 @@ import {getModulesTree} from '../../../utils/Route';
 import SearchFunc from '../../search';
 import { DeleteOutlined, ExclamationCircleFilled } from '@ant-design/icons';
 import instance from '../../../utils/axios';
+import UpdateModule from './UpdateModule';
 const { confirm } = Modal;
 
 const Modules = () => {
@@ -28,7 +29,7 @@ const Modules = () => {
                     })
                 }
             })
-        }
+        }  
   });
 
   const [columns] = useState([
@@ -43,6 +44,7 @@ const Modules = () => {
       render: (record) => {
         return (
           <>
+            <UpdateModule titl={record.title} render={render} setRender={setRender} id={record.id}/>
             <DeleteOutlined onClick={() => { showDeleteConfirm(record) }} style={{ color: "red", marginLeft: 12 }}/>
           </>
         );

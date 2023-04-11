@@ -10,7 +10,7 @@ const PolicyActionsMore = (actions) => {
             {
                 actions.actions.map(item => {
                     return (
-                        <span>{item.title}{actions.actions.length > 1 ? "," : null} </span>
+                        <span>({item.title}){actions.actions.length > 1 ? "," : null} </span>
                     )
                 })
             }

@@ -10,7 +10,7 @@ function Login() {
         instance.post(`/login/`, {"login": values.username, "password": values.password})
             .then(resp => {
                 if (resp.status===200){
-                    navigate("/general/")
+                    navigate("/layout/")
                 }
             }).catch((err) => {
             console.log(err.message);

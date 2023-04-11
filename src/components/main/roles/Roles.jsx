@@ -93,20 +93,6 @@ const Roles = () => {
             dataSource={roleData} 
             scroll={{y : 350}} 
             style={{width: "98%"}} 
-            // expandable={{
-            //     expandedRowRender: (record) => (
-            //         <>
-            //             {record.permissions?.slice(0 , 1).map(perm => {
-            //                 // {console.log(perm);}
-            //                     return (
-            //                         <h2 key={perm.id}>{perm.title}</h2>
-            //                     )
-            //                 })}
-            //                 {/* {record.permissions.length-1 > 0 ? record.permissions.length-1 : null} <RolePermissionMore permissions={record.permissions} /> */}
-            //             </>
-            //     ),
-            //     rowExpandable: (record) => record.name !== 'Not Expandable',
-            //   }} 
         />
 
     </div>

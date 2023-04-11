@@ -1,5 +1,5 @@
-import { Button, Input, Modal , Select, Space } from 'antd';
-import { useEffect, useState } from 'react';
+import { Input, Modal , Select, Space } from 'antd';
+import { useCallback, useEffect, useState } from 'react';
 import { getPermissions , PostRoles } from '../../../utils/Route';
 import {PlusCircleOutlined} from "@ant-design/icons";
 const { Option } = Select;
@@ -14,9 +14,13 @@ const AddRole = ({render, setRender}) => {
       getPermissions(permissionDataChange);
   }, [render]);
 
-  const handleChange = (value) => {
+  const handleChange = useCallback((value) => {
     setPermission(value);
-  };
+  } , []);
+
+  // const handleChange = (value) => {
+  //   setPermission(value);
+  // };
 
   const AddRoles = async () => {
     PostRoles(title , render , setRender , permission);
@@ -25,18 +29,19 @@ const AddRole = ({render, setRender}) => {
   }
   return (
     <>
-        <Button style={{display:"flex",justifyContent:"center",alignItems:"center",fontSize:"20px"}} type={"text"} onClick={() => { setOpen(true) }}>
-            <PlusCircleOutlined  style={{color:"green",fontSize:"25px"}}/>
-        </Button>
+      <PlusCircleOutlined  style={{color:"grey",fontSize:"25px" , display:"flex",justifyContent:"center",alignItems:"center" }} onClick={() => { setOpen(true) }}/>
       <Modal
         title="Add Role"
         centered
         open={open}
-        onOk={() => AddRoles()}
+        onOk={() => {
+          AddRoles();
+          setTitle('');
+        }}
         onCancel={() => {
           setOpen(false)}
         }
-        width={1000}
+        width={700}
       >
         <Input
           value={title}

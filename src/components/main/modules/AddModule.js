@@ -1,6 +1,8 @@
-import { Button, Input, Modal , Select, Space } from 'antd';
-import { useEffect, useState } from 'react';
+import { Input, Modal , Select, Space } from 'antd';
+import { useCallback, useEffect, useState } from 'react';
 import { getClients, getModules , PostModule } from '../../../utils/Route';
+import {PlusCircleOutlined} from "@ant-design/icons";
+
 const { Option } = Select;
 
 const AddModule = ({render, setRender}) => {
@@ -12,39 +14,43 @@ const AddModule = ({render, setRender}) => {
   const [parent , setParent] = useState(null);
 
   useEffect(() => {
-      getModules(setModuleData);
+    getModules(setModuleData);
   }, [render]);
 
   useEffect(() => {
     getClients(setClientData);
   }, [render]);
 
-  const ChangeParent = (value) => {
+  const ChangeParent = useCallback((value) => {
     setParent(value);
-  };
-  const ChangeClient = (value) => {
+  } , []);
+  const ChangeClient = useCallback((value) => {
     setClient(value);
-  };
-  console.log("Parent ==", parent , "Client ==" , client ,"Title ==" , title);
+  } , []);
+
   const AddModule = async () => {
     PostModule(title , render , setRender , client  , parent);
     setOpen(false);
     setTitle('');
   }
+
   return (
     <>
-      <Button onClick={() => setOpen(true)}>
-        Add Module
-      </Button>
+      <PlusCircleOutlined  style={{color:"grey",fontSize:"25px" , display:"flex",justifyContent:"center",alignItems:"center" }} onClick={() => { setOpen(true) }}/>
       <Modal
         title="Add Module"
         centered
         open={open}
-        onOk={() => AddModule()}
+        onOk={() => {
+          AddModule();
+          setTitle('');
+          setClient(null);
+          setParent(null);
+        }}
         onCancel={() => {
           setOpen(false)}
         }
-        width={600}
+        width={500}
       >
         <Space
           direction="vertical"
@@ -57,7 +63,7 @@ const AddModule = ({render, setRender}) => {
               onChange={e => setTitle(e.target.value)} 
               placeholder="Title"
             />
-          <Select mode='multiple' maxTagCount="responsive" style={{width : "100%"}} placeholder="Select Parent" onChange={ChangeParent}>
+          <Select style={{width : "100%"}} placeholder="Select Parent" onChange={ChangeParent}>
             { moduleData ?
               moduleData.map(item => {
                 return(
@@ -69,7 +75,7 @@ const AddModule = ({render, setRender}) => {
             : null}
           </Select>
 
-          <Select mode='multiple' style={{width : "100%"}} placeholder="Select Client" onChange={ChangeClient}>
+          <Select style={{width : "100%"}} placeholder="Select Client" onChange={ChangeClient}>
             { clientData ?
               clientData.map(item => {
                 return(

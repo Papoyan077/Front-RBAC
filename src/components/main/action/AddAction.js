@@ -1,4 +1,4 @@
-import {Button, Input, Modal} from 'antd';
+import { Input, Modal} from 'antd';
 import {useState} from 'react';
 import { PostActions } from '../../../utils/Route';
 import {PlusCircleOutlined} from "@ant-design/icons";
@@ -15,16 +15,17 @@ const AddAction = ({render, setRender}) => {
 
     return (
         <>
-            <Button style={{display:"flex",justifyContent:"center",alignItems:"center",fontSize:"20px"}} type={"text"} onClick={() => { setOpen(true) }}>
-                <PlusCircleOutlined  style={{color:"green",fontSize:"25px"}}/>
-            </Button>
+            <PlusCircleOutlined  style={{color:"grey",fontSize:"25px" , display:"flex",justifyContent:"center",alignItems:"center" }} onClick={() => { setOpen(true) }}/>
             <Modal
                 title="Add Action"
                 centered
                 open={open}
-                onOk={() => AddActions()}
+                onOk={() => {
+                    AddActions();
+                    setTitle('');
+                }}
                 onCancel={() => { setOpen(false) }}
-                width={1000}
+                width={500}
             >
                 <Input value={title} onChange={e => setTitle(e.target.value)} placeholder="Action Title"/>
             </Modal>

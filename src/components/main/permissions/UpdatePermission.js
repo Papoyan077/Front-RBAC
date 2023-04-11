@@ -1,5 +1,5 @@
-import { Button, Input, Modal , Select, Space } from 'antd';
-import { useEffect, useState } from 'react';
+import { Input, Modal , Select, Space } from 'antd';
+import { useCallback, useEffect, useState } from 'react';
 import { getPermissions , getPolicy, PutPermission } from '../../../utils/Route';
 import { EditOutlined } from "@ant-design/icons";
 const { Option } = Select;
@@ -19,9 +19,9 @@ const UpdatePermission = ({render, setRender , id}) => {
     getPolicy(PolicyDataChange)
   }, [render]);
 
-  const handleChange = (value) => {
+  const handleChange = useCallback((value) => {
     setPolicy(value);
-  };
+  } , []);
 
   const UpdatePermissions = async () => {
     PutPermission(id , title , render , setRender , policy);
@@ -35,7 +35,10 @@ const UpdatePermission = ({render, setRender , id}) => {
         title="Update Permission"
         centered
         open={open}
-        onOk={() => UpdatePermissions()}
+        onOk={() => {
+          UpdatePermissions()
+          setPolicy(null)
+        }}
         onCancel={() => {
           setOpen(false)}
         }

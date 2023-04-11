@@ -1,17 +1,22 @@
-import {Button, Modal, Select} from 'antd';
-import {useEffect, useState} from 'react';
+import { Modal, Select} from 'antd';
+import {useCallback, useEffect, useState} from 'react';
 import instance from "../../../utils/axios";
 import {Checkbox} from 'antd';
 import {PlusCircleOutlined} from "@ant-design/icons";
+import { PostPolicy } from '../../../utils/Route';
 
 
 const AddPolicy = () => {
     const [open, setOpen] = useState(false);
     const [actionData, actionDataChange] = useState([]);
     const [modulesData, modulesDataChange] = useState([]);
-    const onChange = (checkedValues) => {
-        console.log('checked = ', checkedValues);
-    };
+    const [moduleId , setModuleId] = useState('');
+    const [actionId , setActionId] = useState('');
+
+    const onChange = useCallback((checkedValues) => {
+        setActionId(checkedValues);
+    } , []);
+
     useEffect(() => {
         instance.get(`/module/`)
             .then(resp => {
@@ -35,22 +40,27 @@ const AddPolicy = () => {
         options.push({
             value: e.id,
             label: e.title,
-        }));
-    const handleChange = () => {
+    }));
 
-    };
+    const AddPolicy = async () => {
+        PostPolicy(actionId , moduleId);
+        setOpen(false);
+    }
+
+    const handleChange = useCallback((value) => {
+        setModuleId(value);
+    } , []);
+
     return (
         <>
-            <Button style={{display:"flex",justifyContent:"center",alignItems:"center",fontSize:"20px"}} type={"text"} onClick={() => { setOpen(true) }}>
-                <PlusCircleOutlined  style={{color:"green",fontSize:"25px"}}/>
-            </Button>
+            <PlusCircleOutlined  style={{color:"grey",fontSize:"25px" , display:"flex",justifyContent:"center",alignItems:"center" }} onClick={() => { setOpen(true) }}/>
             <Modal
                 title="Add Policy"
                 centered
                 open={open}
-                onOk={() => setOpen(false)}
+                onOk={() => AddPolicy()}
                 onCancel={() => setOpen(false)}
-                width={1000}
+                width={600}
             >
                 <Select
                     showSearch

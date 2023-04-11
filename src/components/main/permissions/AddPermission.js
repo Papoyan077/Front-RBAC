@@ -1,6 +1,6 @@
-import { Button, Input, Modal , Select, Space } from 'antd';
-import { useEffect, useState } from 'react';
-import { getPermissions , getPolicy, PostPermissions, PostRoles } from '../../../utils/Route';
+import { Input, Modal , Select, Space } from 'antd';
+import { useCallback, useEffect, useState } from 'react';
+import { getPermissions , getPolicy, PostPermissions } from '../../../utils/Route';
 import {PlusCircleOutlined} from "@ant-design/icons";
 const { Option } = Select;
 
@@ -19,11 +19,9 @@ const AddPermission = ({render, setRender}) => {
     getPolicy(PolicyDataChange)
   }, [render]);
 
-  // console.log(permissiondata);
-
-  const handleChange = (value) => {
+  const handleChange = useCallback((value) => {
     setPolicy(value);
-  };
+  } , []);
 
   const AddPermissions = async () => {
     PostPermissions(title , render , setRender , policy);
@@ -32,14 +30,16 @@ const AddPermission = ({render, setRender}) => {
   }
   return (
     <>
-        <Button style={{display:"flex",justifyContent:"center",alignItems:"center",fontSize:"20px"}} type={"text"} onClick={() => { setOpen(true) }}>
-            <PlusCircleOutlined  style={{color:"green",fontSize:"25px"}}/>
-        </Button>
+      <PlusCircleOutlined  style={{color:"grey",fontSize:"25px" , display:"flex",justifyContent:"center",alignItems:"center" }} onClick={() => { setOpen(true) }}/>
       <Modal
         title="Add Permission"
         centered
         open={open}
-        onOk={() => AddPermissions()}
+        onOk={() => {
+          AddPermissions();
+          setPolicy(null);
+          setTitle('');
+        }}
         onCancel={() => {
           setOpen(false)}
         }

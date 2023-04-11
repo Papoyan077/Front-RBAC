@@ -10,7 +10,7 @@ const Employees = () => {
     const navigate = useNavigate();
 
     const LoadDetail = (id) => {
-        navigate("/general/detail/" + id);
+        navigate("/layout/detail/" + id);
     }
     useEffect(() => {
       getEmployees(employeesDataChange);

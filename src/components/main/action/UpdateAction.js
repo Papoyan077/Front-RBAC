@@ -21,7 +21,7 @@ const UpdateAction = ({render, setRender , id , titl}) => {
         open={open}
         onOk={() => UpdateActions()}
         onCancel={() => { setOpen(false)} }
-        width={1000}
+        width={500}
       >
         <Input value={title} onChange={e => setTitle(e.target.value)} placeholder="Action Title" />
       </Modal>

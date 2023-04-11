@@ -5,7 +5,7 @@ import {EditOutlined} from '@ant-design/icons';
 import {Checkbox} from 'antd';
 const UpdatePolicy = ({render, setRender, id, moduleTitle, record}) => {
     const [open, setOpen] = useState(false);
-    let permissions=[];
+    const [permissions , setPermissions] = useState([]);
     const [actionData, actionDataChange] = useState([]);
     
     useEffect(() => {
@@ -47,7 +47,10 @@ const UpdatePolicy = ({render, setRender, id, moduleTitle, record}) => {
                 title="Update Policy"
                 centered
                 open={open}
-                onOk={() => UpdatePolicies()}
+                onOk={() => {
+                    UpdatePolicies();
+                    setPermissions([]);
+                }}
                 onCancel={() => setOpen(false)}
             >
                 <div style={{display:"flex",flexDirection:"column"}}>

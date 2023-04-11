@@ -11,7 +11,7 @@ const RolePermissionMore = (permissions) => {
           {
             permissions.permissions.map(item => {
               return (
-                <span>{item.title}{permissions.permissions.length > 1 ? "," : null} </span>
+                <span>({item.title}){permissions.permissions.length > 1 ? "," : null} </span>
               )
             })
           }

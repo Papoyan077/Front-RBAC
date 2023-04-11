@@ -104,6 +104,26 @@ const getPermissions = async(permissionDataChange) => {
   )
 }
 
+const PostPermissions = async (title , render , setRender , policies) => {
+  await instance.post('/permission/', {title: title , policies: policies})
+    .then(resp => {
+      setRender(!render)
+      console.log(resp);
+    }).catch((err) => {
+      console.log(err.message);
+  });
+}
+
+const PutPermission = async ( id , title , render , setRender , policies ) => {
+  await instance.put(`/permission/${id}` , {title: title , policies: policies, status: "published"})
+    .then(resp => {
+      setRender(!render)
+      console.log(resp);
+    }).catch((err) => {
+      console.log(err.message);
+    });
+}
+
 /////Roles
 
 const getRoles = async(roleDataChange) => {
@@ -170,6 +190,16 @@ const PostModule = async (title , render , setRender , clientId , parentId) => {
   });
 }
 
+const PutModule = async ( id , title , render , setRender ) => {
+  await instance.put(`/module/${id}` , {title:title , status: "published"})
+    .then(resp => {
+      setRender(!render)
+      console.log(resp);
+    }).catch((err) => {
+      console.log(err.message);
+    });
+}
+
 ////Policy
 
 const getPolicy = async (policiesDataChange) => {
@@ -183,8 +213,8 @@ const getPolicy = async (policiesDataChange) => {
   )
 }
 
-const PostPermissions = async (title , render , setRender , policies) => {
-  await instance.post('/permission/', {title: title , policies: policies})
+const PostPolicy = async ( render , setRender , actionId , moduleId ) => {
+  await instance.post('/policy/', {actionId: actionId , moduleId:moduleId})
     .then(resp => {
       setRender(!render)
       console.log(resp);
@@ -193,15 +223,7 @@ const PostPermissions = async (title , render , setRender , policies) => {
   });
 }
 
-const PutPermission = async ( id , title , render , setRender , policies ) => {
-  await instance.put(`/permission/${id}` , {title: title , policies: policies, status: "published"})
-    .then(resp => {
-      setRender(!render)
-      console.log(resp);
-    }).catch((err) => {
-      console.log(err.message);
-    });
-}
+
 
 
 
@@ -209,4 +231,4 @@ const PutPermission = async ( id , title , render , setRender , policies ) => {
 
 
   
-export {getActions , PostActions , PutActions , getClients , PostClients , PutClients , getEmployees , getEmployeesById , getPermissions , PostPermissions , PutPermission , getRoles , PostRoles , PutRoles , getModules , getModulesTree , PostModule , getPolicy , };
+export {getActions , PostActions , PutActions , getClients , PostClients , PutClients , getEmployees , getEmployeesById , getPermissions , PostPermissions , PutPermission , getRoles , PostRoles , PutRoles , getModules , getModulesTree , PostModule , PutModule , getPolicy , PostPolicy };

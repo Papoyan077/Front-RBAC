@@ -21,7 +21,7 @@ const UpdateClient = ({render, setRender, id , titl}) => {
                 onCancel={() => {
                     setOpen(false)}
                   }
-                width={1000}
+                width={500}
             >
                 <Input value={title} onChange={e => setTitle(e.target.value)} placeholder="Client Title"/>
             </Modal>

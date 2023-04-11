@@ -1,8 +1,8 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
-import Header from '../header/Header'
-import Navbar from '../navbar/Navbar'
-export default function General() {
+import Header from '../components/header/Header'
+import Navbar from '../components/navbar/Navbar'
+export default function Layout() {
   return (
     <div>
         <Header />

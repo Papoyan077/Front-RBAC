@@ -1,7 +1,7 @@
 import { Input, Modal , Select, Space } from 'antd';
 import { EditOutlined } from "@ant-design/icons";
-import { useEffect, useState } from 'react';
-import { getPermissions , PutPermission, PutRoles } from '../../../utils/Route';
+import { useCallback, useEffect, useState } from 'react';
+import { getPermissions , PutRoles } from '../../../utils/Route';
 const { Option } = Select;
 
 
@@ -17,13 +17,12 @@ const UpdateRole = ({render, setRender , id , titl}) => {
       getPermissions(permissionDataChange);
   }, [render]);
 
-  const handleChange = (value) => {
+  const handleChange = useCallback((value) => {
     setPermission(value);
-    console.log(value)
-  };
+  } , []);
 
   const UpdateRoles = async () => {
-    PutPermission(id , title , render , setRender , permission);
+    PutRoles(id , title , render , setRender , permission);
     setOpen(false);
   }
 
@@ -41,13 +40,12 @@ const UpdateRole = ({render, setRender , id , titl}) => {
         onCancel={() => {
           setOpen(false)}
         }
-        width={1000}
+        width={700}
       >
         <Input
           value={title}
           onChange={e => setTitle(e.target.value)} 
           placeholder="Title"
-          // maxTagCount='responsive'
         />
         <Space
           direction="vertical"
