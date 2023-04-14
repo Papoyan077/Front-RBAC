@@ -17,7 +17,11 @@ const Roles = () => {
     useEffect(() => {
         getRoles(roleDataChange)
     }, [render]);
-
+    let lastIndex = 0
+    const updateIndex = () => {
+        lastIndex++
+        return lastIndex
+    }
   const [columns] = useState([
     {
       title : "Title" ,
@@ -31,7 +35,7 @@ const Roles = () => {
             <>
                 {record.permissions?.slice(0 , 1).map(perm => {
                     return (
-                        <span >{perm.title}</span>
+                        <span key={`action${updateIndex()}`}>{perm.title}</span>
                     )
                 })}
                 ({record.permissions.length > 0 ? record.permissions.length : null}) <RolePermissionMore permissions={record.permissions} />
@@ -88,6 +92,7 @@ const Roles = () => {
             scroll={{y : 350}} 
             style={{width: "98%"}}
             className='tableStyle'
+            rowKey={updateIndex}
         />
 
     </div>

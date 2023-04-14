@@ -17,7 +17,11 @@ const Policies = () => {
         useEffect(() => {
             getPolicy(policiesDataChange);
         }, [render]);
-
+        let lastIndex = 0
+        const updateIndex = () => {
+            lastIndex++
+            return lastIndex
+        }
         const [columns] = useState([
             {
                 title: "Modules",
@@ -32,7 +36,7 @@ const Policies = () => {
               <>
                 {record.actions?.slice(0 , 1).map(action => {
                     return (
-                        <span>{action.title}</span>
+                        <span key={`action${updateIndex()}`}>{action.title}</span>
                     )
                 })}
                 ({record.actions.length > 0 ? record.actions.length : 0}) <PolicyActionsMore actions={record.actions} />
@@ -94,6 +98,7 @@ return (
             dataSource={policiesData}
             scroll={{y: 350}}
             className='tableStyle'
+            rowKey={updateIndex}
         />
 
     </div>

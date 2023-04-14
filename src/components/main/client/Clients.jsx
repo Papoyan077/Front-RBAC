@@ -16,7 +16,11 @@ const Clients = () => {
   useEffect(() => {
       getClients(clientDataChange);
   }, [render]);
-
+  let lastIndex = 0
+  const updateIndex = () => {
+    lastIndex++
+    return lastIndex
+  }
   const [columns] = useState([
     {
       title : "Title" ,
@@ -66,7 +70,7 @@ const Clients = () => {
             <span>Clients</span>
             <AddClient render={render} setRender={setRender} />
         </div>
-        <Table columns={columns} dataSource={clientData} scroll={{y : 350}} className='tableStyle'/>
+        <Table columns={columns} dataSource={clientData} rowKey={updateIndex} scroll={{y : 350}} className='tableStyle'/>
     </div>
   )
 };

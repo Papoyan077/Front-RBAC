@@ -17,7 +17,11 @@ const Actions = () => {
     useEffect(() => {
         getActions(ActionsDataChange)
     }, [render]);
-
+    let lastIndex = 0
+    const updateIndex = () => {
+        lastIndex++
+        return lastIndex
+    }
     const [columns] = useState([
         {
             title: "Title",
@@ -68,7 +72,7 @@ const Actions = () => {
             <div className="mainTitle">
                 <span>Actions</span>
                 <AddAction render={render} setRender={setRender}/></div>
-            <Table columns={columns} dataSource={ActionsData} scroll={{y: 350}} className='tableStyle'/>
+            <Table columns={columns} dataSource={ActionsData} scroll={{y: 350}} rowKey={updateIndex} className='tableStyle'/>
         </div>
     )
 };

@@ -8,7 +8,11 @@ import { getEmployees } from '../../../utils/Route';
 const Employees = () => {
     const [employeesData, employeesDataChange] = useState(null);
     const navigate = useNavigate();
-
+    let lastIndex = 0
+    const updateIndex = () => {
+        lastIndex++
+        return lastIndex
+    }
     const LoadDetail = (id) => {
         navigate("/layout/detail/" + id);
     }
@@ -47,7 +51,7 @@ const Employees = () => {
         <div className="mainTitle">
             <span>Employees</span>
         </div>
-        <Table columns={columns} dataSource={employeesData} scroll={{y : 350}} className='tableStyle'/>
+        <Table columns={columns} rowKey={updateIndex} dataSource={employeesData} scroll={{y : 350}} className='tableStyle'/>
     </div>
   )
 };

@@ -16,6 +16,11 @@ const Permissions = () => {
         getPermissions(permissionDataChange);
     }, [render]);
 
+    let lastIndex = 0
+    const updateIndex = () => {
+        lastIndex++
+        return lastIndex
+    }
   const [columns] = useState([
     {
       title : "Title" ,
@@ -26,13 +31,13 @@ const Permissions = () => {
         title : "Policy Modules",
         render: (record) => {
             return (
-            <>
+            <div>
                 {record.policies?.map(policy => {
                     return (
-                        <span>{policy.policyModule.title}</span>
+                        <span key={`policy${updateIndex()}`}>{policy.policyModule.title}</span>
                     )
                 })}
-            </>
+            </div>
             )
         }
     },
@@ -68,7 +73,7 @@ const Permissions = () => {
         .catch(err => console.log(err))
       },
       onCancel() {
-            console.log("Deletion pcrocess is canceled");
+            console.log("Deletion process is canceled");
       },
     });
   };
@@ -79,11 +84,12 @@ const Permissions = () => {
             <span>Permissions</span>
         <AddPermission render={render} setRender={setRender} />
         </div>
-        <Table 
+        <Table
             columns={columns} 
             dataSource={permissionData} 
             scroll={{y : 350}}
             className='tableStyle'
+            rowKey={updateIndex}
         />
 
     </div>

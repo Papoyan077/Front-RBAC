@@ -15,8 +15,11 @@ const Modules = () => {
   useEffect( () => {
     getModulesTree(modulesDataChange);
   }, [render]);
-  console.log(modulesData);
-
+  let lastIndex=0
+    const updateIndex = () => {
+        lastIndex++
+        return lastIndex
+    }
   modulesData &&
     modulesData.map((e)  =>{
        e.key = e.id
@@ -87,7 +90,9 @@ const Modules = () => {
           columns={columns}
           dataSource={modulesData} 
           scroll={{y : 350}}
-          className='tableStyle'/>
+          className='tableStyle'
+          rowKey={updateIndex}
+        />
       </div>
   )
 };
