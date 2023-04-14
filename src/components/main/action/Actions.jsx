@@ -23,18 +23,17 @@ const Actions = () => {
             title: "Title",
             dataIndex: "title",
             ...SearchFunc('title'),
-            // ...getColumnSearchProps('title'),
         },
         {
             title: "Actions",
             render: (record) => {
                 return (
-                    <>
+                    <div className='actionsIcons'>
                         <UpdateAction titl={record.title} render={render} setRender={setRender} id={record.id}/>
                         <DeleteOutlined onClick={() => {
                             showDeleteConfirm(record)
-                        }} style={{color: "red", marginLeft: 12}}/>
-                    </>
+                        }} className='deleteIcons'/>
+                    </div>
                 );
             },
         },
@@ -65,23 +64,11 @@ const Actions = () => {
     };
 
     return (
-        <div style={{
-            paddingLeft: "10px",
-            marginRight: "10px",
-            marginTop: "10px",
-            width: "100%",
-            height: "85vh",
-        }}>
-            <div style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-                fontSize: "25px",
-                marginRight: "5vw"
-            }}>
-                <h2>Actions</h2>
+        <div className='main'>
+            <div className="mainTitle">
+                <span>Actions</span>
                 <AddAction render={render} setRender={setRender}/></div>
-            <Table columns={columns} dataSource={ActionsData} scroll={{y: 350}} style={{width: "98%"}}/>
+            <Table columns={columns} dataSource={ActionsData} scroll={{y: 350}} className='tableStyle'/>
         </div>
     )
 };

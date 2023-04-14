@@ -46,13 +46,13 @@ const Policies = () => {
         render:
 (record) => {
     return (
-        <>
+        <div className='actionsIcons'>
             <UpdatePolicy render={render} setRender={setRender} id={record.id} record={record}
                           moduleTitle={record.title}/>
             <DeleteOutlined onClick={() => {
                 showDeleteConfirm(record)
-            }} style={{color: "red", marginLeft: 12}}/>
-        </>
+            }} className='deleteIcons'/>
+        </div>
     );
 },
 },
@@ -84,22 +84,16 @@ const showDeleteConfirm = (record) => {
 };
 
 return (
-    <div style={{
-        paddingLeft: "10px",
-        marginRight: "10px",
-        marginTop: "10px",
-        width: "100%",
-        height: "85vh",
-    }}>
-        <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",fontSize:"25px",marginRight:"5vw"}}>
-            <h2>Policies</h2>
+    <div className='main'>
+        <div className="mainTitle">
+            <span>Policies</span>
         <AddPolicy render={render} setRender={setRender}/>
         </div>
         <Table
             columns={columns}
             dataSource={policiesData}
             scroll={{y: 350}}
-            style={{width: "98%"}}
+            className='tableStyle'
         />
 
     </div>

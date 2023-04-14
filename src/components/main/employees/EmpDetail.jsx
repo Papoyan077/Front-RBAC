@@ -21,31 +21,26 @@ const EmpDetail = () => {
         },
     ]
     return (
-        <div style={{
-            display: "flex",
-            flexDirection: "column",
-            marginRight: "10px",
-            marginTop: "10px",
-            width: "100vw",
-            height: "85vh"
-        }}>
-            <div style={{display: "flex", alignItems: "center", fontSize: "30px", marginLeft: "10px"}}>
-                <Link style={{display: "flex", alignItems: "center"}}
-                      to="/general/employees"><ArrowLeftOutlined/></Link>
-                <span style={{
-                    marginLeft: "10px",
-                    display: "flex",
-                    alignItems: "center"
-                }}>Employee :<UserOutlined style={{marginLeft: "15px"}}/></span>
-                {empData &&
-                    <div>
-                        <div style={{display: "flex"}}>
-                            <span>{empData.firstName}</span>
-                            <span style={{marginLeft: "5px"}}>{empData.lastName}</span>
-                            <span style={{color: "lightgrey", marginLeft: "5px"}}>{empData.userName}</span>
-                        </div>
-                    </div>
-                }
+        <div className='main'>
+            <div className='mainTitle'>
+               <div style={{display:"flex"}}>
+                   <Link style={{display: "flex", alignItems: "center"}}
+                         to="/layout/employees"><ArrowLeftOutlined/></Link>
+                   <span style={{
+                       marginLeft: "10px",
+                       display: "flex",
+                       alignItems: "center"
+                   }}>Employee :<UserOutlined style={{marginLeft: "15px"}}/></span>
+                   {empData &&
+                       <div>
+                           <div style={{display: "flex"}}>
+                               <span>{empData.firstName}</span>
+                               <span style={{marginLeft: "5px"}}>{empData.lastName}</span>
+                               <span style={{color: "lightgrey", marginLeft: "5px"}}>{empData.userName}</span>
+                           </div>
+                       </div>
+                   }
+               </div>
             </div>
             <div className="border-table" style={{width: "100%", height: "100%", overflow: "scroll"}}>
                 <div style={{

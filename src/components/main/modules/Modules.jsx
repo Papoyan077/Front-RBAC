@@ -18,7 +18,7 @@ const Modules = () => {
   console.log(modulesData);
 
   modulesData &&
-    modulesData.map((e)=>{
+    modulesData.map((e)  =>{
        e.key = e.id
         if (e.children){
             e.children.map((t)=>{
@@ -43,10 +43,10 @@ const Modules = () => {
       title: "Actions",
       render: (record) => {
         return (
-          <>
+          <div className='actionsIcons'>
             <UpdateModule titl={record.title} render={render} setRender={setRender} id={record.id}/>
-            <DeleteOutlined onClick={() => { showDeleteConfirm(record) }} style={{ color: "red", marginLeft: 12 }}/>
-          </>
+            <DeleteOutlined onClick={() => { showDeleteConfirm(record) }} className='deleteIcons'/>
+          </div>
         );
       },
     },
@@ -77,23 +77,17 @@ const Modules = () => {
   };
 
   return (
-    <div style={{
-        paddingLeft: "10px",
-        marginRight: "10px",
-        marginTop: "10px",
-        width: "100%",
-        height: "85vh",
-    }}>
-        <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",fontSize:"25px",marginRight:"5vw"}}>
-            <h2>Modules</h2>
+    <div className='main'>
+        <div className="mainTitle">
+            <span>Modules</span>
         <AddModule render={render} setRender={setRender} />
         </div>
 
         <Table 
           columns={columns}
           dataSource={modulesData} 
-          scroll={{y : 350}} 
-          style={{width: "98%"}} />
+          scroll={{y : 350}}
+          className='tableStyle'/>
       </div>
   )
 };
