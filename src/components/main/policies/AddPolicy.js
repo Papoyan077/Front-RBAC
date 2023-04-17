@@ -12,7 +12,11 @@ const AddPolicy = () => {
     const [modulesData, modulesDataChange] = useState([]);
     const [moduleId , setModuleId] = useState('');
     const [actionId , setActionId] = useState('');
-
+    let lastIndex = 0
+    const updateIndex = () => {
+        lastIndex++
+        return lastIndex
+    }
     const onChange = useCallback((checkedValues) => {
         setActionId(checkedValues);
     } , []);
@@ -85,7 +89,7 @@ const AddPolicy = () => {
                 >
                             <div style={{marginTop:"5%"}}>
                                 Select Actions :  {actionData.map((e)=>
-                                <Checkbox onChange={onChange}  value={e.id}>{e.title}</Checkbox>
+                                <Checkbox onChange={onChange} key={`action${updateIndex()}`}  value={e.id}>{e.title}</Checkbox>
                             )}</div>
                 </Checkbox.Group>
 

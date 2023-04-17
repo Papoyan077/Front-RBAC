@@ -7,6 +7,11 @@ import {Table} from "antd";
 const EmpDetail = () => {
     let empId = useParams();
     const [empData, empDataChange] = useState({});
+    let lastIndex = 0
+    const updateIndex = () => {
+        lastIndex++
+        return lastIndex
+    }
     useEffect(() => {
         getEmployeesById(empDataChange, empId)
     }, [empId]);
@@ -71,6 +76,7 @@ const EmpDetail = () => {
                                         style={{
                                             margin: 0,
                                         }}
+                                        key={record.id}
                                     >
                                         {record.id}
                                     </p>
@@ -103,6 +109,7 @@ const EmpDetail = () => {
                     }}>
                         <Table
                             columns={columns}
+
                             expandable={{
                                 expandedRowRender: (record) => (
                                     <p

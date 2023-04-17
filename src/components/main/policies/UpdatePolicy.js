@@ -7,7 +7,11 @@ const UpdatePolicy = ({render, setRender, id, moduleTitle, record}) => {
     const [open, setOpen] = useState(false);
     const [permissions , setPermissions] = useState([]);
     const [actionData, actionDataChange] = useState([]);
-    
+    let lastIndex = 0
+    const updateIndex = () => {
+        lastIndex++
+        return lastIndex
+    }
     useEffect(() => {
         instance.get(`/action/`)
             .then(resp => {
@@ -55,9 +59,9 @@ const UpdatePolicy = ({render, setRender, id, moduleTitle, record}) => {
             >
                 <div style={{display:"flex",flexDirection:"column"}}>
                     <span style={{fontSize: "20px"}}>Module Name: {moduleTitle}</span>
-                    <div style={{marginTop:"5%"}}>
+                    <div  style={{marginTop:"5%"}}>
                         Select Actions :  {actionData.map((action)=>
-                        <Checkbox onChange={onChange} defaultChecked={ids.includes(action.id)}  value={action.id}>{action.title}</Checkbox>
+                        <Checkbox onChange={onChange} defaultChecked={ids.includes(action.id)} key={`action${updateIndex()}`}  value={action.id}>{action.title}</Checkbox>
                     )}</div>
                 </div>
             </Modal>

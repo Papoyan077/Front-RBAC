@@ -2,6 +2,11 @@ import { Modal , Space } from 'antd';
 import { MoreOutlined  } from "@ant-design/icons";
 
 const PolicyActionsMore = (actions) => {
+    let lastIndex = 0
+    const updateIndex = () => {
+        lastIndex++
+        return lastIndex
+    }
   const info = () => {
   Modal.info({
     title: 'Actions',
@@ -10,7 +15,7 @@ const PolicyActionsMore = (actions) => {
             {
                 actions.actions.map(item => {
                     return (
-                        <span>({item.title}){actions.actions.length > 1 ? "," : null} </span>
+                        <span key={`action${updateIndex()}`}>({item.title}){actions.actions.length > 1 ? "," : null} </span>
                     )
                 })
             }
