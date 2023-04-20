@@ -2,6 +2,7 @@ import { Input, Modal , Select, Space } from 'antd';
 import { useCallback, useEffect, useState } from 'react';
 import { getClients, getModules , PostModule } from '../../../utils/Route';
 import {PlusCircleOutlined} from "@ant-design/icons";
+import { cancel } from '../../../utils/Messages';
 
 const { Option } = Select;
 
@@ -48,8 +49,9 @@ const AddModule = ({render, setRender}) => {
           setParent(null);
         }}
         onCancel={() => {
-          setOpen(false)}
-        }
+          cancel();
+          setOpen(false)
+        }}
         width={500}
       >
         <Space

@@ -2,6 +2,7 @@ import { Input, Modal , Select, Space } from 'antd';
 import { EditOutlined } from "@ant-design/icons";
 import { useCallback, useEffect, useState } from 'react';
 import { getPermissions , PutRoles } from '../../../utils/Route';
+import { cancel } from '../../../utils/Messages';
 const { Option } = Select;
 
 
@@ -38,8 +39,9 @@ const UpdateRole = ({render, setRender , id , titl}) => {
           setPermission(null)
         }}
         onCancel={() => {
-          setOpen(false)}
-        }
+          cancel();
+          setOpen(false)
+        }}
         width={700}
       >
         <Input

@@ -2,6 +2,7 @@ import { Input, Modal , Select, Space } from 'antd';
 import { useCallback, useEffect, useState } from 'react';
 import { getPermissions , PostRoles } from '../../../utils/Route';
 import {PlusCircleOutlined} from "@ant-design/icons";
+import { cancel } from '../../../utils/Messages';
 const { Option } = Select;
 
 const AddRole = ({render, setRender}) => {
@@ -18,15 +19,12 @@ const AddRole = ({render, setRender}) => {
     setPermission(value);
   } , []);
 
-  // const handleChange = (value) => {
-  //   setPermission(value);
-  // };
-
   const AddRoles = async () => {
     PostRoles(title , render , setRender , permission);
     setOpen(false);
     setTitle('');
   }
+
   return (
     <>
       <PlusCircleOutlined  style={{color:"grey",fontSize:"25px" , display:"flex",justifyContent:"center",alignItems:"center" }} onClick={() => { setOpen(true) }}/>
@@ -39,8 +37,9 @@ const AddRole = ({render, setRender}) => {
           setTitle('');
         }}
         onCancel={() => {
-          setOpen(false)}
-        }
+          cancel();
+          setOpen(false)
+        }}
         width={700}
       >
         <Input

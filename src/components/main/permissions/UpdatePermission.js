@@ -2,6 +2,7 @@ import { Input, Modal , Select, Space } from 'antd';
 import { useCallback, useEffect, useState } from 'react';
 import { getPermissions , getPolicy, PutPermission } from '../../../utils/Route';
 import { EditOutlined } from "@ant-design/icons";
+import { cancel } from '../../../utils/Messages';
 const { Option } = Select;
 
 const UpdatePermission = ({render, setRender , id}) => {
@@ -40,8 +41,9 @@ const UpdatePermission = ({render, setRender , id}) => {
           setPolicy(null)
         }}
         onCancel={() => {
-          setOpen(false)}
-        }
+          cancel();
+          setOpen(false)
+        }}
         width={500}
       >
         <Input

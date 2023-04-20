@@ -2,13 +2,14 @@ import { Input, Modal , Select, Space } from 'antd';
 import { useCallback, useEffect, useState } from 'react';
 import { getPermissions , getPolicy, PostPermissions } from '../../../utils/Route';
 import {PlusCircleOutlined} from "@ant-design/icons";
+import { cancel } from '../../../utils/Messages';
 const { Option } = Select;
 
 const AddPermission = ({render, setRender}) => {
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState('');
   const [Policydata, PolicyDataChange] = useState(null);
-  const [policy , setPolicy] = useState('');
+  const [policies , setPolicies] = useState('');
   const [permissiondata, permissionDataChange] = useState(null);
   
   useEffect(() => {
@@ -20,14 +21,15 @@ const AddPermission = ({render, setRender}) => {
   }, [render]);
 
   const handleChange = useCallback((value) => {
-    setPolicy(value);
+    setPolicies(value);
   } , []);
 
   const AddPermissions = async () => {
-    PostPermissions(title , render , setRender , policy);
+    PostPermissions(title , policies , render , setRender);
     setOpen(false);
-    setTitle('');
   }
+  console.log("title" , title);
+  console.log("policy" , policies);
   return (
     <>
       <PlusCircleOutlined  style={{color:"grey",fontSize:"25px" , display:"flex",justifyContent:"center",alignItems:"center" }} onClick={() => { setOpen(true) }}/>
@@ -37,12 +39,13 @@ const AddPermission = ({render, setRender}) => {
         open={open}
         onOk={() => {
           AddPermissions();
-          setPolicy(null);
+          setPolicies(null);
           setTitle('');
         }}
         onCancel={() => {
-          setOpen(false)}
-        }
+          cancel();
+          setOpen(false)
+        }}
         width={500}
       >
         <Input
@@ -56,9 +59,10 @@ const AddPermission = ({render, setRender}) => {
             width: '100%',
           }}
         >
-          <Select mode='multiple' style={{width : "100%"}} placeholder="Select Modules" onChange={handleChange}>
+          <Select mode='multiple' style={{width : "100%"}} placeholder="Select Policy" onChange={handleChange}>
             { Policydata ?
               Policydata.map(item => {
+                console.log("policy daya " ,item);
                 return(
                   <Option key={item.id} value={item.id}>
                     {item.title}

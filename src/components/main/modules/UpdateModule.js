@@ -2,6 +2,7 @@ import { Input, Modal , Space } from 'antd';
 import { EditOutlined } from "@ant-design/icons";
 import { useState } from 'react';
 import { PutModule } from '../../../utils/Route';
+import { cancel } from '../../../utils/Messages';
 
 const UpdateModule = ({render, setRender , id , titl}) => {
   const [open, setOpen] = useState(false);
@@ -22,8 +23,9 @@ const UpdateModule = ({render, setRender , id , titl}) => {
         open={open}
         onOk={() => UpdateModule()}
         onCancel={() => {
-          setOpen(false)}
-        }
+          cancel();
+          setOpen(false)
+        }}
         width={500}
       >
         <Space

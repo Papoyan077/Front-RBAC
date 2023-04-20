@@ -7,6 +7,7 @@ import AddClient from "./AddClient";
 import UpdateClient from "./UpdateClient";
 import instance from '../../../utils/axios';
 import SearchFunc from '../../search';
+import { cancel, error, succesDelete } from '../../../utils/Messages';
 const { confirm } = Modal;
 
 const Clients = () => {
@@ -54,12 +55,12 @@ const Clients = () => {
         });
         instance.delete(`/client/${record.id}`)
         .then(res => {
-            console.log(res);
+            succesDelete();
         })
-        .catch(err => console.log(err))
+        .catch(err => error(err.message))
       },
       onCancel() {
-            console.log("Deletion pcrocess is canceled");
+          cancel();
       },
     });
   };

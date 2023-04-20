@@ -2,6 +2,7 @@ import { Input, Modal} from 'antd';
 import {useState} from 'react';
 import { PostClients } from '../../../utils/Route';
 import {PlusCircleOutlined} from "@ant-design/icons";
+import { cancel } from '../../../utils/Messages';
 
 const AddClient = ({render, setRender}) => {
     const [title, setTitle] = useState('');
@@ -24,8 +25,9 @@ const AddClient = ({render, setRender}) => {
                     setTitle('')
                 }}
                 onCancel={() => {
-                    setOpen(false)}
-                  }
+                    cancel();
+                    setOpen(false)
+                }}
                 width={500}
             >
                 <Input value={title} onChange={e => setTitle(e.target.value)} placeholder="Client Title"/>

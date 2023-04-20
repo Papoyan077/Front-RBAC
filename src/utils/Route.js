@@ -1,13 +1,26 @@
+import { error, succesLogin, succesPost, succesPut } from "./Messages";
 import instance from "./axios";
 
 
+
+const login = async (username , password , navigate) => {
+  instance.post(`/login/`, {"login": username, "password": password})
+            .then(resp => {
+              if (resp.status===200){
+                succesLogin(username)
+                navigate("/layout/")
+              }
+            }).catch((err) => {
+              error(err.message)
+            })
+}
 ////Actions
 const getActions = async(ActionsDataChange) => {
   return (
     await instance.get('/action/').then(resp => {
       ActionsDataChange(resp.data);
     }).catch((err) => {
-      console.log(err.message);
+      error(err.message)
     })
   )
 };
@@ -16,9 +29,9 @@ const PostActions = async (title , render , setRender) => {
     await instance.post('/action/', {title: title})
         .then(resp => {
             setRender(!render)
-            console.log(resp);
+            succesPost();
         }).catch((err) => {
-            console.log(err.message);
+            error(err.message)
         });
 }
 
@@ -26,9 +39,9 @@ const PutActions = async (id , title , render , setRender) => {
   await instance.put(`/action/${id}` , {title:title , status: "published"})
   .then(resp => {
     setRender(!render)
-    console.log(resp);
+    succesPut()
   }).catch((err) => {
-        console.log(err.message);
+    error(err.message)
   });
 }
 
@@ -38,8 +51,8 @@ const getClients = async(clientDataChange) => {
   return (
     await instance.get('/client/').then(resp => {
       clientDataChange(resp.data);
-        }).catch((err) => {
-      console.log(err.message);
+    }).catch((err) => {
+      error(err.message)
     })
   )
 }
@@ -48,9 +61,9 @@ const PostClients = async (title , render , setRender) => {
   await instance.post('/client/', {title: title})
   .then(resp => {
       setRender(!render)
-      console.log(resp);
+      succesPost()
   }).catch((err) => {
-      console.log(err.message);
+    error(err.message)
   });
 }
 
@@ -58,9 +71,9 @@ const PutClients = async (id , title , render , setRender) => {
   await instance.put(`/client/${id}`, {title: title, status: "published"})
   .then(resp => {
     setRender(!render)
-    console.log(resp);
+    succesPut();
   }).catch((err) => {
-    console.log(err.message);
+    error(err.message)
   });
 }
 
@@ -72,7 +85,7 @@ const getEmployees = async(employeesDataChange) => {
     .then(resp => {
       employeesDataChange(resp.data);
     }).catch((err) => {
-      console.log(err.message);
+      error(err.message)
     })
   )
 }
@@ -86,7 +99,7 @@ const getEmployeesById = async(empDataChange , empId) => {
     .then(resp => {
       empDataChange(resp.data);
     }).catch((err) => {
-      console.log(err.message);
+      error(err.message)
     })
   )
 }
@@ -99,18 +112,18 @@ const getPermissions = async(permissionDataChange) => {
     .then(resp => {
       permissionDataChange(resp.data);
     }).catch((err) => {
-      console.log(err.message);
+      error(err.message)
     })
   )
 }
 
-const PostPermissions = async (title , render , setRender , policies) => {
+const PostPermissions = async (title , policies , render , setRender) => {
   await instance.post('/permission/', {title: title , policies: policies})
     .then(resp => {
       setRender(!render)
-      console.log(resp);
+      succesPost()
     }).catch((err) => {
-      console.log(err.message);
+      error(err.message)
   });
 }
 
@@ -118,9 +131,9 @@ const PutPermission = async ( id , title , render , setRender , policies ) => {
   await instance.put(`/permission/${id}` , {title: title , policies: policies, status: "published"})
     .then(resp => {
       setRender(!render)
-      console.log(resp);
+      succesPut()
     }).catch((err) => {
-      console.log(err.message);
+      error(err.message)
     });
 }
 
@@ -132,7 +145,7 @@ const getRoles = async(roleDataChange) => {
     .then(resp => {
       roleDataChange(resp.data);
     }).catch((err) => {
-      console.log(err.message);
+      error(err.message)
     })
   )
 }
@@ -141,9 +154,9 @@ const PostRoles = async (title , render , setRender , permission) => {
   await instance.post('/role/', {title: title , permission: permission})
     .then(resp => {
       setRender(!render)
-      console.log(resp);
+      succesPost();
     }).catch((err) => {
-      console.log(err.message);
+      error(err.message);
   });
 }
 
@@ -151,9 +164,9 @@ const PutRoles = async ( id , title , render , setRender , permission ) => {
   await instance.put(`/role/${id}` , {title:title , permissions: permission , status: "published"})
     .then(resp => {
       setRender(!render)
-      console.log(resp);
+      succesPut();
     }).catch((err) => {
-      console.log(err.message);
+      error(err.message)
     });
 }
 
@@ -164,7 +177,7 @@ const getModules = async (modulesDataChange) => {
       .then(resp => {
         modulesDataChange(resp.data);
       }).catch((err) => {
-        console.log(err.message);
+        error(err.message)
     })
   )
 }
@@ -175,7 +188,7 @@ const getModulesTree = async (modulesDataChange) => {
       .then(resp => {
         modulesDataChange(resp.data);
       }).catch((err) => {
-        console.log(err.message);
+        error(err.message)
     })
   )
 }
@@ -184,9 +197,9 @@ const PostModule = async (title , render , setRender , clientId , parentId) => {
   await instance.post('/module/', {title: title , clientId:clientId  , parentId:parentId})
     .then(resp => {
       setRender(!render)
-      console.log(resp);
+      succesPost();
     }).catch((err) => {
-      console.log(err.message);
+      error(err.message);
   });
 }
 
@@ -194,9 +207,9 @@ const PutModule = async ( id , title , render , setRender ) => {
   await instance.put(`/module/${id}` , {title:title , status: "published"})
     .then(resp => {
       setRender(!render)
-      console.log(resp);
+      succesPut()
     }).catch((err) => {
-      console.log(err.message);
+      error(err.message);
     });
 }
 
@@ -208,7 +221,7 @@ const getPolicy = async (policiesDataChange) => {
       .then(resp => {
         policiesDataChange(resp.data);
       }).catch((err) => {
-        console.log(err.message);
+        error(err.message);
       })
   )
 }
@@ -217,18 +230,20 @@ const PostPolicy = async ( render , setRender , actionId , moduleId ) => {
   await instance.post('/policy/', {actionId: actionId , moduleId:moduleId})
     .then(resp => {
       setRender(!render)
-      console.log(resp);
+      succesPost();
     }).catch((err) => {
-      console.log(err.message);
+      error(err.message);
   });
 }
 
+const PutPolicy = async (id , actions , render , setRender) => {
+  await instance.put(`/policy/${id}` , {actions:actions , status: "published"})
+  .then(resp => {
+    setRender(!render)
+    succesPut();
+  }).catch((err) => {
+    error(err.message);
+  });
+}
 
-
-
-
-
-
-
-  
-export {getActions , PostActions , PutActions , getClients , PostClients , PutClients , getEmployees , getEmployeesById , getPermissions , PostPermissions , PutPermission , getRoles , PostRoles , PutRoles , getModules , getModulesTree , PostModule , PutModule , getPolicy , PostPolicy };
+export { login , getActions , PostActions , PutActions , getClients , PostClients , PutClients , getEmployees , getEmployeesById , getPermissions , PostPermissions , PutPermission , getRoles , PostRoles , PutRoles , getModules , getModulesTree , PostModule , PutModule , getPolicy , PostPolicy , PutPolicy };

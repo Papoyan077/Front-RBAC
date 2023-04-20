@@ -7,6 +7,7 @@ import instance from '../../../utils/axios';
 import UpdatePermission from './UpdatePermission';
 import SearchFunc from '../../search';
 import { getPermissions } from '../../../utils/Route';
+import { cancel, error, succesDelete } from '../../../utils/Messages';
 const { confirm } = Modal;
 
 const Permissions = () => {
@@ -68,12 +69,12 @@ const Permissions = () => {
         });
         instance.delete(`/permission/${record.id}`)
         .then(res => {
-            console.log(res);
+            succesDelete();
         })
-        .catch(err => console.log(err))
+        .catch(err => error(err.message))
       },
       onCancel() {
-            console.log("Deletion process is canceled");
+          cancel();
       },
     });
   };

@@ -2,6 +2,7 @@ import { Input, Modal} from 'antd';
 import { useState } from 'react';
 import { EditOutlined } from "@ant-design/icons";
 import { PutActions } from '../../../utils/Route';
+import { cancel } from '../../../utils/Messages';
 
 const UpdateAction = ({render, setRender , id , titl}) => {
   const [title, setTitle] = useState(titl);
@@ -20,7 +21,10 @@ const UpdateAction = ({render, setRender , id , titl}) => {
         centered
         open={open}
         onOk={() => UpdateActions()}
-        onCancel={() => { setOpen(false)} }
+        onCancel={() => { 
+          cancel();
+          setOpen(false) 
+        }}
         width={500}
       >
         <Input value={title} onChange={e => setTitle(e.target.value)} placeholder="Action Title" />

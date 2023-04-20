@@ -2,6 +2,7 @@ import { Input, Modal} from 'antd';
 import {useState} from 'react';
 import { PostActions } from '../../../utils/Route';
 import {PlusCircleOutlined} from "@ant-design/icons";
+import { cancel } from '../../../utils/Messages';
 
 const AddAction = ({render, setRender}) => {
     const [title, setTitle] = useState('');
@@ -24,7 +25,10 @@ const AddAction = ({render, setRender}) => {
                     AddActions();
                     setTitle('');
                 }}
-                onCancel={() => { setOpen(false) }}
+                onCancel={() => { 
+                    cancel();
+                    setOpen(false) 
+                }}
                 width={500}
             >
                 <Input value={title} onChange={e => setTitle(e.target.value)} placeholder="Action Title"/>

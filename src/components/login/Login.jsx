@@ -3,18 +3,12 @@ import {LockOutlined, UserOutlined} from '@ant-design/icons';
 import {Button, Form, Input} from 'antd';
 import instance from "../../utils/axios";
 import {useNavigate} from "react-router-dom";
+import { login } from '../../utils/Route';
 
 function Login() {
     const navigate = useNavigate();
     const handleSubmit = (values) => {
-        instance.post(`/login/`, {"login": values.username, "password": values.password})
-            .then(resp => {
-                if (resp.status===200){
-                    navigate("/layout/")
-                }
-            }).catch((err) => {
-            console.log(err.message);
-        })
+        login(values.username , values.password , navigate);
     }
 
 

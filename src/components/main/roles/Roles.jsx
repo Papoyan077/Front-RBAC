@@ -8,6 +8,7 @@ import instance from '../../../utils/axios';
 import RolePermissionMore from "./RolePermissionMore";
 import SearchFunc from '../../search';
 import { getRoles } from '../../../utils/Route';
+import { cancel, error, succesDelete } from '../../../utils/Messages';
 
 const { confirm } = Modal;
 
@@ -70,12 +71,12 @@ const Roles = () => {
         });
         instance.delete(`/role/${record.id}`)
         .then(res => {
-            console.log(res);
+            succesDelete();
         })
-        .catch(err => console.log(err))
+        .catch(err => error(err.message))
       },
       onCancel() {
-            console.log("Deletion pcrocess is canceled");
+          cancel();
       },
     });
   };

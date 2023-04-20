@@ -3,6 +3,8 @@ import {useEffect, useState} from 'react';
 import instance from '../../../utils/axios';
 import {EditOutlined} from '@ant-design/icons';
 import {Checkbox} from 'antd';
+import { cancel } from '../../../utils/Messages';
+import { PutPolicy, getActions } from '../../../utils/Route';
 
 const UpdatePolicy = ({render, setRender, id, moduleTitle, record}) => {
     const [open, setOpen] = useState(false);
@@ -14,12 +16,7 @@ const UpdatePolicy = ({render, setRender, id, moduleTitle, record}) => {
         return lastIndex
     }
     useEffect(() => {
-        instance.get(`/action/`)
-            .then(resp => {
-                actionDataChange(resp.data);
-            }).catch((err) => {
-            console.log(err.message);
-        })
+        getActions(actionDataChange);
     }, [render]);
     const onChange = (checkedValues) => {
         if (checkedValues.target.checked) {
@@ -33,13 +30,7 @@ const UpdatePolicy = ({render, setRender, id, moduleTitle, record}) => {
     };
 
     const UpdatePolicies = async () => {
-        await instance.put(`/policy/${id}`, {actions: actions, status: "published"})
-            .then(resp => {
-                setRender(!render)
-                setActions([])
-            }).catch((err) => {
-                console.log(err.message);
-            });
+        PutPolicy(id , actions , render , setRender);
         setOpen(false);
     };
     const ids = record.actions.map((m) => {
@@ -62,6 +53,7 @@ const UpdatePolicy = ({render, setRender, id, moduleTitle, record}) => {
                     setActions([]);
                 }}
                 onCancel={() => {
+                    cancel();
                     setOpen(false)
                     setActions([]);
                 }

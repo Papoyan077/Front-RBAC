@@ -2,6 +2,7 @@ import {Input, Modal} from 'antd';
 import {useState} from 'react';
 import { EditOutlined } from "@ant-design/icons";
 import { PutClients } from '../../../utils/Route';
+import { cancel } from '../../../utils/Messages';
 
 const UpdateClient = ({render, setRender, id , titl}) => {
     const [title, setTitle] = useState(titl);
@@ -19,8 +20,9 @@ const UpdateClient = ({render, setRender, id , titl}) => {
                 open={open}
                 onOk={() => UpdateClients()}
                 onCancel={() => {
-                    setOpen(false)}
-                  }
+                    cancel();
+                    setOpen(false)
+                }}
                 width={500}
             >
                 <Input value={title} onChange={e => setTitle(e.target.value)} placeholder="Client Title"/>

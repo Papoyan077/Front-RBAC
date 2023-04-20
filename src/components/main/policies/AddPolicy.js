@@ -3,7 +3,8 @@ import {useCallback, useEffect, useState} from 'react';
 import instance from "../../../utils/axios";
 import {Checkbox} from 'antd';
 import {PlusCircleOutlined} from "@ant-design/icons";
-import { PostPolicy } from '../../../utils/Route';
+import { PostPolicy, getActions, getModules } from '../../../utils/Route';
+import { cancel } from '../../../utils/Messages';
 
 
 const AddPolicy = () => {
@@ -22,21 +23,11 @@ const AddPolicy = () => {
     } , []);
 
     useEffect(() => {
-        instance.get(`/module/`)
-            .then(resp => {
-                modulesDataChange(resp.data);
-            }).catch((err) => {
-            console.log(err.message);
-        })
+        getModules(modulesDataChange);
     }, []);
 
     useEffect(() => {
-        instance.get(`/action/`)
-            .then(resp => {
-                actionDataChange(resp.data);
-            }).catch((err) => {
-            console.log(err.message);
-        })
+        getActions(actionDataChange);
     }, []);
 
     const options = []
@@ -63,7 +54,10 @@ const AddPolicy = () => {
                 centered
                 open={open}
                 onOk={() => AddPolicy()}
-                onCancel={() => setOpen(false)}
+                onCancel={() => {
+                    cancel();
+                    setOpen(false)
+                }}
                 width={600}
             >
                 <Select

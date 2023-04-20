@@ -6,6 +6,7 @@ import SearchFunc from '../../search';
 import {DeleteOutlined, ExclamationCircleFilled} from '@ant-design/icons';
 import instance from '../../../utils/axios';
 import UpdateModule from './UpdateModule';
+import { cancel, error, succesDelete } from '../../../utils/Messages';
 
 const {confirm} = Modal;
 
@@ -77,12 +78,12 @@ const Modules = () => {
                 instance.delete(`/module/${record.id}`)
                     .then(res => {
                         setRender(!render)
-                        console.log(res);
+                        succesDelete();
                     })
-                    .catch(err => console.log(err))
+                    .catch(err => error(err.message))
             },
             onCancel() {
-                console.log("Deletion pcrocess is canceled");
+                cancel();
             },
         });
     };
