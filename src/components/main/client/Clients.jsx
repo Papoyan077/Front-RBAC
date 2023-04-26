@@ -1,6 +1,6 @@
-import { Table , Modal } from 'antd';
+import { Table, Modal } from 'antd';
 import { DeleteOutlined } from "@ant-design/icons";
-import { useEffect , useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ExclamationCircleFilled } from "@ant-design/icons";
 import { getClients } from '../../../utils/Route';
 import AddClient from "./AddClient";
@@ -15,8 +15,12 @@ const Clients = () => {
   const [clientData, clientDataChange] = useState(null);
 
   useEffect(() => {
-      getClients(clientDataChange);
+    async function fetchData() {
+      await getClients(clientDataChange)
+    }
+    fetchData()
   }, [render]);
+
   let lastIndex = 0
   const updateIndex = () => {
     lastIndex++
@@ -24,8 +28,8 @@ const Clients = () => {
   }
   const [columns] = useState([
     {
-      title : "Title" ,
-      dataIndex : "title",
+      title: "Title",
+      dataIndex: "title",
       ...SearchFunc('title'),
     },
     {
@@ -33,8 +37,8 @@ const Clients = () => {
       render: (record) => {
         return (
           <div className='actionsIcons'>
-            <UpdateClient titl={record.title} render={render} setRender={setRender} id={record.id}/>
-            <DeleteOutlined onClick={() => { showDeleteConfirm(record) }} className='deleteIcons'/>
+            <UpdateClient titl={record.title} render={render} setRender={setRender} id={record.id} />
+            <DeleteOutlined onClick={() => { showDeleteConfirm(record) }} className='deleteIcons' />
           </div>
         );
       },
@@ -54,24 +58,24 @@ const Clients = () => {
           return client.filter((item) => item.id !== record.id);
         });
         instance.delete(`/client/${record.id}`)
-        .then(res => {
+          .then(res => {
             succesDelete();
-        })
-        .catch(err => error(err.message))
+          })
+          .catch(err => error(err.message))
       },
       onCancel() {
-          cancel();
+        cancel();
       },
     });
   };
 
   return (
     <div className='main'>
-        <div className="mainTitle">
-            <span>Clients</span>
-            <AddClient render={render} setRender={setRender} />
-        </div>
-        <Table columns={columns} dataSource={clientData} rowKey={updateIndex} scroll={{y : 350}} className='tableStyle'/>
+      <div className="mainTitle">
+        <span>Clients</span>
+        <AddClient render={render} setRender={setRender} />
+      </div>
+      <Table columns={columns} dataSource={clientData} rowKey={updateIndex} scroll={{ y: 445 }} className='tableStyle' />
     </div>
   )
 };

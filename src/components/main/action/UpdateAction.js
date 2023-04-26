@@ -1,29 +1,33 @@
-import { Input, Modal} from 'antd';
+import { Input, Modal } from 'antd';
 import { useState } from 'react';
 import { EditOutlined } from "@ant-design/icons";
 import { PutActions } from '../../../utils/Route';
 import { cancel } from '../../../utils/Messages';
 
-const UpdateAction = ({render, setRender , id , titl}) => {
+const UpdateAction = ({ render, setRender, id, titl }) => {
   const [title, setTitle] = useState(titl);
   const [open, setOpen] = useState(false);
 
   const UpdateActions = async () => {
-    PutActions(id , title , render , setRender);
+    const result = await PutActions(id, title, render);
+    setRender(result);
     setOpen(false);
   }
 
   return (
     <>
-      <EditOutlined onClick={() => {setOpen(true)}}/>
+      <EditOutlined onClick={() => { setOpen(true) }} />
       <Modal
         title="Update Action"
         centered
         open={open}
-        onOk={() => UpdateActions()}
-        onCancel={() => { 
+        onOk={() => {
+          UpdateActions();
+          setRender(!render);
+        }}
+        onCancel={() => {
           cancel();
-          setOpen(false) 
+          setOpen(false)
         }}
         width={500}
       >

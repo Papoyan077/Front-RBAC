@@ -6,7 +6,7 @@ import router from './router/Router'
 export default function App() {
   return (
     <div>
-        <RouterProvider router={router} />
+      <RouterProvider router={router} />
     </div>
   )
 }

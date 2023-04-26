@@ -1,19 +1,19 @@
-import { Input, Modal , Select, Space } from 'antd';
+import { Input, Modal, Select, Space } from 'antd';
 import { useCallback, useEffect, useState } from 'react';
-import { getPermissions , getPolicy, PutPermission } from '../../../utils/Route';
+import { getPermissions, getPolicy, PutPermission } from '../../../utils/Route';
 import { EditOutlined } from "@ant-design/icons";
 import { cancel } from '../../../utils/Messages';
 const { Option } = Select;
 
-const UpdatePermission = ({render, setRender , id}) => {
+const UpdatePermission = ({ render, setRender, id }) => {
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState('');
   const [Policydata, PolicyDataChange] = useState(null);
-  const [policy , setPolicy] = useState('');
+  const [policy, setPolicy] = useState('');
   const [permissiondata, permissionDataChange] = useState(null);
-  
+
   useEffect(() => {
-      getPermissions(permissionDataChange);
+    getPermissions(permissionDataChange);
   }, [render]);
 
   useEffect(() => {
@@ -22,16 +22,17 @@ const UpdatePermission = ({render, setRender , id}) => {
 
   const handleChange = useCallback((value) => {
     setPolicy(value);
-  } , []);
+  }, []);
 
   const UpdatePermissions = async () => {
-    PutPermission(id , title , render , setRender , policy);
+    const result = await PutPermission(id, title, render, policy);
+    setRender(result);
     setOpen(false);
     setTitle('');
   }
   return (
     <>
-        <EditOutlined onClick={() => setOpen(true)} />
+      <EditOutlined onClick={() => setOpen(true)} />
       <Modal
         title="Update Permission"
         centered
@@ -39,6 +40,7 @@ const UpdatePermission = ({render, setRender , id}) => {
         onOk={() => {
           UpdatePermissions()
           setPolicy(null)
+          setRender(!render);
         }}
         onCancel={() => {
           cancel();
@@ -48,7 +50,7 @@ const UpdatePermission = ({render, setRender , id}) => {
       >
         <Input
           value={title}
-          onChange={e => setTitle(e.target.value)} 
+          onChange={e => setTitle(e.target.value)}
           placeholder="Title"
         />
         <Space
@@ -57,16 +59,16 @@ const UpdatePermission = ({render, setRender , id}) => {
             width: '100%',
           }}
         >
-          <Select mode='multiple' style={{width : "100%"}} placeholder="Select Modules" onChange={handleChange}>
-            { Policydata ?
+          <Select mode='multiple' style={{ width: "100%" }} placeholder="Select Modules" onChange={handleChange}>
+            {Policydata ?
               Policydata.map(item => {
-                return(
+                return (
                   <Option key={item.id} value={item.id}>
                     {item.title}
                   </Option>
                 )
               })
-            : null}
+              : null}
           </Select>
         </Space>
       </Modal>

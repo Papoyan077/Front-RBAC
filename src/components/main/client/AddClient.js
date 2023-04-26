@@ -1,21 +1,21 @@
-import { Input, Modal} from 'antd';
-import {useState} from 'react';
+import { Input, Modal } from 'antd';
+import { useState } from 'react';
 import { PostClients } from '../../../utils/Route';
-import {PlusCircleOutlined} from "@ant-design/icons";
+import { PlusCircleOutlined } from "@ant-design/icons";
 import { cancel } from '../../../utils/Messages';
 
-const AddClient = ({render, setRender}) => {
+const AddClient = ({ render, setRender }) => {
     const [title, setTitle] = useState('');
     const [open, setOpen] = useState(false);
 
     const AddClients = async () => {
-        PostClients(title , render , setRender);
+        PostClients(title, render, setRender);
         setOpen(false);
     }
-    
+
     return (
         <>
-            <PlusCircleOutlined  style={{color:"grey",fontSize:"25px" , display:"flex",justifyContent:"center",alignItems:"center" }} onClick={() => { setOpen(true) }}/>
+            <PlusCircleOutlined style={{ color: "grey", fontSize: "25px", display: "flex", justifyContent: "center", alignItems: "center" }} onClick={() => { setOpen(true) }} />
             <Modal
                 title="Add Client"
                 centered
@@ -30,7 +30,7 @@ const AddClient = ({render, setRender}) => {
                 }}
                 width={500}
             >
-                <Input value={title} onChange={e => setTitle(e.target.value)} placeholder="Client Title"/>
+                <Input value={title} onChange={e => setTitle(e.target.value)} placeholder="Client Title" />
             </Modal>
         </>
     );

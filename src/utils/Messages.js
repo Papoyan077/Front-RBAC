@@ -24,4 +24,4 @@ const cancel = (err) => {
     message.info("Cancel");
 };
 
-export {succesPost , succesLogin , succesPut , succesDelete , error , cancel};
+export { succesPost, succesLogin, succesPut, succesDelete, error, cancel };

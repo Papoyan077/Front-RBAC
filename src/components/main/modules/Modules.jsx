@@ -1,46 +1,51 @@
-import {Table, Modal} from 'antd';
-import {useEffect, useState} from 'react';
+import { Table, Modal } from 'antd';
+import { useEffect, useState } from 'react';
 import AddModule from './AddModule';
-import {getModulesTree} from '../../../utils/Route';
+import { getModulesTree } from '../../../utils/Route';
 import SearchFunc from '../../search';
-import {DeleteOutlined, ExclamationCircleFilled} from '@ant-design/icons';
+import { DeleteOutlined, ExclamationCircleFilled } from '@ant-design/icons';
 import instance from '../../../utils/axios';
 import UpdateModule from './UpdateModule';
 import { cancel, error, succesDelete } from '../../../utils/Messages';
 
-const {confirm} = Modal;
+const { confirm } = Modal;
 
 const Modules = () => {
     const [render, setRender] = useState(false);
     const [modulesData, modulesDataChange] = useState(null);
 
     useEffect(() => {
-        getModulesTree(modulesDataChange);
+        async function fetchData() {
+            await getModulesTree(modulesDataChange);
+        }
+        fetchData()
     }, [render]);
+
     let lastIndex = 0
     const updateIndex = () => {
         lastIndex++
         return lastIndex
     }
+
     modulesData &&
-    modulesData.map((first) => {
-        first.key = `modules${updateIndex()}`
-        if (first.children != null) {
-            first.children.map((second) => {
-                second.key = `child${updateIndex()}`
-                if (second.children != null) {
-                    second.children.map((third) => {
-                        third.key = `child${updateIndex()}`
-                        if (third.children != null) {
-                            third.children.map((fourth) => {
-                                fourth.key = `child${updateIndex()}`
-                            })
-                        }
-                    })
-                }
-            })
-        }
-    });
+        modulesData.map((first) => {
+            first.key = `modules${updateIndex()}`
+            if (first.children != null) {
+                first.children.map((second) => {
+                    second.key = `child${updateIndex()}`
+                    if (second.children != null) {
+                        second.children.map((third) => {
+                            third.key = `child${updateIndex()}`
+                            if (third.children != null) {
+                                third.children.map((fourth) => {
+                                    fourth.key = `child${updateIndex()}`
+                                })
+                            }
+                        })
+                    }
+                })
+            }
+        });
 
     const [columns] = useState([
         {
@@ -54,19 +59,20 @@ const Modules = () => {
             render: (record) => {
                 return (
                     <div className='actionsIcons'>
-                        <UpdateModule titl={record.title} render={render} setRender={setRender} id={record.id}/>
+                        <UpdateModule titl={record.title} render={render} setRender={setRender} id={record.id} />
                         <DeleteOutlined onClick={() => {
                             showDeleteConfirm(record)
-                        }} className='deleteIcons'/>
+                        }} className='deleteIcons' />
                     </div>
                 );
             },
         },
     ]);
+
     const showDeleteConfirm = (record) => {
         confirm({
             title: 'Are you sure delete this Item?',
-            icon: <ExclamationCircleFilled/>,
+            icon: <ExclamationCircleFilled />,
             content: `Item name is (${record.title}):`,
             okText: 'Yes',
             okType: 'danger',
@@ -92,15 +98,13 @@ const Modules = () => {
         <div className='main'>
             <div className="mainTitle">
                 <span>Modules</span>
-                <AddModule render={render} setRender={setRender}/>
+                <AddModule render={render} setRender={setRender} />
             </div>
-
             <Table
                 columns={columns}
                 dataSource={modulesData}
-                scroll={{y: 350}}
+                scroll={{ y: 445 }}
                 className='tableStyle'
-
             />
         </div>
     )

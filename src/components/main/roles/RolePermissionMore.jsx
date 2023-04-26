@@ -1,5 +1,5 @@
-import { Collapse, Modal , Space } from 'antd';
-import { MoreOutlined  } from "@ant-design/icons";
+import { Collapse, Modal, Space } from 'antd';
+import { MoreOutlined } from "@ant-design/icons";
 
 const RolePermissionMore = (permissions) => {
   let lastIndex = 0
@@ -21,7 +21,7 @@ const RolePermissionMore = (permissions) => {
           }
         </Collapse>
       ),
-      onOk() {},
+      onOk() { },
     })
   }
 

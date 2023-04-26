@@ -1,8 +1,7 @@
-import { Modal, Select} from 'antd';
-import {useCallback, useEffect, useState} from 'react';
-import instance from "../../../utils/axios";
-import {Checkbox} from 'antd';
-import {PlusCircleOutlined} from "@ant-design/icons";
+import { Modal, Select } from 'antd';
+import { useCallback, useEffect, useState } from 'react';
+import { Checkbox } from 'antd';
+import { PlusCircleOutlined } from "@ant-design/icons";
 import { PostPolicy, getActions, getModules } from '../../../utils/Route';
 import { cancel } from '../../../utils/Messages';
 
@@ -11,8 +10,8 @@ const AddPolicy = () => {
     const [open, setOpen] = useState(false);
     const [actionData, actionDataChange] = useState([]);
     const [modulesData, modulesDataChange] = useState([]);
-    const [moduleId , setModuleId] = useState('');
-    const [actionId , setActionId] = useState('');
+    const [moduleId, setModuleId] = useState('');
+    const [actionId, setActionId] = useState('');
     let lastIndex = 0
     const updateIndex = () => {
         lastIndex++
@@ -20,7 +19,7 @@ const AddPolicy = () => {
     }
     const onChange = useCallback((checkedValues) => {
         setActionId(checkedValues);
-    } , []);
+    }, []);
 
     useEffect(() => {
         getModules(modulesDataChange);
@@ -31,24 +30,24 @@ const AddPolicy = () => {
     }, []);
 
     const options = []
-    modulesData.map((e)=>
+    modulesData.map((e) =>
         options.push({
             value: e.id,
             label: e.title,
-    }));
+        }));
 
     const AddPolicy = async () => {
-        PostPolicy(actionId , moduleId);
+        PostPolicy(actionId, moduleId);
         setOpen(false);
     }
 
     const handleChange = useCallback((value) => {
         setModuleId(value);
-    } , []);
+    }, []);
 
     return (
         <>
-            <PlusCircleOutlined  style={{color:"grey",fontSize:"25px" , display:"flex",justifyContent:"center",alignItems:"center" }} onClick={() => { setOpen(true) }}/>
+            <PlusCircleOutlined style={{ color: "grey", fontSize: "25px", display: "flex", justifyContent: "center", alignItems: "center" }} onClick={() => { setOpen(true) }} />
             <Modal
                 title="Add Policy"
                 centered
@@ -81,10 +80,10 @@ const AddPolicy = () => {
                     }}
                     onChange={onChange}
                 >
-                            <div style={{marginTop:"5%"}}>
-                                Select Actions :  {actionData.map((e)=>
-                                <Checkbox onChange={onChange} key={`action${updateIndex()}`}  value={e.id}>{e.title}</Checkbox>
-                            )}</div>
+                    <div style={{ marginTop: "5%" }}>
+                        Select Actions :  {actionData.map((e) =>
+                            <Checkbox onChange={onChange} key={`action${updateIndex()}`} value={e.id}>{e.title}</Checkbox>
+                        )}</div>
                 </Checkbox.Group>
 
             </Modal>

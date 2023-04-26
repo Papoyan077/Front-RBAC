@@ -1,17 +1,17 @@
 import * as React from 'react';
-import {LockOutlined, UserOutlined} from '@ant-design/icons';
-import {Button, Form, Input} from 'antd';
-import instance from "../../utils/axios";
-import {useNavigate} from "react-router-dom";
+import { LockOutlined, UserOutlined } from '@ant-design/icons';
+import { Button, Form, Input } from 'antd';
+import { useNavigate } from "react-router-dom";
 import { login } from '../../utils/Route';
 
 function Login() {
     const navigate = useNavigate();
     const handleSubmit = (values) => {
-        login(values.username , values.password , navigate);
+        login(values.username, values.password, navigate);
     }
 
 
+    
     return (
         <div style={{
             display: "flex",
@@ -22,7 +22,7 @@ function Login() {
             height: "100vh"
         }}>
             <div>
-                <img src="#" alt="Logo"/>
+                <img src="#" alt="Logo" />
             </div>
 
             <Form
@@ -42,7 +42,7 @@ function Login() {
                         },
                     ]}
                 >
-                    <Input prefix={<UserOutlined className="site-form-item-icon"/>} placeholder="Username"/>
+                    <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
                 </Form.Item>
                 <Form.Item
                     name="password"
@@ -54,7 +54,7 @@ function Login() {
                     ]}
                 >
                     <Input
-                        prefix={<LockOutlined className="site-form-item-icon"/>}
+                        prefix={<LockOutlined className="site-form-item-icon" />}
                         type="password"
                         placeholder="Password"
                     />

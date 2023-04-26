@@ -1,4 +1,4 @@
-import { Table , Modal } from 'antd';
+import { Table, Modal } from 'antd';
 import { DeleteOutlined } from "@ant-design/icons";
 import { useEffect, useState } from 'react';
 import { ExclamationCircleFilled } from "@ant-design/icons";
@@ -13,44 +13,50 @@ import { cancel, error, succesDelete } from '../../../utils/Messages';
 const { confirm } = Modal;
 
 const Roles = () => {
-    const [render, setRender] = useState(false);
-    const [roleData, roleDataChange] = useState(null);
-    useEffect(() => {
-        getRoles(roleDataChange)
-    }, [render]);
-    let lastIndex = 0
-    const updateIndex = () => {
-        lastIndex++
-        return lastIndex
+  const [render, setRender] = useState(false);
+  const [roleData, roleDataChange] = useState(null);
+
+  useEffect(() => {
+    async function fetchData() {
+      await getRoles(roleDataChange);
     }
+    fetchData();
+  }, [render]);
+
+  let lastIndex = 0
+  const updateIndex = () => {
+    lastIndex++
+    return lastIndex
+  }
+
   const [columns] = useState([
     {
-      title : "Title" ,
-      dataIndex : "title",
+      title: "Title",
+      dataIndex: "title",
       ...SearchFunc('title')
     },
     {
-        title : "Permissions",
-        render: (record) => {
-            return (
-            <>
-                {record.permissions?.slice(0 , 1).map(perm => {
-                    return (
-                        <span key={`action${updateIndex()}`}>{perm.title}</span>
-                    )
-                })}
-                ({record.permissions.length > 0 ? record.permissions.length : null}) <RolePermissionMore permissions={record.permissions} />
-            </>
-            )
-        }
+      title: "Permissions",
+      render: (record) => {
+        return (
+          <>
+            {record.permissions?.slice(0, 1).map(perm => {
+              return (
+                <span key={`action${updateIndex()}`}>{perm.title}</span>
+              )
+            })}
+            ({record.permissions.length > 0 ? record.permissions.length : null}) <RolePermissionMore permissions={record.permissions} />
+          </>
+        )
+      }
     },
     {
       title: "Actions",
       render: (record) => {
         return (
           <div className='actionsIcons'>
-            <UpdateRole titl={record.title} render={render} setRender={setRender} id={record.id}/>
-            <DeleteOutlined onClick={() => { showDeleteConfirm(record) }} className='deleteIcons'/>
+            <UpdateRole titl={record.title} render={render} setRender={setRender} id={record.id} />
+            <DeleteOutlined onClick={() => { showDeleteConfirm(record) }} className='deleteIcons' />
           </div>
         );
       },
@@ -70,31 +76,31 @@ const Roles = () => {
           return role.filter((item) => item.id !== record.id);
         });
         instance.delete(`/role/${record.id}`)
-        .then(res => {
+          .then(res => {
             succesDelete();
-        })
-        .catch(err => error(err.message))
+          })
+          .catch(err => error(err.message))
       },
       onCancel() {
-          cancel();
+        cancel();
       },
     });
   };
 
   return (
     <div className='main'>
-        <div className="mainTitle">
-            <span>Roles</span>
+      <div className="mainTitle">
+        <span>Roles</span>
         <AddRole render={render} setRender={setRender} />
-        </div>
-        <Table 
-            columns={columns} 
-            dataSource={roleData} 
-            scroll={{y : 350}} 
-            style={{width: "98%"}}
-            className='tableStyle'
-            rowKey={updateIndex}
-        />
+      </div>
+      <Table
+        columns={columns}
+        dataSource={roleData}
+        scroll={{ y: 445 }}
+        style={{ width: "98%" }}
+        className='tableStyle'
+        rowKey={updateIndex}
+      />
 
     </div>
   )

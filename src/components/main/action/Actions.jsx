@@ -1,28 +1,33 @@
-import {Table, Modal} from 'antd';
-import {DeleteOutlined} from "@ant-design/icons";
-import {useEffect, useState} from 'react';
-import {ExclamationCircleFilled} from "@ant-design/icons";
+import { Table, Modal } from 'antd';
+import { DeleteOutlined } from "@ant-design/icons";
+import { useEffect, useState } from 'react';
+import { ExclamationCircleFilled } from "@ant-design/icons";
 import UpdateAction from './UpdateAction';
 import AddAction from './AddAction';
 import SearchFunc from '../../search';
 import instance from '../../../utils/axios';
-import {getActions} from '../../../utils/Route';
+import { getActions } from '../../../utils/Route';
 import { cancel, error, succesDelete } from '../../../utils/Messages';
 
-const {confirm} = Modal;
+const { confirm } = Modal;
 
 const Actions = () => {
     const [render, setRender] = useState(false);
     const [ActionsData, ActionsDataChange] = useState(null);
 
     useEffect(() => {
-        getActions(ActionsDataChange)
+        async function fetchData() {
+            await getActions(ActionsDataChange);
+        }
+        fetchData();
     }, [render]);
+
     let lastIndex = 0
     const updateIndex = () => {
         lastIndex++
-        return lastIndex
+        return lastIndex;
     }
+
     const [columns] = useState([
         {
             title: "Title",
@@ -34,10 +39,10 @@ const Actions = () => {
             render: (record) => {
                 return (
                     <div className='actionsIcons'>
-                        <UpdateAction titl={record.title} render={render} setRender={setRender} id={record.id}/>
+                        <UpdateAction titl={record.title} render={render} setRender={setRender} id={record.id} />
                         <DeleteOutlined onClick={() => {
                             showDeleteConfirm(record)
-                        }} className='deleteIcons'/>
+                        }} className='deleteIcons' />
                     </div>
                 );
             },
@@ -47,7 +52,7 @@ const Actions = () => {
     const showDeleteConfirm = (record) => {
         confirm({
             title: 'Are you sure delete this action?',
-            icon: <ExclamationCircleFilled/>,
+            icon: <ExclamationCircleFilled />,
             content: `Action name is (${record.title}):`,
             okText: 'Yes',
             okType: 'danger',
@@ -64,6 +69,7 @@ const Actions = () => {
             },
             onCancel() {
                 cancel();
+
             },
         });
     };
@@ -72,8 +78,8 @@ const Actions = () => {
         <div className='main'>
             <div className="mainTitle">
                 <span>Actions</span>
-                <AddAction render={render} setRender={setRender}/></div>
-            <Table columns={columns} dataSource={ActionsData} scroll={{y: 350}} rowKey={updateIndex} className='tableStyle'/>
+                <AddAction render={render} setRender={setRender} /></div>
+            <Table columns={columns} dataSource={ActionsData} scroll={{ y: 445 }} rowKey={updateIndex} className='tableStyle' />
         </div>
     )
 };

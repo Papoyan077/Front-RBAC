@@ -1,4 +1,4 @@
-import { Table , Modal } from 'antd';
+import { Table, Modal } from 'antd';
 import { DeleteOutlined } from "@ant-design/icons";
 import { useEffect, useState } from 'react';
 import { ExclamationCircleFilled } from "@ant-design/icons";
@@ -11,44 +11,49 @@ import { cancel, error, succesDelete } from '../../../utils/Messages';
 const { confirm } = Modal;
 
 const Permissions = () => {
-    const [render, setRender] = useState(false);
-    const [permissionData, permissionDataChange] = useState(null);
-    useEffect(() => {
-        getPermissions(permissionDataChange);
-    }, [render]);
-
-    let lastIndex = 0
-    const updateIndex = () => {
-        lastIndex++
-        return lastIndex
+  const [render, setRender] = useState(false);
+  const [permissionData, permissionDataChange] = useState(null);
+  useEffect(() => {
+    async function fetchData() {
+      await getPermissions(permissionDataChange);
     }
+    fetchData();
+  }, [render]);
+  console.log(permissionData);
+
+  let lastIndex = 0
+  const updateIndex = () => {
+    lastIndex++
+    return lastIndex
+  }
   const [columns] = useState([
     {
-      title : "Title" ,
-      dataIndex : "title",
+      title: "Title",
+      dataIndex: "title",
       ...SearchFunc('title'),
     },
     {
-        title : "Policy Modules",
-        render: (record) => {
-            return (
-            <div>
-                {record.policies?.map(policy => {
-                    return (
-                        <span key={`policy${updateIndex()}`}>{policy.policyModule.title}</span>
-                    )
-                })}
-            </div>
-            )
-        }
+      title: "Policy Modules",
+      render: (record) => {
+        return (
+          <div>
+            {record.policies?.map(policy => {
+              console.log(policy);
+              return (
+                <span key={`policy${updateIndex()}`}>{policy.policyModule.title}</span>
+              )
+            })}
+          </div>
+        )
+      }
     },
     {
       title: "Actions",
       render: (record) => {
         return (
           <div className='actionsIcons'>
-            <UpdatePermission titl={record.title} render={render} setRender={setRender} id={record.id}/>
-            <DeleteOutlined onClick={() => { showDeleteConfirm(record) }} className='deleteIcons'/>
+            <UpdatePermission titl={record.title} render={render} setRender={setRender} id={record.id} />
+            <DeleteOutlined onClick={() => { showDeleteConfirm(record) }} className='deleteIcons' />
           </div>
         );
       },
@@ -68,30 +73,30 @@ const Permissions = () => {
           return permission.filter((item) => item.id !== record.id);
         });
         instance.delete(`/permission/${record.id}`)
-        .then(res => {
+          .then(res => {
             succesDelete();
-        })
-        .catch(err => error(err.message))
+          })
+          .catch(err => error(err.message))
       },
       onCancel() {
-          cancel();
+        cancel();
       },
     });
   };
 
   return (
     <div className='main'>
-        <div className="mainTitle">
-            <span>Permissions</span>
+      <div className="mainTitle">
+        <span>Permissions</span>
         <AddPermission render={render} setRender={setRender} />
-        </div>
-        <Table
-            columns={columns} 
-            dataSource={permissionData} 
-            scroll={{y : 350}}
-            className='tableStyle'
-            rowKey={updateIndex}
-        />
+      </div>
+      <Table
+        columns={columns}
+        dataSource={permissionData}
+        scroll={{ y: 445 }}
+        className='tableStyle'
+        rowKey={updateIndex}
+      />
 
     </div>
   )

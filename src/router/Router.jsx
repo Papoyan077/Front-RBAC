@@ -15,7 +15,7 @@ const router = createBrowserRouter(
     createRoutesFromElements(
         <>
             <Route>
-                <Route  element={<PrivateRoutes />}>
+                <Route element={<PrivateRoutes />}>
                     <Route path="/layout" element={<Layout />}>
                         <Route index={'employees'} element={<Employees />} />
                         <Route path={'employees'} element={<Employees />} />
@@ -25,9 +25,9 @@ const router = createBrowserRouter(
                         <Route path="permissions" element={<Permissions />} />
                         <Route path="roles" element={<Roles />} />
                         <Route path="actions" element={<Actions />} />
-                        <Route path="policies" element={<Policies/>} />
-                        </Route>
+                        <Route path="policies" element={<Policies />} />
                     </Route>
+                </Route>
                 <Route path="/" element={<Login />} />
             </Route>
         </>

@@ -5,11 +5,11 @@ import Navbar from '../components/navbar/Navbar'
 export default function Layout() {
   return (
     <div>
-        <Header />
-        <div style={{display : "flex"}}>
-            <Navbar />
-            <Outlet />
-        </div>
+      <Header />
+      <div style={{ display: "flex" }}>
+        <Navbar />
+        <Outlet />
+      </div>
     </div>
   )
 }

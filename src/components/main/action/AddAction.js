@@ -1,22 +1,22 @@
-import { Input, Modal} from 'antd';
-import {useState} from 'react';
+import { Input, Modal } from 'antd';
+import { useState } from 'react';
 import { PostActions } from '../../../utils/Route';
-import {PlusCircleOutlined} from "@ant-design/icons";
+import { PlusCircleOutlined } from "@ant-design/icons";
 import { cancel } from '../../../utils/Messages';
 
-const AddAction = ({render, setRender}) => {
+const AddAction = ({ render, setRender }) => {
     const [title, setTitle] = useState('');
     const [open, setOpen] = useState(false);
 
     const AddActions = () => {
-        PostActions(title , render , setRender)
-        setTitle('');    
+        PostActions(title, render, setRender)
+        setTitle('');
         setOpen(false);
     }
 
     return (
         <>
-            <PlusCircleOutlined  style={{color:"grey",fontSize:"25px" , display:"flex",justifyContent:"center",alignItems:"center" }} onClick={() => { setOpen(true) }}/>
+            <PlusCircleOutlined style={{ color: "grey", fontSize: "25px", display: "flex", justifyContent: "center", alignItems: "center" }} onClick={() => { setOpen(true) }} />
             <Modal
                 title="Add Action"
                 centered
@@ -25,13 +25,13 @@ const AddAction = ({render, setRender}) => {
                     AddActions();
                     setTitle('');
                 }}
-                onCancel={() => { 
+                onCancel={() => {
                     cancel();
-                    setOpen(false) 
+                    setOpen(false)
                 }}
                 width={500}
             >
-                <Input value={title} onChange={e => setTitle(e.target.value)} placeholder="Action Title"/>
+                <Input value={title} onChange={e => setTitle(e.target.value)} placeholder="Action Title" />
             </Modal>
         </>
     );
