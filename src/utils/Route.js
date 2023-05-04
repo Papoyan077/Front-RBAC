@@ -1,11 +1,11 @@
+import { setCookie } from "../components/login/LoginAcces";
 import { error, loginError, succesLogin, succesPost, succesPut } from "./Messages";
 import instance from "./axios";
-
-
 
 const login = async (username, password, navigate) => {
   instance.post(`/login/`, { "login": username, "password": password })
     .then(resp => {
+      setCookie('token',resp.data.token , 60000);
       if (resp.status === 200) {
         succesLogin(username)
         navigate("/layout/")
@@ -13,7 +13,8 @@ const login = async (username, password, navigate) => {
     }).catch(() => {
       loginError()
     })
-}
+};
+
 ////Actions
 const getActions = async (ActionsDataChange) => {
   return (

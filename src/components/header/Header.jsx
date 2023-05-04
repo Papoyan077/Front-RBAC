@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { Button } from "antd";
 import { LogoutOutlined } from "@ant-design/icons";
+import { setCookie } from '../login/LoginAcces';
 
 
 export default function Header() {
@@ -11,7 +12,7 @@ export default function Header() {
                 <div>INSTIGATE MOBILE</div>
                 <div className="headerButton">
                     <Link to='/'>
-                        <Button type={"text"}><LogoutOutlined /></Button>
+                        <Button onClick={() => {setCookie('token' , null , null)}} type={"text"}><LogoutOutlined /></Button>
                     </Link>
                 </div>
             </div>
