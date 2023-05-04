@@ -55,7 +55,6 @@ const Modules = () => {
             ...SearchFunc('title'),
         },
         {
-            title: "Actions",
             render: (record) => {
                 return (
                     <div className='actionsIcons'>

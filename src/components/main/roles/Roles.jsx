@@ -51,7 +51,6 @@ const Roles = () => {
       }
     },
     {
-      title: "Actions",
       render: (record) => {
         return (
           <div className='actionsIcons'>
@@ -97,7 +96,6 @@ const Roles = () => {
         columns={columns}
         dataSource={roleData}
         scroll={{ y: 445 }}
-        style={{ width: "98%" }}
         className='tableStyle'
         rowKey={updateIndex}
       />

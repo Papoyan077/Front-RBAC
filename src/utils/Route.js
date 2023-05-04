@@ -1,4 +1,4 @@
-import { error, succesLogin, succesPost, succesPut } from "./Messages";
+import { error, loginError, succesLogin, succesPost, succesPut } from "./Messages";
 import instance from "./axios";
 
 
@@ -10,8 +10,8 @@ const login = async (username, password, navigate) => {
         succesLogin(username)
         navigate("/layout/")
       }
-    }).catch((err) => {
-      error(err.message)
+    }).catch(() => {
+      loginError()
     })
 }
 ////Actions

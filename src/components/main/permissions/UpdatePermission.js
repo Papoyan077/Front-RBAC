@@ -21,6 +21,7 @@ const UpdatePermission = ({ render, setRender, id }) => {
   }, [render]);
 
   const handleChange = useCallback((value) => {
+    console.log(value);
     setPolicy(value);
   }, []);
 
@@ -55,13 +56,12 @@ const UpdatePermission = ({ render, setRender, id }) => {
         />
         <Space
           direction="vertical"
-          style={{
-            width: '100%',
-          }}
+          className="w-100"
         >
-          <Select mode='multiple' style={{ width: "100%" }} placeholder="Select Modules" onChange={handleChange}>
+          <Select mode='multiple'  className="w-100" placeholder="Select Modules" onChange={handleChange}>
             {Policydata ?
               Policydata.map(item => {
+                // console.log(item);
                 return (
                   <Option key={item.id} value={item.id}>
                     {item.title}

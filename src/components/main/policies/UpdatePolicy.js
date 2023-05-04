@@ -63,10 +63,10 @@ const UpdatePolicy = ({ render, setRender, id, moduleTitle, record }) => {
                 }
                 }
             >
-                <div style={{ display: "flex", flexDirection: "column" }}>
-                    <span style={{ fontSize: "20px" }}>Module Name: {moduleTitle}</span>
-                    <div style={{ marginTop: "5%" }}>
-                        Select Actions : {actionData.map((action) =>
+                <div>
+                    <h3>Module Name: {moduleTitle}</h3>
+                    <div>
+                        <h3>Select Actions : </h3> {actionData.map((action) =>
                             <Checkbox onChange={onChange} defaultChecked={ids.includes(action.id)}
                                 key={`action${updateIndex()}`} value={action.id}>{action.title}</Checkbox>
                         )}</div>

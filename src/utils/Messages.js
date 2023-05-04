@@ -20,8 +20,12 @@ const error = (err) => {
     message.error(err);
 };
 
+const loginError = () => {
+    message.error("Incorrect Username or Password!!!");
+};
+
 const cancel = (err) => {
     message.info("Cancel");
 };
 
-export { succesPost, succesLogin, succesPut, succesDelete, error, cancel };
+export { succesPost, succesLogin, succesPut, succesDelete, error, cancel , loginError };

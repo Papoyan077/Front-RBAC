@@ -16,7 +16,7 @@ const AddAction = ({ render, setRender }) => {
 
     return (
         <>
-            <PlusCircleOutlined style={{ color: "grey", fontSize: "25px", display: "flex", justifyContent: "center", alignItems: "center" }} onClick={() => { setOpen(true) }} />
+            <PlusCircleOutlined className="addButton" onClick={() => { setOpen(true) }} />
             <Modal
                 title="Add Action"
                 centered

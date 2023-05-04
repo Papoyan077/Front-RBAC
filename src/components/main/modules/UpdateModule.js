@@ -34,9 +34,7 @@ const UpdateModule = ({ render, setRender, id, titl }) => {
       >
         <Space
           direction="vertical"
-          style={{
-            width: '100%',
-          }}
+          className="w-100"
         >
           <Input
             value={title}

@@ -53,11 +53,9 @@ const UpdateRole = ({ render, setRender, id, titl }) => {
         />
         <Space
           direction="vertical"
-          style={{
-            width: '100%',
-          }}
+          className="w-100"
         >
-          <Select mode='multiple' style={{ width: "100%" }} placeholder="Select Permissions" onChange={handleChange}>
+          <Select mode='multiple' className="w-100" placeholder="Select Permissions" onChange={handleChange}>
             {permissiondata ?
               permissiondata.map(item => {
                 return (

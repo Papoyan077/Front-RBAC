@@ -31,7 +31,7 @@ const AddPermission = ({ render, setRender }) => {
 
   return (
     <>
-      <PlusCircleOutlined style={{ color: "grey", fontSize: "25px", display: "flex", justifyContent: "center", alignItems: "center" }} onClick={() => { setOpen(true) }} />
+      <PlusCircleOutlined  className="addButton" onClick={() => { setOpen(true) }} />
       <Modal
         title="Add Permission"
         centered
@@ -54,11 +54,9 @@ const AddPermission = ({ render, setRender }) => {
         />
         <Space
           direction="vertical"
-          style={{
-            width: '100%',
-          }}
+          className="w-100"
         >
-          <Select mode='multiple' style={{ width: "100%" }} placeholder="Select Policy" onChange={handleChange}>
+          <Select mode='multiple'  className="w-100" placeholder="Select Policy" onChange={handleChange}>
             {Policydata ?
               Policydata.map(item => {
                 return (

@@ -37,7 +37,7 @@ const AddModule = ({ render, setRender }) => {
 
   return (
     <>
-      <PlusCircleOutlined style={{ color: "grey", fontSize: "25px", display: "flex", justifyContent: "center", alignItems: "center" }} onClick={() => { setOpen(true) }} />
+      <PlusCircleOutlined className="addButton" onClick={() => { setOpen(true) }} />
       <Modal
         title="Add Module"
         centered
@@ -56,16 +56,14 @@ const AddModule = ({ render, setRender }) => {
       >
         <Space
           direction="vertical"
-          style={{
-            width: '100%',
-          }}
+          className="w-100"
         >
           <Input
             value={title}
             onChange={e => setTitle(e.target.value)}
             placeholder="Title"
           />
-          <Select style={{ width: "100%" }} placeholder="Select Parent" onChange={ChangeParent}>
+          <Select  className="w-100" placeholder="Select Parent" onChange={ChangeParent}>
             {moduleData ?
               moduleData.map(item => {
                 return (
@@ -76,8 +74,7 @@ const AddModule = ({ render, setRender }) => {
               })
               : null}
           </Select>
-
-          <Select style={{ width: "100%" }} placeholder="Select Client" onChange={ChangeClient}>
+          <Select  className="w-100" placeholder="Select Client" onChange={ChangeClient}>
             {clientData ?
               clientData.map(item => {
                 return (
