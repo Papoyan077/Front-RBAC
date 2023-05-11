@@ -21,6 +21,8 @@ const Modules = () => {
         fetchData()
     }, [render]);
 
+    console.log(modulesData)
+
     let lastIndex = 0
     const updateIndex = () => {
         lastIndex++
