@@ -21,11 +21,18 @@ body {
 }
 
 .addButton {
-    color: green;
+    color: grey;
     font-size: 25px;
     display: flex;
     justify-content: center;
     align-items: center
+}
+.addButton span {
+    margin-left: 5px;
+}
+
+.modal_input{
+    margin-bottom: 5px;
 }
 
 .w-100 {

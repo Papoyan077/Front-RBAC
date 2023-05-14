@@ -17,7 +17,7 @@ const Employees = () => {
     navigate("/layout/detail/" + id);
   }
   useEffect(() => {
-    getEmployees(employeesDataChange);
+    getEmployees(employeesDataChange)
   }, []);
 
   const [columns] = useState([
@@ -29,10 +29,12 @@ const Employees = () => {
     {
       title: "FirstName",
       dataIndex: "firstName",
+      ...SearchFunc('firstName'),
     },
     {
       title: "LastName",
       dataIndex: "lastName",
+      ...SearchFunc('lastName'),
     },
     {
       render: (record) => {

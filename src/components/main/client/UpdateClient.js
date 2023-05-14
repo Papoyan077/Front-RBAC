@@ -1,4 +1,4 @@
-import { Input, Modal } from 'antd';
+import {Form, Input, Modal} from 'antd';
 import { useState } from 'react';
 import { EditOutlined } from "@ant-design/icons";
 import { PutClients } from '../../../utils/Route';
@@ -29,8 +29,24 @@ const UpdateClient = ({ render, setRender, id, titl }) => {
                     setOpen(false)
                 }}
                 width={500}
-            >
-                <Input value={title} onChange={e => setTitle(e.target.value)} placeholder="Client Title" />
+            ><Form
+                labelCol={{
+                    span: 6,
+                }}
+                wrapperCol={{
+                    span: 12,
+                }}
+                layout="horizontal"
+                style={{
+                    maxWidth: 800,
+                }}>
+                <Form.Item
+                    label="Title"
+                    name="Title"
+                    rules={[{ required: true, message: 'Please input title!' }]}
+                >
+                    <Input value={title} onChange={e => setTitle(e.target.value)}/>
+                </Form.Item></Form>
             </Modal>
         </>
     );

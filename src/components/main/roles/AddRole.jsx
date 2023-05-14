@@ -1,4 +1,4 @@
-import { Input, Modal, Select, Space } from 'antd';
+import {Form, Input, Modal, Select, Space} from 'antd';
 import { useCallback, useEffect, useState } from 'react';
 import { getPermissions, PostRoles } from '../../../utils/Route';
 import { PlusCircleOutlined } from "@ant-design/icons";
@@ -27,7 +27,11 @@ const AddRole = ({ render, setRender }) => {
 
   return (
     <>
-      <PlusCircleOutlined className="addButton" onClick={() => { setOpen(true) }} />
+        <div className="addButton" >
+            <span>Add</span><PlusCircleOutlined onClick={() => {
+            setOpen(true)
+        }}/>
+        </div>
       <Modal
         title="Add Role"
         centered
@@ -42,17 +46,38 @@ const AddRole = ({ render, setRender }) => {
         }}
         width={700}
       >
-        <Input
-          value={title}
-          onChange={e => setTitle(e.target.value)}
-          placeholder="Title"
-        // maxTagCount='responsive'
-        />
+        <Form
+            labelCol={{
+              span: 6,
+            }}
+            wrapperCol={{
+              span: 12,
+            }}
+            layout="horizontal"
+            style={{
+              maxWidth: 800,
+            }}>
+        <Form.Item
+            label="Title"
+            name="Title"
+            rules={[{ required: true, message: 'Please input title!' }]}>
+          <Input
+              value={title}
+              onChange={e => setTitle(e.target.value)}
+              className='modal_input'
+              // maxTagCount='responsive'
+          />
+        </Form.Item>
+        <Form.Item
+            label="Permissions"
+            name="permissions"
+            rules={[{ required: true, message: 'Please select permissions!' }]}
+        >
         <Space
           direction="vertical"
           className="w-100"
         >
-          <Select mode='multiple' className="w-100" placeholder="Select Permissions" onChange={handleChange}>
+          <Select mode='multiple' className="w-100"  onChange={handleChange}>
             {permissiondata ?
               permissiondata.map(item => {
                 //  console.log(item);
@@ -64,7 +89,7 @@ const AddRole = ({ render, setRender }) => {
               })
               : null}
           </Select>
-        </Space>
+        </Space></Form.Item></Form>
       </Modal>
     </>
   );

@@ -1,27 +1,26 @@
-import { Table, Modal } from 'antd';
+import { Table } from 'antd';
 import { useEffect, useState } from 'react';
 import AddModule from './AddModule';
-import { getModulesTree } from '../../../utils/Route';
+import { getActivity, getModulesTree } from '../../../utils/Route';
 import SearchFunc from '../../search';
-import { DeleteOutlined, ExclamationCircleFilled } from '@ant-design/icons';
-import instance from '../../../utils/axios';
+import { DeleteOutlined } from '@ant-design/icons';
 import UpdateModule from './UpdateModule';
-import { cancel, error, succesDelete } from '../../../utils/Messages';
-
-const { confirm } = Modal;
+import { showDeleteConfirm } from '../../delete';
 
 const Modules = () => {
     const [render, setRender] = useState(false);
     const [modulesData, modulesDataChange] = useState(null);
+    const [activity, activityDataChange] = useState(null);
+
 
     useEffect(() => {
         async function fetchData() {
             await getModulesTree(modulesDataChange);
+            await getActivity(activityDataChange);
         }
         fetchData()
     }, [render]);
-
-    console.log(modulesData)
+    console.log(modulesData);
 
     let lastIndex = 0
     const updateIndex = () => {
@@ -57,49 +56,52 @@ const Modules = () => {
             ...SearchFunc('title'),
         },
         {
+            title: "Client",
+            render: (record) => {
+                if (record.client.title!==null){
+                return (
+                    <>
+                        <span key={`client${updateIndex()}`}>{record.client.title}</span>
+                    </>
+                )
+            }else {
+                    return (
+                        <span></span>
+                    )
+                }
+            }
+        },
+        {
+            title: "Activities",
+            render: (record) => {
+                return (
+                    <>
+                        {record.activities?.map(item => {
+                            return (
+                                <span key={`activity${updateIndex()}`}>{item.title}</span>
+                            )
+                        })}
+                    </>
+                )
+            }
+        },
+        {
             render: (record) => {
                 return (
                     <div className='actionsIcons'>
                         <UpdateModule titl={record.title} render={render} setRender={setRender} id={record.id} />
-                        <DeleteOutlined onClick={() => {
-                            showDeleteConfirm(record)
-                        }} className='deleteIcons' />
+                        <DeleteOutlined onClick={() => { showDeleteConfirm(record, 'module', 'module', modulesDataChange) }} className='deleteIcons' />
                     </div>
                 );
             },
         },
     ]);
 
-    const showDeleteConfirm = (record) => {
-        confirm({
-            title: 'Are you sure delete this Item?',
-            icon: <ExclamationCircleFilled />,
-            content: `Item name is (${record.title}):`,
-            okText: 'Yes',
-            okType: 'danger',
-            cancelText: 'No',
-            onOk() {
-                modulesDataChange((module) => {
-                    return module.filter((item) => item.id !== record.id);
-                });
-                instance.delete(`/module/${record.id}`)
-                    .then(res => {
-                        setRender(!render)
-                        succesDelete();
-                    })
-                    .catch(err => error(err.message))
-            },
-            onCancel() {
-                cancel();
-            },
-        });
-    };
-
     return (
         <div className='main'>
             <div className="mainTitle">
                 <span>Modules</span>
-                <AddModule render={render} setRender={setRender} />
+                <AddModule render={render} setRender={setRender} activity={activity} />
             </div>
             <Table
                 columns={columns}

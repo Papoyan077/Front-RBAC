@@ -26,7 +26,7 @@ const items = [
         <ProjectOutlined />
     ),
     getItem(
-        <Link to={"actions"}> Actions </Link>,
+        <Link to={"activity"}> Activities </Link>,
         '3',
         <FormOutlined />
     ),

@@ -1,10 +1,4 @@
 const setCookie = (name, jwt, time) => {
-    // let currentTime = new Date();
-    // currentTime.setHours(currentTime.getHours() + time);
-    // var cookieString = `${name}=${jwt}; expires="${currentTime.toUTCString()}"; path=/`;
-    // document.cookie = cookieString;
-
-
     let currentTime = new Date().getTime();
     let expirationTime = currentTime + time;
     document.cookie = `${name}=${jwt}; expires="${new Date(expirationTime).toUTCString()}"; path=/`;

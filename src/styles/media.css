@@ -2,11 +2,7 @@
 (max-width: 480px) {}
 
 @media screen and (min-width:481px),
-(max-width: 768px) {
-    body {
-        background-color: red;
-    }
-}
+(max-width: 768px) {}
 
 @media screen and (min-width:769px),
 (max-width: 1024px) {}

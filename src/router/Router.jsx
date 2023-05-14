@@ -6,10 +6,10 @@ import EmpDetail from "../components/main/employees/EmpDetail";
 import Clients from "../components/main/client/Clients"
 import Modules from "../components/main/modules/Modules";
 import Roles from "../components/main/roles/Roles";
-import Actions from "../components/main/action/Actions";
 import Permissions from "../components/main/permissions/Permissions";
 import Policies from "../components/main/policies/Policies";
 import Layout from "../layout/Layout";
+import Activity from "../components/main/activity/Activity";
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -24,7 +24,7 @@ const router = createBrowserRouter(
                         <Route path="modules" element={<Modules />} />
                         <Route path="permissions" element={<Permissions />} />
                         <Route path="roles" element={<Roles />} />
-                        <Route path="actions" element={<Actions />} />
+                        <Route path="activity" element={<Activity />} />
                         <Route path="policies" element={<Policies />} />
                     </Route>
                 </Route>

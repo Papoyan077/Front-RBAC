@@ -3,12 +3,12 @@ import { useEffect, useState } from 'react';
 import { EditOutlined } from '@ant-design/icons';
 import { Checkbox } from 'antd';
 import { cancel } from '../../../utils/Messages';
-import { PutPolicy, getActions } from '../../../utils/Route';
+import { PutPolicy, getActivity } from '../../../utils/Route';
 
 const UpdatePolicy = ({ render, setRender, id, moduleTitle, record }) => {
     const [open, setOpen] = useState(false);
-    const [actions, setActions] = useState([]);
-    const [actionData, actionDataChange] = useState([]);
+    const [activity, setActivity] = useState([]);
+    const [activityData, activityDataChange] = useState([]);
 
     let lastIndex = 0;
     const updateIndex = () => {
@@ -17,27 +17,26 @@ const UpdatePolicy = ({ render, setRender, id, moduleTitle, record }) => {
     }
 
     useEffect(() => {
-        getActions(actionDataChange);
+        getActivity(activityDataChange);
     }, [render]);
 
     const onChange = (checkedValues) => {
-        if (checkedValues.target.checked && !actions.includes(checkedValues.target.value)) {
-            actions.push(checkedValues.target.value);
+        if (checkedValues.target.checked && !activity.includes(checkedValues.target.value)) {
+            activity.push(checkedValues.target.value);
         }
         else {
-            actions.pop(checkedValues.target.value)
-            console.log(actions)
+            activity.pop(checkedValues.target.value)
         }
     }
 
     const UpdatePolicies = async () => {
-        const result = await PutPolicy(id, actions, render, setRender);
+        const result = await PutPolicy(id, activity, render, setRender);
         setRender(result)
         setOpen(false);
     }
 
-    const ids = record.actions.map((m) => {
-        actions.push(m.id)
+    const ids = record.activity.map((m) => {
+        activity.push(m.id)
         return m.id
     });
 
@@ -45,7 +44,7 @@ const UpdatePolicy = ({ render, setRender, id, moduleTitle, record }) => {
         <>
             <EditOutlined onClick={() => {
                 setOpen(true)
-                setActions([])
+                setActivity([])
             }} />
             <Modal
                 title="Update Policy"
@@ -54,21 +53,21 @@ const UpdatePolicy = ({ render, setRender, id, moduleTitle, record }) => {
                 onOk={() => {
                     UpdatePolicies();
                     setRender(!render)
-                    setActions([]);
+                    setActivity([]);
                 }}
                 onCancel={() => {
                     cancel();
-                    setActions([]);
+                    setActivity([]);
                     setOpen(false)
                 }
                 }
             >
-                <div>
-                    <h3>Module Name: {moduleTitle}</h3>
-                    <div>
-                        <h3>Select Actions : </h3> {actionData.map((action) =>
-                            <Checkbox onChange={onChange} defaultChecked={ids.includes(action.id)}
-                                key={`action${updateIndex()}`} value={action.id}>{action.title}</Checkbox>
+                <div style={{ display: "flex", flexDirection: "column" }}>
+                    <span style={{ fontSize: "20px" }}>Module Name: {moduleTitle}</span>
+                    <div style={{ marginTop: "5%" }}>
+                        Select Activities : {activityData.map((activity) =>
+                            <Checkbox onChange={onChange} defaultChecked={ids.includes(activity.id)}
+                                key={`activity${updateIndex()}`} value={activity.id}>{activity.title}</Checkbox>
                         )}</div>
                 </div>
             </Modal>

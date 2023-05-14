@@ -1,15 +1,16 @@
 import {Form, Input, Modal} from 'antd';
 import { useState } from 'react';
-import { PostClients } from '../../../utils/Route';
+import { PostActivity } from '../../../utils/Route';
 import { PlusCircleOutlined } from "@ant-design/icons";
 import { cancel } from '../../../utils/Messages';
 
-const AddClient = ({ render, setRender }) => {
+const AddActivity = ({ render, setRender }) => {
     const [title, setTitle] = useState('');
     const [open, setOpen] = useState(false);
 
-    const AddClients = async () => {
-        PostClients(title, render, setRender);
+    const AddActivities = () => {
+        PostActivity(title, render, setRender)
+        setTitle('');
         setOpen(false);
     }
 
@@ -21,12 +22,12 @@ const AddClient = ({ render, setRender }) => {
             }}/>
             </div>
             <Modal
-                title="Add Client"
+                title="Add Activity"
                 centered
                 open={open}
                 onOk={() => {
-                    AddClients()
-                    setTitle('')
+                    AddActivities();
+                    setTitle('');
                 }}
                 onCancel={() => {
                     cancel();
@@ -49,10 +50,11 @@ const AddClient = ({ render, setRender }) => {
                     name="Title"
                     rules={[{ required: true, message: 'Please input title!' }]}
                 >
-                <Input value={title} onChange={e => setTitle(e.target.value)}/>
+                    <Input value={title} onChange={e => setTitle(e.target.value)} />
                 </Form.Item></Form>
+
             </Modal>
         </>
     );
 };
-export default AddClient;
+export default AddActivity;

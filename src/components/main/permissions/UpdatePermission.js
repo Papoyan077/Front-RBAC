@@ -1,4 +1,4 @@
-import { Input, Modal, Select, Space } from 'antd';
+import { Form,Input, Modal, Select, Space } from 'antd';
 import { useCallback, useEffect, useState } from 'react';
 import { getPermissions, getPolicy, PutPermission } from '../../../utils/Route';
 import { EditOutlined } from "@ant-design/icons";
@@ -49,28 +49,48 @@ const UpdatePermission = ({ render, setRender, id }) => {
         }}
         width={500}
       >
-        <Input
-          value={title}
-          onChange={e => setTitle(e.target.value)}
-          placeholder="Title"
-        />
-        <Space
-          direction="vertical"
-          className="w-100"
+        <Form
+            labelCol={{
+              span: 6,
+            }}
+            wrapperCol={{
+              span: 12,
+            }}
+            layout="horizontal"
+            style={{
+              maxWidth: 800,
+            }}>
+        <Form.Item
+            label="Title"
+            name="title"
+            rules={[{ required: true, message: 'Please input title!' }]}
         >
-          <Select mode='multiple'  className="w-100" placeholder="Select Modules" onChange={handleChange}>
-            {Policydata ?
-              Policydata.map(item => {
-                // console.log(item);
-                return (
-                  <Option key={item.id} value={item.id}>
-                    {item.title}
-                  </Option>
-                )
-              })
-              : null}
-          </Select>
-        </Space>
+          <Input
+              value={title}
+              onChange={e => setTitle(e.target.value)}
+              className='modal_input'
+          /></Form.Item>
+        <Form.Item
+            label="Policy"
+            name="policy"
+            rules={[{ required: true, message: 'Please select policy!' }]}
+        >
+          <Space
+              direction="vertical"
+              className="w-100"
+          >
+            <Select mode='multiple' className="w-100" onChange={handleChange}>
+              {Policydata ?
+                  Policydata.map(item => {
+                    return (
+                        <Option key={item.id} value={item.id}>
+                          {item.title}
+                        </Option>
+                    )
+                  })
+                  : null}
+            </Select>
+          </Space></Form.Item></Form>
       </Modal>
     </>
   );

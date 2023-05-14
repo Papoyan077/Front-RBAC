@@ -1,16 +1,12 @@
-import { Table, Modal } from 'antd';
+import { Table } from 'antd';
 import { DeleteOutlined } from "@ant-design/icons";
 import { useEffect, useState } from 'react';
-import { ExclamationCircleFilled } from "@ant-design/icons";
 import AddRole from "./AddRole"
 import UpdateRole from "./UpdateRole"
-import instance from '../../../utils/axios';
 import RolePermissionMore from "./RolePermissionMore";
 import SearchFunc from '../../search';
 import { getRoles } from '../../../utils/Route';
-import { cancel, error, succesDelete } from '../../../utils/Messages';
-
-const { confirm } = Modal;
+import { showDeleteConfirm } from '../../delete';
 
 const Roles = () => {
   const [render, setRender] = useState(false);
@@ -55,36 +51,12 @@ const Roles = () => {
         return (
           <div className='actionsIcons'>
             <UpdateRole titl={record.title} render={render} setRender={setRender} id={record.id} />
-            <DeleteOutlined onClick={() => { showDeleteConfirm(record) }} className='deleteIcons' />
+            <DeleteOutlined onClick={() => { showDeleteConfirm(record, 'role', 'role', roleDataChange) }} className='deleteIcons' />
           </div>
         );
       },
     },
   ]);
-
-  const showDeleteConfirm = (record) => {
-    confirm({
-      title: 'Are you sure delete this action?',
-      icon: <ExclamationCircleFilled />,
-      content: `Action name is (${record.title}):`,
-      okText: 'Yes',
-      okType: 'danger',
-      cancelText: 'No',
-      onOk() {
-        roleDataChange((role) => {
-          return role.filter((item) => item.id !== record.id);
-        });
-        instance.delete(`/role/${record.id}`)
-          .then(res => {
-            succesDelete();
-          })
-          .catch(err => error(err.message))
-      },
-      onCancel() {
-        cancel();
-      },
-    });
-  };
 
   return (
     <div className='main'>
@@ -96,6 +68,7 @@ const Roles = () => {
         columns={columns}
         dataSource={roleData}
         scroll={{ y: 445 }}
+        style={{ width: "98%" }}
         className='tableStyle'
         rowKey={updateIndex}
       />
