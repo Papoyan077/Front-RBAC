@@ -13,7 +13,7 @@ const AddModule = ({render, setRender, activity}) => {
     const [clientData, setClientData] = useState(null);
     const [client, setClient] = useState(null);
     const [parent, setParent] = useState(null);
-    const [activitys, setActivitys] = useState(null);
+    const [activities, setActivitys] = useState(null);
 
 
     useEffect(() => {
@@ -38,7 +38,7 @@ const AddModule = ({render, setRender, activity}) => {
 
 
     const AddModule = async () => {
-        PostModule(title, render, setRender, client, parent, activitys);
+        PostModule(title, render, setRender, client, parent, activities);
         setOpen(false);
         setTitle('');
     }
@@ -59,7 +59,7 @@ const AddModule = ({render, setRender, activity}) => {
                     setTitle('');
                     setClient(null);
                     setParent(null);
-                    activity(null);
+                    activities(null);
                 }}
                 onCancel={() => {
                     cancel();

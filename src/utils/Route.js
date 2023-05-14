@@ -204,8 +204,8 @@ const getModulesTree = async (modulesDataChange) => {
   )
 }
 
-const PostModule = async (title, render, setRender, clientId, parentId , activity) => {
-  await instance.post('/module/', { title: title, clientId: clientId, parentId: parentId , activity: activity })
+const PostModule = async (title, render, setRender, clientId, parentId , activities) => {
+  await instance.post('/module/', { title: title, clientId: clientId, parentId: parentId , activities: activities })
     .then(() => {
       setRender(!render)
       succesPost();
