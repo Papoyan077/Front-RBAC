@@ -37,16 +37,16 @@ const Policies = () => {
         },
 
         {
-            title: "Actions",
+            title: "Activities",
             render: (record) => {
                 return (
                     <>
-                        {record.actions?.slice(0, 1).map(action => {
+                        {record.activity?.slice(0, 1).map(activity => {
                             return (
-                                <span key={`action${updateIndex()}`}>{action.title}</span>
+                                <span key={`Activities${updateIndex()}`}>{activity.title}</span>
                             )
                         })}
-                        ({record.actions.length >= 0 ? record.actions.length : 0}) <PolicyActionsMore actions={record.actions} />
+                        ({record.activity.length >= 0 ? record.activity.length : 0}) <PolicyActionsMore actions={record.activity} />
                     </>
                 );
             },

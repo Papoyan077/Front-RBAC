@@ -1,4 +1,4 @@
-import {Form, Input, Modal} from 'antd';
+import { Button, Form, Input, Modal } from 'antd';
 import { useState } from 'react';
 import { EditOutlined } from "@ant-design/icons";
 import { PutActivity } from '../../../utils/Route';
@@ -21,33 +21,42 @@ const UpdateActivity = ({ render, setRender, id, titl }) => {
         title="Update Activity"
         centered
         open={open}
-        onOk={() => {
-          UpdateActivities();
-          setRender(!render);
-        }}
+        footer={null}
         onCancel={() => {
           cancel();
           setOpen(false)
         }}
         width={500}
-      ><Form
-          labelCol={{
-              span: 6,
-          }}
-          wrapperCol={{
-              span: 12,
-          }}
+        destroyOnClose
+      >
+        <Form
+          labelCol={{ span: 6 }}
+          wrapperCol={{ span: 12 }}
           layout="horizontal"
-          style={{
-              maxWidth: 800,
-          }}>
+          style={{ maxWidth: 800 }}
+          onFinish={() => {
+            UpdateActivities();
+            setRender(!render);
+          }}
+        >
           <Form.Item
-              label="Title"
-              name="Title"
-              rules={[{ required: true, message: 'Please input title!' }]}
+            label="Title"
+            name="title"
+            valuePropName={title}
+            rules={[
+              { required: true, message: 'Please input title!' },
+              { min: 3 }
+            ]}
+            hasFeedback
           >
-              <Input value={title} onChange={e => setTitle(e.target.value)}/>
-          </Form.Item></Form>
+            <Input value={title} onChange={e => setTitle(e.target.value)} />
+          </Form.Item>
+          <Form.Item wrapperCol={{ span: 24 }} style={{ marginTop: '15px' }}>
+            <Button block type='primary' htmlType='submit'>
+              Send
+            </Button>
+          </Form.Item>
+        </Form>
       </Modal>
     </>
   );

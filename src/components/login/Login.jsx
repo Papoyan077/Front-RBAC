@@ -15,7 +15,6 @@ function Login() {
                 <img src="#" alt="Logo" />
             </div>
             <Form
-                layout="horizontal"
                 name="normal_login"
                 className="login-form"
                 initialValues={{
@@ -24,8 +23,8 @@ function Login() {
                 onFinish={handleSubmit}
             >
                 <Form.Item
-                    label="Username"
                     name="username"
+                    label='Username'
                     rules={[
                         {
                             required: true,
@@ -35,11 +34,11 @@ function Login() {
                         },
                     ]}
                 >
-                    <Input prefix={<UserOutlined className="site-form-item-icon" />}/>
+                    <Input prefix={<UserOutlined className="site-form-item-icon" />} />
                 </Form.Item>
                 <Form.Item
-                    label="Password"
                     name="password"
+                    label='Password'
                     rules={[
                         {
                             required: true,
@@ -49,7 +48,7 @@ function Login() {
                         },
                     ]}
                 >
-                     <Input
+                    <Input
                         prefix={<LockOutlined className="site-form-item-icon" />}
                         type="password"
                     />

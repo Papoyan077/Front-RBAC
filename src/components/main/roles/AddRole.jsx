@@ -1,9 +1,7 @@
-import {Form, Input, Modal, Select, Space} from 'antd';
+import { Button, Form, Input, Modal, Select, Space } from 'antd';
 import { useCallback, useEffect, useState } from 'react';
 import { getPermissions, PostRoles } from '../../../utils/Route';
-import { PlusCircleOutlined } from "@ant-design/icons";
 import { cancel } from '../../../utils/Messages';
-const { Option } = Select;
 
 const AddRole = ({ render, setRender }) => {
   const [open, setOpen] = useState(false);
@@ -27,69 +25,81 @@ const AddRole = ({ render, setRender }) => {
 
   return (
     <>
-        <div className="addButton" >
-            <span>Add</span><PlusCircleOutlined onClick={() => {
-            setOpen(true)
-        }}/>
-        </div>
+      <Button onClick={() => { setOpen(true) }}>
+        Add Role
+      </Button>
       <Modal
         title="Add Role"
         centered
         open={open}
-        onOk={() => {
-          AddRoles();
-          setTitle('');
-        }}
+        footer={null}
         onCancel={() => {
           cancel();
           setOpen(false)
         }}
+        destroyOnClose
         width={700}
       >
         <Form
-            labelCol={{
-              span: 6,
-            }}
-            wrapperCol={{
-              span: 12,
-            }}
-            layout="horizontal"
-            style={{
-              maxWidth: 800,
-            }}>
-        <Form.Item
+          labelCol={{ span: 6 }}
+          wrapperCol={{ span: 12 }}
+          layout="horizontal"
+          style={{ maxWidth: 800 }}
+          onFinish={() => {
+            AddRoles();
+            setTitle('');
+          }}
+        >
+          <Form.Item
             label="Title"
             name="Title"
-            rules={[{ required: true, message: 'Please input title!' }]}>
-          <Input
+            rules={[
+              { required: true, message: 'Please write input title!' },
+              { min: 3 }
+            ]}
+            hasFeedback
+          >
+            <Input
               value={title}
               onChange={e => setTitle(e.target.value)}
               className='modal_input'
-              // maxTagCount='responsive'
-          />
-        </Form.Item>
-        <Form.Item
+            />
+          </Form.Item>
+
+          <Form.Item
             label="Permissions"
             name="permissions"
             rules={[{ required: true, message: 'Please select permissions!' }]}
-        >
-        <Space
-          direction="vertical"
-          className="w-100"
-        >
-          <Select mode='multiple' className="w-100"  onChange={handleChange}>
-            {permissiondata ?
-              permissiondata.map(item => {
-                //  console.log(item);
-                return (
-                  <Option key={item.id} value={item.id}>
-                    {item.title}
-                  </Option>
-                )
-              })
-              : null}
-          </Select>
-        </Space></Form.Item></Form>
+            hasFeedback
+          >
+            <Space
+              direction="vertical"
+              className="w-100"
+            >
+              <Select
+                mode='multiple'
+                className="w-100"
+                onChange={handleChange}
+                maxTagCount="responsive"
+              >
+                {permissiondata ?
+                  permissiondata.map((item) => {
+                    return (
+                      <Select.Option key={item.id} value={item.id}>
+                        {item.title}
+                      </Select.Option>
+                    )
+                  })
+                  : null}
+              </Select>
+            </Space>
+          </Form.Item>
+          <Form.Item wrapperCol={{ span: 24 }} style={{ marginTop: '15px' }}>
+            <Button block type='primary' htmlType='submit'>
+              Send
+            </Button>
+          </Form.Item>
+        </Form>
       </Modal>
     </>
   );

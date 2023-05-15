@@ -18,20 +18,10 @@ body {
     flex-direction: column;
     width: 100vw;
     height: 100vh;
+    text-align: center;
 }
 
-.addButton {
-    color: grey;
-    font-size: 25px;
-    display: flex;
-    justify-content: center;
-    align-items: center
-}
-.addButton span {
-    margin-left: 5px;
-}
-
-.modal_input{
+.modal_input {
     margin-bottom: 5px;
 }
 
@@ -99,7 +89,10 @@ body {
     align-items: center;
     justify-content: space-between;
     font-size: 25px;
-    margin-right: 5vw
+    margin-right: 2%;
+}
+.ant-form-item{
+    margin-bottom: 0;
 }
 
 .bgColor {

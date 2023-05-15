@@ -1,15 +1,23 @@
-import {Form, Input, Modal, Select, Space} from 'antd';
+import { Button, Form, Input, Modal, Select, Space } from 'antd';
 import { EditOutlined } from "@ant-design/icons";
 import { useCallback, useEffect, useState } from 'react';
 import { getPermissions, PutRoles } from '../../../utils/Route';
 import { cancel } from '../../../utils/Messages';
 const { Option } = Select;
 
-const UpdateRole = ({ render, setRender, id, titl }) => {
+const UpdateRole = ({ render, setRender, id, titl, permissions }) => {
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState(titl);
   const [permission, setPermission] = useState('');
   const [permissiondata, permissionDataChange] = useState(null);
+
+  const getSelected = () => {
+    let selected = [];
+    permissions.map((item) => {
+      return selected.push(item.id)
+    })
+    return selected
+  }
 
   useEffect(() => {
     getPermissions(permissionDataChange);
@@ -32,62 +40,77 @@ const UpdateRole = ({ render, setRender, id, titl }) => {
         title="Update Role"
         centered
         open={open}
-        onOk={() => {
-          UpdateRoles();
-          setPermission(null)
-          setRender(!render);
-        }}
+        footer={null}
         onCancel={() => {
           cancel();
           setOpen(false)
         }}
         width={700}
+        destroyOnClose
       >
         <Form
-            labelCol={{
-              span: 6,
-            }}
-            wrapperCol={{
-              span: 12,
-            }}
-            layout="horizontal"
-            style={{
-              maxWidth: 800,
-            }}>
-        <Form.Item
-            label="Title"
-            name="Title"
-            rules={[{ required: true, message: 'Please input Title!' }]}
+          labelCol={{ span: 6 }}
+          wrapperCol={{ span: 12 }}
+          layout="horizontal"
+          style={{ maxWidth: 800 }}
+          onFinish={() => {
+            UpdateRoles();
+            setPermission(null)
+            setRender(!render);
+          }}
         >
-          <Input
+          <Form.Item
+            label="Title"
+            name="title"
+            valuePropName={title}
+            rules={[
+              { required: true, message: 'Please write input title!' },
+              { min: 3 }
+            ]}
+            hasFeedback
+          >
+            <Input
               value={title}
               onChange={e => setTitle(e.target.value)}
               className='modal_input'
-              // maxTagCount='responsive'
-          />
-        </Form.Item>
-        <Form.Item
+            />
+          </Form.Item>
+
+          <Form.Item
             label="Permissions"
-            name="Permissions"
+            name="permissions"
             rules={[{ required: true, message: 'Please select permissions!' }]}
-        >
-          <Space
+            hasFeedback
+          >
+            <Space
               direction="vertical"
               className="w-100"
-          >
-            <Select mode='multiple' className="w-100"  onChange={handleChange}>
-              {permissiondata ?
+            >
+              <Select
+                defaultValue={getSelected()}
+                mode='multiple'
+                className="w-100"
+                onChange={handleChange}
+                maxTagCount='responsive'
+              >
+                {permissiondata ?
                   permissiondata.map(item => {
-                    //  console.log(item);
                     return (
-                        <Option key={item.id} value={item.id}>
-                          {item.title}
-                        </Option>
+                      <Option key={item.id} value={item.id}>
+                        {item.title}
+                      </Option>
                     )
                   })
                   : null}
-            </Select>
-          </Space></Form.Item></Form>
+              </Select>
+            </Space>
+          </Form.Item>
+          <Form.Item wrapperCol={{ span: 24 }} style={{ marginTop: '15px' }}>
+            <Button block type='primary' htmlType='submit'>
+              Send
+            </Button>
+          </Form.Item>
+        </Form>
       </Modal>
     </>
   );

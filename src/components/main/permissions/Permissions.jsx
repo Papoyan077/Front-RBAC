@@ -17,6 +17,7 @@ const Permissions = () => {
     }
     fetchData();
   }, [render]);
+  console.log(permissionData);
 
   let lastIndex = 0
   const updateIndex = () => {
@@ -51,7 +52,7 @@ const Permissions = () => {
         console.log(record);
         return (
           <div className='actionsIcons'>
-            <UpdatePermission titl={record.title} render={render} setRender={setRender} id={record.id} />
+            <UpdatePermission titl={record.title} render={render} setRender={setRender} id={record.id} policies={record.policies}/>
             <DeleteOutlined onClick={() => { showDeleteConfirm(record, 'permission', 'permission', permissionDataChange) }} className='deleteIcons' />
           </div>
         );

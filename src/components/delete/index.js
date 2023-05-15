@@ -2,6 +2,7 @@ import { Modal } from 'antd';
 import { ExclamationCircleFilled } from "@ant-design/icons";
 import { cancel, error, succesDelete } from "../../utils/Messages";
 import instance from "../../utils/axios";
+import { getCookie } from '../login/LoginAcces';
 const { confirm } = Modal;
 
 const showDeleteConfirm = (record, apiName, name , data) => {
@@ -16,7 +17,7 @@ const showDeleteConfirm = (record, apiName, name , data) => {
             data((item) => {
                 return item.filter((item) => item.id !== record.id);
             });
-            instance.delete(`/${apiName}/${record.id}`)
+            instance.delete(`/${apiName}/${record.id}` , { headers: { "Authorization": `Bearer ${getCookie('token')}` } })
                 .then(() => {
                     succesDelete();
                 })

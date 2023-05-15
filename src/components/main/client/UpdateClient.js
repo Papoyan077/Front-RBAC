@@ -1,4 +1,4 @@
-import {Form, Input, Modal} from 'antd';
+import { Button, Form, Input, Modal } from 'antd';
 import { useState } from 'react';
 import { EditOutlined } from "@ant-design/icons";
 import { PutClients } from '../../../utils/Route';
@@ -20,33 +20,42 @@ const UpdateClient = ({ render, setRender, id, titl }) => {
                 title="Update Client"
                 centered
                 open={open}
-                onOk={() => {
-                    UpdateClients();
-                    setRender(!render);
-                }}
+                footer={null}
                 onCancel={() => {
                     cancel();
                     setOpen(false)
                 }}
                 width={500}
-            ><Form
-                labelCol={{
-                    span: 6,
-                }}
-                wrapperCol={{
-                    span: 12,
-                }}
-                layout="horizontal"
-                style={{
-                    maxWidth: 800,
-                }}>
-                <Form.Item
-                    label="Title"
-                    name="Title"
-                    rules={[{ required: true, message: 'Please input title!' }]}
+                destroyOnClose
+            >
+                <Form
+                    labelCol={{ span: 6 }}
+                    wrapperCol={{ span: 12 }}
+                    layout="horizontal"
+                    style={{ maxWidth: 800 }}
+                    onFinish={() => {
+                        UpdateClients();
+                        setRender(!render);
+                    }}
                 >
-                    <Input value={title} onChange={e => setTitle(e.target.value)}/>
-                </Form.Item></Form>
+                    <Form.Item
+                        label="Title"
+                        name="title"
+                        valuePropName={title}
+                        rules={[
+                            { required: true, message: 'Please input title!' },
+                            { min: 3 }
+                        ]}
+                        hasFeedback
+                    >
+                        <Input value={title} onChange={e => setTitle(e.target.value)} />
+                    </Form.Item>
+                    <Form.Item wrapperCol={{ span: 24 }} style={{ marginTop: '15px' }}>
+                        <Button block type='primary' htmlType='submit'>
+                            Send
+                        </Button>
+                    </Form.Item>
+                </Form>
             </Modal>
         </>
     );

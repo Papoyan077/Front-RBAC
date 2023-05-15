@@ -50,7 +50,7 @@ const Roles = () => {
       render: (record) => {
         return (
           <div className='actionsIcons'>
-            <UpdateRole titl={record.title} render={render} setRender={setRender} id={record.id} />
+            <UpdateRole titl={record.title} render={render} setRender={setRender} id={record.id} permissions={record.permissions}/>
             <DeleteOutlined onClick={() => { showDeleteConfirm(record, 'role', 'role', roleDataChange) }} className='deleteIcons' />
           </div>
         );

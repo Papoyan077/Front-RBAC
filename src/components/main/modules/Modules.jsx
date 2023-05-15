@@ -12,7 +12,6 @@ const Modules = () => {
     const [modulesData, modulesDataChange] = useState(null);
     const [activity, activityDataChange] = useState(null);
 
-
     useEffect(() => {
         async function fetchData() {
             await getModulesTree(modulesDataChange);
@@ -58,17 +57,13 @@ const Modules = () => {
         {
             title: "Client",
             render: (record) => {
-                if (record.client.title!==null){
                 return (
                     <>
-                        <span key={`client${updateIndex()}`}>{record.client.title}</span>
+                        {record.client ?
+                            <span key={`client${updateIndex()}`}>{record.client.title}</span>
+                            : null}
                     </>
                 )
-            }else {
-                    return (
-                        <span></span>
-                    )
-                }
             }
         },
         {
@@ -89,7 +84,7 @@ const Modules = () => {
             render: (record) => {
                 return (
                     <div className='actionsIcons'>
-                        <UpdateModule titl={record.title} render={render} setRender={setRender} id={record.id} />
+                        <UpdateModule titl={record.title} render={render} setRender={setRender} id={record.id} activities={record.activities} />
                         <DeleteOutlined onClick={() => { showDeleteConfirm(record, 'module', 'module', modulesDataChange) }} className='deleteIcons' />
                     </div>
                 );
@@ -101,7 +96,7 @@ const Modules = () => {
         <div className='main'>
             <div className="mainTitle">
                 <span>Modules</span>
-                <AddModule render={render} setRender={setRender} activity={activity} />
+                <AddModule render={render} setRender={setRender} />
             </div>
             <Table
                 columns={columns}
