@@ -41,12 +41,12 @@ const Policies = () => {
             render: (record) => {
                 return (
                     <>
-                        {record.activity?.slice(0, 1).map(activity => {
+                        {record.activities?.slice(0, 1).map(activity => {
                             return (
                                 <span key={`Activities${updateIndex()}`}>{activity.title}</span>
                             )
                         })}
-                        ({record.activity.length >= 0 ? record.activity.length : 0}) <PolicyActionsMore actions={record.activity} />
+                        ({record.activities.length >= 0 ? record.activities.length : 0}) <PolicyActionsMore actions={record.activities} />
                     </>
                 );
             },

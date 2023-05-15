@@ -1,4 +1,4 @@
-import { Modal } from 'antd';
+import { Button, Form, Modal } from 'antd';
 import { useEffect, useState } from 'react';
 import { EditOutlined } from '@ant-design/icons';
 import { Checkbox } from 'antd';
@@ -35,11 +35,13 @@ const UpdatePolicy = ({ render, setRender, id, moduleTitle, record }) => {
         setOpen(false);
     }
 
-    const ids = record.activity.map((m) => {
+    const ids = record.activities.map((m) => {
         activity.push(m.id)
         return m.id
     });
-    const Cancel=()=>{
+    const Cancel = () => {
+        cancel();
+        setActivity([]);
         setOpen(false)
     }
     return (
@@ -52,26 +54,48 @@ const UpdatePolicy = ({ render, setRender, id, moduleTitle, record }) => {
                 title="Update Policy"
                 centered
                 open={open}
-                onOk={() => {
-                    UpdatePolicies();
-                    setRender(!render)
-                    setActivity([]);
-                }}
+                destroyOnClose
+                footer={null}
                 onCancel={() => {
                     cancel();
                     setActivity([]);
                     setOpen(false)
-                }
-                }
+                }}
             >
-                <div style={{ display: "flex", flexDirection: "column" }}>
-                    <span style={{ fontSize: "20px" }}>Module Name: {moduleTitle}</span>
-                    <div style={{ marginTop: "5%" }}>
-                        Select Activities : {activityData.map((activity) =>
-                            <Checkbox onChange={onChange} defaultChecked={ids.includes(activity.id)}
-                                key={`activity${updateIndex()}`} value={activity.id}>{activity.title}</Checkbox>
-                        )}</div>
-                </div>
+                <Form
+                    labelCol={{ span: 6 }}
+                    wrapperCol={{ span: 12 }}
+                    layout="horizontal"
+                    style={{ maxWidth: 800 }}
+                    onFinish={() => {
+                        UpdatePolicies();
+                        setRender(!render)
+                        setActivity([]);
+                    }}
+                >
+                    <Form.Item
+                        name='activities'
+                    >
+                        <div style={{ display: "flex", flexDirection: "column", width: "465px" }}>
+                            <span style={{ fontSize: "20px" }}>Module Name: {moduleTitle}</span>
+                            <div style={{ marginTop: "5%", display: "flex" }}>
+                                Select Activities : {activityData.map((activity) =>
+                                    <Checkbox onChange={onChange} defaultChecked={ids.includes(activity.id)}
+                                        key={`activity${updateIndex()}`} value={activity.id}>{activity.title}</Checkbox>
+                                )}</div>
+                        </div>
+                    </Form.Item>
+                    <Form.Item wrapperCol={{ span: 24 }}>
+                        <div className="modalButton">
+                            <Button onClick={Cancel} >
+                                Cancel
+                            </Button>
+                            <Button type='primary' htmlType='submit'>
+                                Update
+                            </Button>
+                        </div>
+                    </Form.Item>
+                </Form>
             </Modal>
         </>
     );

@@ -28,9 +28,6 @@ function Login() {
                     rules={[
                         {
                             required: true,
-                            min: 2,
-                            max: 15,
-                            message: 'Please input your Username!(min:2,max:15)',
                         },
                     ]}
                 >
@@ -42,9 +39,6 @@ function Login() {
                     rules={[
                         {
                             required: true,
-                            min: 4,
-                            max: 15,
-                            message: 'Please input your Password!(min:4,max:15)',
                         },
                     ]}
                 >

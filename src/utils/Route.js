@@ -249,8 +249,8 @@ const PostPolicy = async (render, setRender, actionId, moduleId) => {
     });
 }
 
-const PutPolicy = async (id, actions, render) => {
-  await instance.put(`/policy/${id}`, { actions: actions, status: "published" }, { headers: { "Authorization": `Bearer ${getCookie('token')}` } })
+const PutPolicy = async (id, activities, render) => {
+  await instance.put(`/policy/${id}`, { activities: activities, status: "published" }, { headers: { "Authorization": `Bearer ${getCookie('token')}` } })
     .then(() => {
       succesPut();
       return !render
