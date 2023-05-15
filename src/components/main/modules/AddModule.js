@@ -43,6 +43,9 @@ const AddModule = ({ render, setRender }) => {
     setOpen(false);
     setTitle('');
   }
+  const Cancel=()=>{
+    setOpen(false)
+  }
 
   return (
     <>
@@ -150,10 +153,15 @@ const AddModule = ({ render, setRender }) => {
               </Select>
             </Form.Item>
           </Space>
-          <Form.Item wrapperCol={{ span: 24 }} style={{ marginTop: '15px' }}>
-            <Button block type='primary' htmlType='submit'>
-              Send
-            </Button>
+          <Form.Item wrapperCol={{ span: 24 }}>
+            <div className="modalButton">
+              <Button onClick={Cancel} >
+                Cancel
+              </Button>
+              <Button type='primary' htmlType='submit'>
+                Add
+              </Button>
+            </div>
           </Form.Item>
         </Form>
       </Modal>

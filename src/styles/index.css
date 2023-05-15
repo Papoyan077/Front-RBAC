@@ -28,7 +28,11 @@ body {
 .w-100 {
     width: 100%;
 }
-
+.modalButton{
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-evenly;
+}
 .headerButton {
     display: flex;
     height: 50px;

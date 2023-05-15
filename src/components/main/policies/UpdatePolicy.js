@@ -39,7 +39,9 @@ const UpdatePolicy = ({ render, setRender, id, moduleTitle, record }) => {
         activity.push(m.id)
         return m.id
     });
-
+    const Cancel=()=>{
+        setOpen(false)
+    }
     return (
         <>
             <EditOutlined onClick={() => {

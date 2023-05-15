@@ -34,6 +34,9 @@ const UpdateModule = ({ render, setRender, id, titl, activities }) => {
     setActivitys(value);
   }, []);
 
+  const Cancel=()=>{
+    setOpen(false)
+  }
   return (
     <>
       <EditOutlined onClick={() => setOpen(true)} />
@@ -99,10 +102,15 @@ const UpdateModule = ({ render, setRender, id, titl, activities }) => {
               </Select>
             </Form.Item>
           </Space>
-          <Form.Item wrapperCol={{ span: 24 }} style={{ marginTop: '15px' }}>
-            <Button block type='primary' htmlType='submit'>
-              Send
-            </Button>
+          <Form.Item wrapperCol={{ span: 24 }}>
+            <div className="modalButton">
+              <Button onClick={Cancel} >
+                Cancel
+              </Button>
+              <Button type='primary' htmlType='submit'>
+                Update
+              </Button>
+            </div>
           </Form.Item>
         </Form>
       </Modal>

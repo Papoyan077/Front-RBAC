@@ -73,7 +73,7 @@ const Modules = () => {
                     <>
                         {record.activities?.map(item => {
                             return (
-                                <span key={`activity${updateIndex()}`}>{item.title}</span>
+                                <span key={`activity${updateIndex()}`}>{item.title},</span>
                             )
                         })}
                     </>
