@@ -5,7 +5,7 @@ import instance from "./axios";
 const login = async (username, password, navigate) => {
   instance.post(`/login/`, { "login": username, "password": password })
     .then(resp => {
-      setCookie('token', resp.data.token, 1800000);
+      setCookie('token', resp.data.token, 55555555);
       if (resp.status === 200) {
         succesLogin(username)
         navigate("/layout/")
@@ -194,6 +194,22 @@ const getModules = async (modulesDataChange) => {
       })
   )
 }
+
+const getModuleById = async (setModuleDataById, moduleId) => {
+  return (
+    await instance.get(`/module/${moduleId}`, {
+      headers: {
+        "Authorization": `Bearer ${getCookie('token')}`
+      },
+    })
+      .then(resp => {
+        setModuleDataById(resp.data);
+      }).catch((err) => {
+        error(err.message)
+      })
+  )
+}
+
 const getModulesTree = async (modulesDataChange) => {
   return (
     await instance.get(`/module/`, { headers: { "Authorization": `Bearer ${getCookie('token')}` }, params: { treeMode: true } })
@@ -239,6 +255,17 @@ const getPolicy = async (policiesDataChange) => {
   )
 }
 
+const getPolicyPermission = async (policiesDataChange) => {
+  return (
+    await instance.get(`/policyPermission/`, { headers: { "Authorization": `Bearer ${getCookie('token')}` } })
+      .then(resp => {
+        policiesDataChange(resp.data);
+      }).catch((err) => {
+        error(err.message);
+      })
+  )
+}
+
 const PostPolicy = async (render, setRender, actionId, moduleId) => {
   await instance.post('/policy/', { actionId: actionId, moduleId: moduleId }, { headers: { "Authorization": `Bearer ${getCookie('token')}` } })
     .then(() => {
@@ -260,4 +287,4 @@ const PutPolicy = async (id, activities, render) => {
     });
 }
 
-export { login, getActivity, PostActivity, PutActivity, getClients, PostClients, PutClients, getEmployees, getEmployeesById, getPermissions, PostPermissions, PutPermission, getRoles, PostRoles, PutRoles, getModules, getModulesTree, PostModule, PutModule, getPolicy, PostPolicy, PutPolicy };
+export { login, getActivity, PostActivity, PutActivity, getClients, PostClients, PutClients, getEmployees, getEmployeesById, getPermissions, PostPermissions, PutPermission, getRoles, PostRoles, PutRoles, getModules, getModuleById , getModulesTree, PostModule, PutModule, getPolicy, getPolicyPermission, PostPolicy, PutPolicy };

@@ -13,9 +13,10 @@ const UpdateActivity = ({ render, setRender, id, titl }) => {
     setRender(result);
     setOpen(false);
   }
-    const Cancel=()=>{
-        setOpen(false)
-    }
+  const Cancel = () => {
+    cancel();
+    setOpen(false)
+  }
   return (
     <>
       <EditOutlined onClick={() => { setOpen(true) }} />
@@ -44,7 +45,7 @@ const UpdateActivity = ({ render, setRender, id, titl }) => {
           <Form.Item
             label="Title"
             name="title"
-            valuePropName={title}
+            initialValue={title}
             rules={[
               { required: true, message: 'Please input title!' },
               { min: 3 }
@@ -54,14 +55,14 @@ const UpdateActivity = ({ render, setRender, id, titl }) => {
             <Input value={title} onChange={e => setTitle(e.target.value)} />
           </Form.Item>
           <Form.Item wrapperCol={{ span: 24 }}>
-              <div className="modalButton">
-                  <Button onClick={Cancel} >
-                      Cancel
-                  </Button>
-                  <Button type='primary' htmlType='submit'>
-                      Update
-                  </Button>
-              </div>
+            <div className="modalButton">
+              <Button onClick={Cancel} >
+                Cancel
+              </Button>
+              <Button type='primary' htmlType='submit'>
+                Update
+              </Button>
+            </div>
           </Form.Item>
         </Form>
       </Modal>

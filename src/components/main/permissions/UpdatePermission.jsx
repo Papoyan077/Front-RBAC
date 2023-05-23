@@ -1,35 +1,29 @@
 import { Button, Form, Input, Modal, Select, Space } from 'antd';
-import { useCallback, useEffect, useState } from 'react';
-import { getPermissions, getPolicy, PutPermission } from '../../../utils/Route';
+import { useCallback, useState } from 'react';
+import { PutPermission, getPolicyPermission } from '../../../utils/Route';
 import { EditOutlined } from "@ant-design/icons";
 import { cancel } from '../../../utils/Messages';
 const { Option } = Select;
 
-const UpdatePermission = ({ titl, render, setRender, id , policies }) => {
+const UpdatePermission = ({ titl, render, setRender, id, policies }) => {
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState(titl);
-  const [Policydata, PolicyDataChange] = useState(null);
-  const [policy, setPolicy] = useState('');
-  const [permissiondata, permissionDataChange] = useState(null);
+  const [policy, setPolicy] = useState([]);
+  const [policyData, setPolicyData] = useState(null);
+
+  const getPolicyData = useCallback(() => {
+    return getPolicyPermission(setPolicyData);
+  }, []);
 
   const getSelected = () => {
     let selected = [];
     policies.map((item) => {
-      return selected.push(item.id)
+      return selected.push(item.id);
     })
-    return selected
-  }
-
-  useEffect(() => {
-    getPermissions(permissionDataChange);
-  }, [render]);
-
-  useEffect(() => {
-    getPolicy(PolicyDataChange)
-  }, [render]);
+    return selected;
+  };
 
   const handleChange = useCallback((value) => {
-    console.log(value);
     setPolicy(value);
   }, []);
 
@@ -39,12 +33,18 @@ const UpdatePermission = ({ titl, render, setRender, id , policies }) => {
     setOpen(false);
     setTitle('');
   }
-  const Cancel=()=>{
-    setOpen(false)
+
+  const Cancel = () => {
+    cancel();
+    setOpen(false);
   }
+
   return (
     <>
-      <EditOutlined onClick={() => setOpen(true)} />
+      <EditOutlined onClick={() => {
+        setOpen(true);
+        getPolicyData();
+      }} />
       <Modal
         title="Update Permission"
         centered
@@ -52,7 +52,7 @@ const UpdatePermission = ({ titl, render, setRender, id , policies }) => {
         footer={null}
         onCancel={() => {
           cancel();
-          setOpen(false)
+          setOpen(false);
         }}
         width={500}
         destroyOnClose
@@ -63,15 +63,15 @@ const UpdatePermission = ({ titl, render, setRender, id , policies }) => {
           layout="horizontal"
           style={{ maxWidth: 800 }}
           onFinish={() => {
-            UpdatePermissions()
-            setPolicy(null)
+            UpdatePermissions();
+            setPolicy(null);
             setRender(!render);
           }}
         >
           <Form.Item
             label="Title"
             name="title"
-            valuePropName={title}
+            initialValue={title}
             rules={[
               { required: true, message: 'Please write input title!' },
               { min: 3 }
@@ -84,30 +84,32 @@ const UpdatePermission = ({ titl, render, setRender, id , policies }) => {
               className='modal_input'
             />
           </Form.Item>
-
-          <Form.Item
-            label="Policy"
-            name="policy"
-            rules={[{ required: true, message: 'Please select policy!' }]}
-            hasFeedback
+          <Space
+            direction="vertical"
+            className="w-100"
           >
-            <Space
-              direction="vertical"
-              className="w-100"
+            <Form.Item
+              label="Policy"
+              name='policy'
+              rules={[{ required: true, message: 'Please select policy!' }]}
+              hasFeedback
             >
+
               <Select defaultValue={getSelected()} mode='multiple' className="w-100" onChange={handleChange} maxTagCount='responsive'>
-                {Policydata ?
-                  Policydata.map(item => {
-                    return (
-                      <Option key={item.id} value={item.id}>
-                        {item.title}
-                      </Option>
-                    )
+                {policyData ?
+                  policyData.map(item => {
+                   return item.policies.map(policy => {
+                      return (
+                        <Option key={policy.id} value={policy.id}>
+                              {item.title}                          
+                        </Option>
+                      )
+                    })
                   })
                   : null}
               </Select>
-            </Space>
-          </Form.Item>
+            </Form.Item>
+          </Space>
           <Form.Item wrapperCol={{ span: 24 }}>
             <div className="modalButton">
               <Button onClick={Cancel} >

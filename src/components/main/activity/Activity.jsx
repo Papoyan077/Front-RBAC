@@ -9,11 +9,11 @@ import { showDeleteConfirm } from '../../delete';
 
 const Activity = () => {
     const [render, setRender] = useState(false);
-    const [ActivityData, ActivityDataChange] = useState(null);
+    const [ActivityData, setActivityData] = useState(null);
 
     useEffect(() => {
         async function fetchData() {
-            await getActivity(ActivityDataChange);
+            await getActivity(setActivityData);
         }
         fetchData();
     }, [render]);
@@ -36,7 +36,7 @@ const Activity = () => {
                     <div className='actionsIcons'>
                         <UpdateActivity titl={record.title} render={render} setRender={setRender} id={record.id} />
                         <DeleteOutlined onClick={() => {
-                            showDeleteConfirm(record, 'activity', 'activity', ActivityDataChange);
+                            showDeleteConfirm(record, 'activity', 'activity', setActivityData);
                         }} className='deleteIcons' />
                     </div>
                 );

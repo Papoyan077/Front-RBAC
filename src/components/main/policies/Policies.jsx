@@ -1,15 +1,13 @@
 import { Table } from 'antd';
-import { DeleteOutlined } from "@ant-design/icons";
 import { useEffect, useState } from 'react';
-import UpdatePolicy from "./UpdatePolicy.js";
+import UpdatePolicy from "./UpdatePolicy.jsx";
 import PolicyActionsMore from './PolicyActionsMore';
 import SearchFunc from '../../search';
 import { getPolicy } from '../../../utils/Route';
-import { showDeleteConfirm } from '../../delete/index.js';
 
 const Policies = () => {
     const [render, setRender] = useState(false);
-    const [policiesData, policiesDataChange] = useState([]);
+    const [policiesData, setPoliciesData] = useState([]);
 
     const changeUpload = (state) => {
         setRender(state)
@@ -17,7 +15,7 @@ const Policies = () => {
 
     useEffect(() => {
         async function fetchData() {
-            await getPolicy(policiesDataChange);
+            await getPolicy(setPoliciesData);
         }
         fetchData()
     }, [render]);
@@ -59,7 +57,6 @@ const Policies = () => {
                         <div className='actionsIcons'>
                             <UpdatePolicy render={render} setRender={setRender} id={record.id} record={record}
                                 moduleTitle={record.title} changeUpload={changeUpload} />
-                            <DeleteOutlined onClick={() => { showDeleteConfirm(record, 'policy', 'policy', policiesDataChange) }} className='deleteIcons' />
                         </div>
                     );
                 },

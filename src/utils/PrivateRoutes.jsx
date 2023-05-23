@@ -1,11 +1,11 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { Outlet, Navigate } from 'react-router-dom';
 import { getCookie } from '../components/login/LoginAcces';
 
 const PrivateRoutes = () => {
     const [token] = useState(getCookie('token'));
     let auth = token ? { 'token': true } : { 'token': false };
-    
+
     return (
         auth.token ? <Outlet /> : <Navigate to='/' />
     )

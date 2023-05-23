@@ -1,6 +1,6 @@
 import { Button, Form, Input, Modal, Select, Space } from 'antd';
 import { EditOutlined } from "@ant-design/icons";
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { getPermissions, PutRoles } from '../../../utils/Route';
 import { cancel } from '../../../utils/Messages';
 const { Option } = Select;
@@ -9,7 +9,7 @@ const UpdateRole = ({ render, setRender, id, titl, permissions }) => {
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState(titl);
   const [permission, setPermission] = useState('');
-  const [permissiondata, permissionDataChange] = useState(null);
+  const [permissionData, setPermissionData] = useState(null);
 
   const getSelected = () => {
     let selected = [];
@@ -19,9 +19,9 @@ const UpdateRole = ({ render, setRender, id, titl, permissions }) => {
     return selected
   }
 
-  useEffect(() => {
-    getPermissions(permissionDataChange);
-  }, [render]);
+  const getPermissionData = useCallback(() => {
+    return getPermissions(setPermissionData);
+  }, []);
 
   const handleChange = useCallback((value) => {
     setPermission(value);
@@ -32,13 +32,18 @@ const UpdateRole = ({ render, setRender, id, titl, permissions }) => {
     setRender(result);
     setOpen(false);
   }
-  const Cancel=()=>{
+  const Cancel = () => {
+    cancel();
     setOpen(false)
   }
 
   return (
     <>
-      <EditOutlined onClick={() => setOpen(true)} />
+      <EditOutlined onClick={() => {
+        setOpen(true);
+        getPermissionData();
+      }}
+      />
       <Modal
         title="Update Role"
         centered
@@ -65,7 +70,7 @@ const UpdateRole = ({ render, setRender, id, titl, permissions }) => {
           <Form.Item
             label="Title"
             name="title"
-            valuePropName={title}
+            initialValue={title}
             rules={[
               { required: true, message: 'Please write input title!' },
               { min: 3 }
@@ -79,15 +84,15 @@ const UpdateRole = ({ render, setRender, id, titl, permissions }) => {
             />
           </Form.Item>
 
-          <Form.Item
-            label="Permissions"
-            name="permissions"
-            rules={[{ required: true, message: 'Please select permissions!' }]}
-            hasFeedback
+          <Space
+            direction="vertical"
+            className="w-100"
           >
-            <Space
-              direction="vertical"
-              className="w-100"
+            <Form.Item
+              label="Permissions"
+              name="permissions"
+              rules={[{ required: true, message: 'Please select permissions!' }]}
+              hasFeedback
             >
               <Select
                 defaultValue={getSelected()}
@@ -96,8 +101,8 @@ const UpdateRole = ({ render, setRender, id, titl, permissions }) => {
                 onChange={handleChange}
                 maxTagCount='responsive'
               >
-                {permissiondata ?
-                  permissiondata.map(item => {
+                {permissionData ?
+                  permissionData.map(item => {
                     return (
                       <Option key={item.id} value={item.id}>
                         {item.title}
@@ -106,8 +111,8 @@ const UpdateRole = ({ render, setRender, id, titl, permissions }) => {
                   })
                   : null}
               </Select>
-            </Space>
-          </Form.Item>
+            </Form.Item>
+          </Space>
           <Form.Item wrapperCol={{ span: 24 }}>
             <div className="modalButton">
               <Button onClick={Cancel} >

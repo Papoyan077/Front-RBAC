@@ -1,4 +1,4 @@
-import { createBrowserRouter, Route, createRoutesFromElements } from "react-router-dom";
+import { createBrowserRouter, Route, createRoutesFromElements, Navigate, Outlet } from "react-router-dom";
 import Login from "../components/login/Login";
 import PrivateRoutes from "../utils/PrivateRoutes";
 import Employees from "../components/main/employees/Employees";
@@ -10,13 +10,14 @@ import Permissions from "../components/main/permissions/Permissions";
 import Policies from "../components/main/policies/Policies";
 import Layout from "../layout/Layout";
 import Activity from "../components/main/activity/Activity";
+import { getCookieForReturn } from "../components/login/LoginAcces";
 
 const router = createBrowserRouter(
     createRoutesFromElements(
         <>
             <Route>
                 <Route element={<PrivateRoutes />}>
-                    <Route path="/layout" element={<Layout />}>
+                    <Route exact path="/layout" element={<Layout />}>
                         <Route index={'employees'} element={<Employees />} />
                         <Route path={'employees'} element={<Employees />} />
                         <Route path='detail/:id' element={<EmpDetail />}></Route>
@@ -28,10 +29,16 @@ const router = createBrowserRouter(
                         <Route path="policies" element={<Policies />} />
                     </Route>
                 </Route>
-                <Route path="/" element={<Login />} />
+                    {getCookieForReturn('token') ?  null : <Route path="/" element={<Login />} />}
             </Route>
         </>
     )
 );
 export default router;
 
+{/* {getCookie('token') ||
+        <Route
+            path="/"
+            element={<Navigate to={<Outlet />} />}
+        />
+    } */}

@@ -1,6 +1,6 @@
 import { Button, Form, Input, Modal, Select, Space } from 'antd';
 import { useCallback, useEffect, useState } from 'react';
-import { getActivity, getClients, getModules, PostModule } from '../../../utils/Route';
+import { getActivity, getClients, getModuleById, getModules, PostModule } from '../../../utils/Route';
 import { cancel } from '../../../utils/Messages';
 const { Option } = Select;
 
@@ -8,6 +8,7 @@ const AddModule = ({ render, setRender }) => {
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState('');
   const [moduleData, setModuleData] = useState(null);
+  const [moduleDataById, setModuleDataById] = useState(null);
   const [clientData, setClientData] = useState(null);
   const [activityData, setActivityData] = useState(null);
   const [client, setClient] = useState(null);
@@ -26,6 +27,12 @@ const AddModule = ({ render, setRender }) => {
     getActivity(setActivityData);
   }, [render]);
 
+  useEffect(() => {
+    if (parent !== null) {
+      getModuleById(setModuleDataById, parent)
+    }
+  }, [parent])
+
   const ChangeParent = useCallback((value) => {
     setParent(value);
   }, []);
@@ -43,7 +50,8 @@ const AddModule = ({ render, setRender }) => {
     setOpen(false);
     setTitle('');
   }
-  const Cancel=()=>{
+  const Cancel = () => {
+    cancel();
     setOpen(false)
   }
 
@@ -141,15 +149,20 @@ const AddModule = ({ render, setRender }) => {
               hasFeedback
             >
               <Select className="w-100" onChange={ChangeClient}>
-                {clientData ?
-                  clientData.map(item => {
-                    return (
-                      <Option key={item.id} value={item.id}>
-                        {item.title}
-                      </Option>
-                    )
-                  })
-                  : null}
+
+                {moduleDataById ?
+                  <Option key={moduleDataById.client.id} value={moduleDataById.client.id}>
+                    {moduleDataById.client.title}
+                  </Option>
+                  : clientData ?
+                    clientData.map(item => {
+                      return (
+                        <Option key={item.id} value={item.id}>
+                          {item.title}
+                        </Option>
+                      )
+                    })
+                    : null}
               </Select>
             </Form.Item>
           </Space>

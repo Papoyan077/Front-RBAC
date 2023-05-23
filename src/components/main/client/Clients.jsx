@@ -9,11 +9,11 @@ import { showDeleteConfirm } from '../../delete';
 
 const Clients = () => {
   const [render, setRender] = useState(false);
-  const [clientData, clientDataChange] = useState(null);
+  const [clientData, setClientData] = useState(null);
 
   useEffect(() => {
     async function fetchData() {
-      await getClients(clientDataChange)
+      await getClients(setClientData)
     }
     fetchData()
   }, [render]);
@@ -34,7 +34,7 @@ const Clients = () => {
         return (
           <div className='actionsIcons'>
             <UpdateClient titl={record.title} render={render} setRender={setRender} id={record.id} />
-            <DeleteOutlined onClick={() => { showDeleteConfirm(record, 'client', 'client', clientDataChange) }} className='deleteIcons' />
+            <DeleteOutlined onClick={() => { showDeleteConfirm(record, 'client', 'client', setClientData) }} className='deleteIcons' />
           </div>
         );
       },

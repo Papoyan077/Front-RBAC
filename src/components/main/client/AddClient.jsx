@@ -11,10 +11,10 @@ const AddClient = ({ render, setRender }) => {
         PostClients(title, render, setRender);
         setOpen(false);
     }
-    const Cancel=()=>{
+    const Cancel = () => {
+        cancel();
         setOpen(false)
     }
-
     return (
         <>
             <Button onClick={() => { setOpen(true) }}>

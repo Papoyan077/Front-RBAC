@@ -1,7 +1,7 @@
 import { Table } from 'antd';
 import { useEffect, useState } from 'react';
 import AddModule from './AddModule';
-import { getActivity, getModulesTree } from '../../../utils/Route';
+import { getModulesTree } from '../../../utils/Route';
 import SearchFunc from '../../search';
 import { DeleteOutlined } from '@ant-design/icons';
 import UpdateModule from './UpdateModule';
@@ -9,17 +9,14 @@ import { showDeleteConfirm } from '../../delete';
 
 const Modules = () => {
     const [render, setRender] = useState(false);
-    const [modulesData, modulesDataChange] = useState(null);
-    const [activity, activityDataChange] = useState(null);
+    const [modulesData, setModulesData] = useState(null);
 
     useEffect(() => {
         async function fetchData() {
-            await getModulesTree(modulesDataChange);
-            await getActivity(activityDataChange);
+            await getModulesTree(setModulesData);
         }
         fetchData()
     }, [render]);
-    console.log(modulesData);
 
     let lastIndex = 0
     const updateIndex = () => {
@@ -85,7 +82,7 @@ const Modules = () => {
                 return (
                     <div className='actionsIcons'>
                         <UpdateModule titl={record.title} render={render} setRender={setRender} id={record.id} activities={record.activities} />
-                        <DeleteOutlined onClick={() => { showDeleteConfirm(record, 'module', 'module', modulesDataChange) }} className='deleteIcons' />
+                        <DeleteOutlined onClick={() => { showDeleteConfirm(record, 'module', 'module', setModulesData) }} className='deleteIcons' />
                     </div>
                 );
             },

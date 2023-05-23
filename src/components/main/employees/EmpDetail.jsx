@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { getEmployeesById } from "../../../utils/Route";
-import { ArrowLeftOutlined, UserOutlined } from "@ant-design/icons";
-import { Table } from "antd";
+import { ArrowLeftOutlined, DeleteOutlined, UserOutlined } from "@ant-design/icons";
+import { Button, Table } from "antd";
+import EmpPermissionEdit from "./EmpPermissionEdit";
 
 const EmpDetail = () => {
     let empId = useParams();
-    const [empData, empDataChange] = useState({});
+    const [employeeData, setEmployeeData] = useState({});
 
     let lastIndex = 0
     const updateIndex = () => {
@@ -15,9 +16,10 @@ const EmpDetail = () => {
     }
 
     useEffect(() => {
-        getEmployeesById(empDataChange, empId)
+        getEmployeesById(setEmployeeData, empId)
     }, [empId]);
-    let rolesData = empData.roles
+    let rolesData = employeeData.roles
+    console.log(employeeData);
 
     const columns = [
         {
@@ -25,24 +27,33 @@ const EmpDetail = () => {
             dataIndex: 'title',
             key: 'name',
         },
+        {
+            render: (record) => {
+                return (
+                    <div className='EmployeesIcons'>
+                        <DeleteOutlined className='deleteIcons' />
+                    </div>
+                );
+            },
+        },
     ]
     return (
         <div className='main'>
             <div className='mainTitle'>
-                <div style={{ display: "flex" }}>
+                <div style={{ display: "flex", alignItems: "center", height: "50px" }}>
                     <Link style={{ display: "flex", alignItems: "center" }}
-                        to="/layout/employees"><ArrowLeftOutlined /></Link>
+                        to="/layout/employees"><Button type="primary">Back</Button>
+                    </Link>
                     <span style={{
                         marginLeft: "10px",
                         display: "flex",
                         alignItems: "center"
-                    }}>Employee :<UserOutlined style={{ marginLeft: "15px" }} /></span>
-                    {empData &&
+                    }}>Employee :</span>
+                    {employeeData &&
                         <div>
                             <div style={{ display: "flex" }}>
-                                <span>{empData.firstName}</span>
-                                <span style={{ marginLeft: "5px" }}>{empData.lastName}</span>
-                                <span style={{ color: "lightgrey", marginLeft: "5px" }}>{empData.userName}</span>
+                                <span>{employeeData.firstName}</span>
+                                <span style={{ marginLeft: "5px" }}>{employeeData.lastName}</span>
                             </div>
                         </div>
                     }
@@ -50,20 +61,24 @@ const EmpDetail = () => {
             </div>
             <div className="border-table" style={{ width: "100%", height: "100%", overflow: "scroll" }}>
                 <div style={{
-                    marginLeft: "25px",
+                    margin: "5px auto",
                     display: "flex",
                     flexDirection: "column",
-                    justifyContent: "center"
+                    justifyContent: "center",
+                    width: "98%"
+
                 }}>
-                    <span style={{
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        width: "100%",
-                        fontSize: "20px"
-                    }}>
-                        Permissions
-                    </span>
+                    <div style={{ width: "100%", display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
+                        <span style={{
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            fontSize: "20px"
+                        }}>
+                            Permissions
+                        </span>
+                        <Button type="primary">Add Permissions</Button>
+                    </div>
                     <div style={{
                         width: "100%",
                         maxHeight: "70vh",
@@ -73,18 +88,17 @@ const EmpDetail = () => {
                             columns={columns}
                             expandable={{
                                 expandedRowRender: (record) => (
-                                    <p
-                                        style={{
-                                            margin: 0,
-                                        }}
-                                        key={record.id}
-                                    >
-                                        {record.id}
-                                    </p>
+                                    record.policies?.map((item => {
+                                        return (
+                                            <p style={{ margin: 0 }} key={item.id}>
+                                                {item.policyModule.title}
+                                            </p>
+                                        )
+                                    }))
                                 ),
                                 rowExpandable: (record) => record.id !== 'Not Expandable',
                             }}
-                            dataSource={empData.permissions}
+                            dataSource={employeeData.permissions}
                         />
                     </div>
                 </div>
@@ -112,14 +126,10 @@ const EmpDetail = () => {
                             columns={columns}
                             expandable={{
                                 expandedRowRender: (record) => (
-                                    <p
-                                        style={{
-                                            margin: 0,
-                                        }}
-                                    >
+                                    <p style={{ margin: 0 }}>
                                         {
                                             record.permissions.map((e) => {
-                                                return <span>{e.title},   </span>
+                                                return <span>{e.title},  </span>
                                             })
                                         }
                                     </p>

@@ -1,26 +1,29 @@
 import { Button, Form, Input, Modal } from 'antd';
 import { useState } from 'react';
-import { EditOutlined } from "@ant-design/icons";
-import { PutClients } from '../../../utils/Route';
+import { PostActivity } from '../../../utils/Route';
 import { cancel } from '../../../utils/Messages';
 
-const UpdateClient = ({ render, setRender, id, titl }) => {
-    const [title, setTitle] = useState(titl);
+const AddActivity = ({ render, setRender }) => {
+    const [title, setTitle] = useState('');
     const [open, setOpen] = useState(false);
 
-    const UpdateClients = async () => {
-        const result = await PutClients(id, title, render, setRender);
-        setRender(result)
+    const AddActivities = () => {
+        PostActivity(title, render, setRender)
+        setTitle('');
         setOpen(false);
     }
     const Cancel=()=>{
+        cancel();
         setOpen(false)
     }
+
     return (
         <>
-            <EditOutlined onClick={() => { setOpen(true) }} />
+            <Button onClick={() => { setOpen(true) }}>
+                Add Activity
+            </Button>
             <Modal
-                title="Update Client"
+                title="Add Activity"
                 centered
                 open={open}
                 footer={null}
@@ -37,14 +40,13 @@ const UpdateClient = ({ render, setRender, id, titl }) => {
                     layout="horizontal"
                     style={{ maxWidth: 800 }}
                     onFinish={() => {
-                        UpdateClients();
-                        setRender(!render);
+                        AddActivities();
+                        setTitle('');
                     }}
                 >
                     <Form.Item
                         label="Title"
                         name="title"
-                        valuePropName={title}
                         rules={[
                             { required: true, message: 'Please input title!' },
                             { min: 3 }
@@ -59,7 +61,7 @@ const UpdateClient = ({ render, setRender, id, titl }) => {
                                 Cancel
                             </Button>
                             <Button type='primary' htmlType='submit'>
-                                Update
+                                Add
                             </Button>
                         </div>
                     </Form.Item>
@@ -68,4 +70,4 @@ const UpdateClient = ({ render, setRender, id, titl }) => {
         </>
     );
 };
-export default UpdateClient;
+export default AddActivity;

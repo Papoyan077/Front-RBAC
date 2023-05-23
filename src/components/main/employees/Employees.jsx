@@ -6,7 +6,7 @@ import SearchFunc from '../../search';
 import { getEmployees } from '../../../utils/Route';
 
 const Employees = () => {
-  const [employeesData, employeesDataChange] = useState(null);
+  const [employeesData, setEmployeesData] = useState(null);
   const navigate = useNavigate();
   let lastIndex = 0
   const updateIndex = () => {
@@ -17,7 +17,7 @@ const Employees = () => {
     navigate("/layout/detail/" + id);
   }
   useEffect(() => {
-    getEmployees(employeesDataChange)
+    getEmployees(setEmployeesData)
   }, []);
 
   const [columns] = useState([

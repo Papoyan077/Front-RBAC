@@ -10,11 +10,11 @@ import { showDeleteConfirm } from '../../delete';
 
 const Roles = () => {
   const [render, setRender] = useState(false);
-  const [roleData, roleDataChange] = useState(null);
+  const [roleData, setRoleData] = useState(null);
 
   useEffect(() => {
     async function fetchData() {
-      await getRoles(roleDataChange);
+      await getRoles(setRoleData);
     }
     fetchData();
   }, [render]);
@@ -51,7 +51,7 @@ const Roles = () => {
         return (
           <div className='actionsIcons'>
             <UpdateRole titl={record.title} render={render} setRender={setRender} id={record.id} permissions={record.permissions}/>
-            <DeleteOutlined onClick={() => { showDeleteConfirm(record, 'role', 'role', roleDataChange) }} className='deleteIcons' />
+            <DeleteOutlined onClick={() => { showDeleteConfirm(record, 'role', 'role', setRoleData) }} className='deleteIcons' />
           </div>
         );
       },

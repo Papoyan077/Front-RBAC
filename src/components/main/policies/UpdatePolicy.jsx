@@ -1,5 +1,5 @@
 import { Button, Form, Modal } from 'antd';
-import { useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { EditOutlined } from '@ant-design/icons';
 import { Checkbox } from 'antd';
 import { cancel } from '../../../utils/Messages';
@@ -8,17 +8,17 @@ import { PutPolicy, getActivity } from '../../../utils/Route';
 const UpdatePolicy = ({ render, setRender, id, moduleTitle, record }) => {
     const [open, setOpen] = useState(false);
     const [activity, setActivity] = useState([]);
-    const [activityData, activityDataChange] = useState([]);
+    const [activityData, setActivityData] = useState([]);
+
+    const getActivityData = useCallback(() => {
+        return getActivity(setActivityData)
+    }, []);
 
     let lastIndex = 0;
     const updateIndex = () => {
         lastIndex++
         return lastIndex
     }
-
-    useEffect(() => {
-        getActivity(activityDataChange);
-    }, [render]);
 
     const onChange = (checkedValues) => {
         if (checkedValues.target.checked && !activity.includes(checkedValues.target.value)) {
@@ -39,6 +39,7 @@ const UpdatePolicy = ({ render, setRender, id, moduleTitle, record }) => {
         activity.push(m.id)
         return m.id
     });
+    
     const Cancel = () => {
         cancel();
         setActivity([]);
@@ -48,6 +49,7 @@ const UpdatePolicy = ({ render, setRender, id, moduleTitle, record }) => {
         <>
             <EditOutlined onClick={() => {
                 setOpen(true)
+                getActivityData()
                 setActivity([])
             }} />
             <Modal

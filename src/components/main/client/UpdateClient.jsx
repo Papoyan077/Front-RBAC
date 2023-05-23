@@ -1,28 +1,27 @@
 import { Button, Form, Input, Modal } from 'antd';
 import { useState } from 'react';
-import { PostActivity } from '../../../utils/Route';
+import { EditOutlined } from "@ant-design/icons";
+import { PutClients } from '../../../utils/Route';
 import { cancel } from '../../../utils/Messages';
 
-const AddActivity = ({ render, setRender }) => {
-    const [title, setTitle] = useState('');
+const UpdateClient = ({ render, setRender, id, titl }) => {
+    const [title, setTitle] = useState(titl);
     const [open, setOpen] = useState(false);
 
-    const AddActivities = () => {
-        PostActivity(title, render, setRender)
-        setTitle('');
+    const UpdateClients = async () => {
+        const result = await PutClients(id, title, render, setRender);
+        setRender(result)
         setOpen(false);
     }
-    const Cancel=()=>{
+    const Cancel = () => {
+        cancel();
         setOpen(false)
     }
-
     return (
         <>
-            <Button onClick={() => { setOpen(true) }}>
-                Add Activity
-            </Button>
+            <EditOutlined onClick={() => { setOpen(true) }} />
             <Modal
-                title="Add Activity"
+                title="Update Client"
                 centered
                 open={open}
                 footer={null}
@@ -39,13 +38,14 @@ const AddActivity = ({ render, setRender }) => {
                     layout="horizontal"
                     style={{ maxWidth: 800 }}
                     onFinish={() => {
-                        AddActivities();
-                        setTitle('');
+                        UpdateClients();
+                        setRender(!render);
                     }}
                 >
                     <Form.Item
                         label="Title"
                         name="title"
+                        initialValue={title}
                         rules={[
                             { required: true, message: 'Please input title!' },
                             { min: 3 }
@@ -60,7 +60,7 @@ const AddActivity = ({ render, setRender }) => {
                                 Cancel
                             </Button>
                             <Button type='primary' htmlType='submit'>
-                                Add
+                                Update
                             </Button>
                         </div>
                     </Form.Item>
@@ -69,4 +69,4 @@ const AddActivity = ({ render, setRender }) => {
         </>
     );
 };
-export default AddActivity;
+export default UpdateClient;

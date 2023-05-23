@@ -9,15 +9,15 @@ import { showDeleteConfirm } from '../../delete';
 
 const Permissions = () => {
   const [render, setRender] = useState(false);
-  const [permissionData, permissionDataChange] = useState(null);
+  const [permissionData, setPermissionData] = useState(null);
 
   useEffect(() => {
-    async function fetchData() {
-      await getPermissions(permissionDataChange);
-    }
     fetchData();
   }, [render]);
-  console.log(permissionData);
+
+  async function fetchData() {
+    await getPermissions(setPermissionData);
+  }
 
   let lastIndex = 0
   const updateIndex = () => {
@@ -29,6 +29,7 @@ const Permissions = () => {
     {
       title: "Title",
       dataIndex: "title",
+      editable: true,
       ...SearchFunc('title'),
     },
     {
@@ -36,10 +37,9 @@ const Permissions = () => {
       render: (record) => {
         return (
           <div>
-            {record.policies?.map(policy => {
-              // console.log(policy);
+            {record.policies?.map((policy, index) => {
               return (
-                <span key={`policy${updateIndex()}`}>{policy.policyModule.title} </span>
+                <span key={`policy_${index}`}>{policy.policyModule.title} </span>
 
               )
             })}
@@ -49,11 +49,10 @@ const Permissions = () => {
     },
     {
       render: (record) => {
-        console.log(record);
         return (
           <div className='actionsIcons'>
             <UpdatePermission titl={record.title} render={render} setRender={setRender} id={record.id} policies={record.policies}/>
-            <DeleteOutlined onClick={() => { showDeleteConfirm(record, 'permission', 'permission', permissionDataChange) }} className='deleteIcons' />
+            <DeleteOutlined onClick={() => { showDeleteConfirm(record, 'permission', 'permission', setPermissionData) }} className='deleteIcons' />
           </div>
         );
       },
@@ -72,6 +71,7 @@ const Permissions = () => {
         scroll={{ y: 445 }}
         className='tableStyle'
         rowKey={updateIndex}
+        loading="true"
       />
 
     </div>

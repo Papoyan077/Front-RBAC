@@ -1,5 +1,5 @@
 import { Button, Form, Input, Modal, Select, Space } from 'antd';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { getPermissions, PostRoles } from '../../../utils/Route';
 import { cancel } from '../../../utils/Messages';
 
@@ -7,11 +7,11 @@ const AddRole = ({ render, setRender }) => {
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState('');
   const [permission, setPermission] = useState('');
-  const [permissiondata, permissionDataChange] = useState(null);
+  const [permissionData, setPermissionData] = useState(null);
 
-  useEffect(() => {
-    getPermissions(permissionDataChange);
-  }, [render]);
+  const getPermissionData = useCallback(() => {
+    return getPermissions(setPermissionData);
+  }, []);
 
   const handleChange = useCallback((value) => {
     setPermission(value);
@@ -22,13 +22,17 @@ const AddRole = ({ render, setRender }) => {
     setOpen(false);
     setTitle('');
   }
-    const Cancel=()=>{
-        setOpen(false)
-    }
+  const Cancel = () => {
+    cancel();
+    setOpen(false)
+  }
 
   return (
     <>
-      <Button onClick={() => { setOpen(true) }}>
+      <Button onClick={() => {
+        setOpen(true);
+        getPermissionData();
+      }}>
         Add Role
       </Button>
       <Modal
@@ -68,16 +72,15 @@ const AddRole = ({ render, setRender }) => {
               className='modal_input'
             />
           </Form.Item>
-
-          <Form.Item
-            label="Permissions"
-            name="permissions"
-            rules={[{ required: true, message: 'Please select permissions!' }]}
-            hasFeedback
+          <Space
+            direction="vertical"
+            className="w-100"
           >
-            <Space
-              direction="vertical"
-              className="w-100"
+            <Form.Item
+              label="Permissions"
+              name="permissions"
+              rules={[{ required: true, message: 'Please select permissions!' }]}
+              hasFeedback
             >
               <Select
                 mode='multiple'
@@ -85,8 +88,8 @@ const AddRole = ({ render, setRender }) => {
                 onChange={handleChange}
                 maxTagCount="responsive"
               >
-                {permissiondata ?
-                  permissiondata.map((item) => {
+                {permissionData ?
+                  permissionData.map((item) => {
                     return (
                       <Select.Option key={item.id} value={item.id}>
                         {item.title}
@@ -95,17 +98,17 @@ const AddRole = ({ render, setRender }) => {
                   })
                   : null}
               </Select>
-            </Space>
-          </Form.Item>
+            </Form.Item>
+          </Space>
           <Form.Item wrapperCol={{ span: 24 }}>
-              <div className="modalButton">
-                  <Button onClick={Cancel} >
-                      Cancel
-                  </Button>
-                  <Button type='primary' htmlType='submit'>
-                      Add
-                  </Button>
-              </div>
+            <div className="modalButton">
+              <Button onClick={Cancel} >
+                Cancel
+              </Button>
+              <Button type='primary' htmlType='submit'>
+                Add
+              </Button>
+            </div>
           </Form.Item>
         </Form>
       </Modal>
