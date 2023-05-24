@@ -17,6 +17,7 @@ const Modules = () => {
         }
         fetchData()
     }, [render]);
+    console.log(modulesData)
 
     let lastIndex = 0
     const updateIndex = () => {
@@ -43,6 +44,19 @@ const Modules = () => {
                 })
             }
         });
+
+    const getModulesId=(record)=> {
+        let arr1 = [];
+        const children = record.children;
+        if (children && children.length > 0) {
+            for (const id in children) {
+                arr1 = getModulesId(children[id]);
+            }
+        }
+
+        console.log("aaaaaaaaaaaa", record.id);
+        return [...arr1, record.id];
+    }
 
     const [columns] = useState([
         {
@@ -82,7 +96,11 @@ const Modules = () => {
                 return (
                     <div className='icons'>
                         <UpdateModule titl={record.title} render={render} setRender={setRender} id={record.id} activities={record.activities} />
-                        <DeleteOutlined onClick={() => { showDeleteConfirm(record, 'module', 'module', setModulesData) }} className='deleteIcons' />
+                        <DeleteOutlined onClick={() => {
+                            const x  = getModulesId(record);
+                            console.log("XXXXXXXXXXXXXXXXXXXXXX", x);
+                        }} className='deleteIcons' />
+                        {/*() => { showDeleteConfirm(record, 'module', 'module', setModulesData) }*/}
                     </div>
                 );
             },

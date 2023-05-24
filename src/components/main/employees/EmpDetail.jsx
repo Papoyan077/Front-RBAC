@@ -4,6 +4,7 @@ import { getEmployeesById } from "../../../utils/Route";
 import { ArrowLeftOutlined, DeleteOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Table } from "antd";
 import EmpPermissionEdit from "./EmpPermissionEdit";
+import {showDeleteConfirm} from "../../delete";
 
 const EmpDetail = () => {
     let empId = useParams();
@@ -31,7 +32,7 @@ const EmpDetail = () => {
             render: (record) => {
                 return (
                     <div className='icons'>
-                        <DeleteOutlined className='deleteIcons' />
+                        <DeleteOutlined  onClick={() => { showDeleteConfirm(record, 'emploeeDetail', 'emploeeDetail', ) }} className='deleteIcons' />
                     </div>
                 );
             },
@@ -44,6 +45,7 @@ const EmpDetail = () => {
                     <Link
                         to="/layout/employees"><Button>Back</Button>
                     </Link>
+                    <div className='d-flex'>
                     <span className='d-flex'>Employee :</span>
                     {employeeData &&
                         <div>
@@ -53,6 +55,7 @@ const EmpDetail = () => {
                             </div>
                         </div>
                     }
+                    </div>
                 </div>
             </div>
             <div className='main'>

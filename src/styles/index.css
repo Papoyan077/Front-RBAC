@@ -104,11 +104,7 @@ body {
     justify-content: space-between;
     align-items: baseline
 }
-.mainTitleText{
-    display: flex;
-    align-items: center;
-    height: 50px
-}
+
 .d-flex{
     display: flex;
 }
