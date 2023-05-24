@@ -62,12 +62,14 @@ body {
     padding: 0;
 }
 
-.actionsIcons {
+.icons {
     display: flex;
     font-size: 16px;
     justify-content: end;
 }
-
+.scroll{
+    overflow: scroll;
+}
 .deleteIcons {
     color: red;
     margin-left: 12px;
@@ -87,7 +89,32 @@ body {
     width: 100%;
     height: 89vh;
 }
-
+.mainDetail {
+    padding-left: 10px;
+    margin-right: 10px;
+    margin-top: 10px;
+    width: 100%;
+    height: 45vh;
+    background-color: #fffdfd;
+}
+.detailMain{
+    padding: 5px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline
+}
+.mainTitleText{
+    display: flex;
+    align-items: center;
+    height: 50px
+}
+.d-flex{
+    display: flex;
+}
+.ml-5{
+    margin-left: 5px;
+}
 .mainTitle {
     display: flex;
     align-items: center;

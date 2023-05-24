@@ -32,7 +32,7 @@ const Clients = () => {
     {
       render: (record) => {
         return (
-          <div className='actionsIcons'>
+          <div className='icons'>
             <UpdateClient titl={record.title} render={render} setRender={setRender} id={record.id} />
             <DeleteOutlined onClick={() => { showDeleteConfirm(record, 'client', 'client', setClientData) }} className='deleteIcons' />
           </div>

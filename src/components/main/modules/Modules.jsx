@@ -80,7 +80,7 @@ const Modules = () => {
         {
             render: (record) => {
                 return (
-                    <div className='actionsIcons'>
+                    <div className='icons'>
                         <UpdateModule titl={record.title} render={render} setRender={setRender} id={record.id} activities={record.activities} />
                         <DeleteOutlined onClick={() => { showDeleteConfirm(record, 'module', 'module', setModulesData) }} className='deleteIcons' />
                     </div>

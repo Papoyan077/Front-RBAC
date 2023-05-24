@@ -39,7 +39,7 @@ const Employees = () => {
     {
       render: (record) => {
         return (
-          <div className='actionsIcons'>
+          <div className='icons'>
             <MoreOutlined onClick={() => { LoadDetail(record.id) }} />
           </div>
         );

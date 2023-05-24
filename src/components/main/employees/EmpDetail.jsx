@@ -30,7 +30,7 @@ const EmpDetail = () => {
         {
             render: (record) => {
                 return (
-                    <div className='EmployeesIcons'>
+                    <div className='icons'>
                         <DeleteOutlined className='deleteIcons' />
                     </div>
                 );
@@ -40,50 +40,30 @@ const EmpDetail = () => {
     return (
         <div className='main'>
             <div className='mainTitle'>
-                <div style={{ display: "flex", alignItems: "center", height: "50px" }}>
-                    <Link style={{ display: "flex", alignItems: "center" }}
-                        to="/layout/employees"><Button type="primary">Back</Button>
+                <div className='mainTitleText'>
+                    <Link
+                        to="/layout/employees"><Button>Back</Button>
                     </Link>
-                    <span style={{
-                        marginLeft: "10px",
-                        display: "flex",
-                        alignItems: "center"
-                    }}>Employee :</span>
+                    <span className='d-flex'>Employee :</span>
                     {employeeData &&
                         <div>
-                            <div style={{ display: "flex" }}>
+                            <div className='d-flex'>
                                 <span>{employeeData.firstName}</span>
-                                <span style={{ marginLeft: "5px" }}>{employeeData.lastName}</span>
+                                <span className='ml-5'>{employeeData.lastName}</span>
                             </div>
                         </div>
                     }
                 </div>
             </div>
-            <div className="border-table" style={{ width: "100%", height: "100%", overflow: "scroll" }}>
-                <div style={{
-                    margin: "5px auto",
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "center",
-                    width: "98%"
-
-                }}>
-                    <div style={{ width: "100%", display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
-                        <span style={{
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            fontSize: "20px"
-                        }}>
+            <div className='main'>
+                <div className='mainDetail'>
+                    <div className='detailMain'>
+                        <span>
                             Permissions
                         </span>
-                        <Button type="primary">Add Permissions</Button>
+                        <Button>Add Permissions</Button>
                     </div>
-                    <div style={{
-                        width: "100%",
-                        maxHeight: "70vh",
-                        overflow: "scroll"
-                    }}>
+                    <div className='scroll'>
                         <Table
                             columns={columns}
                             expandable={{
@@ -102,26 +82,14 @@ const EmpDetail = () => {
                         />
                     </div>
                 </div>
-                <div style={{
-                    marginLeft: "25px",
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "center"
-                }}>
-                    <span style={{
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        width: "100%",
-                        fontSize: "20px"
-                    }}>
-                        Roles
-                    </span>
-                    <div style={{
-                        width: "100%",
-                        maxHeight: "70vh",
-                        overflow: "scroll"
-                    }}>
+                <div className='mainDetail'>
+                    <div className='detailMain'>
+                        <span>
+                            Roles
+                        </span>
+                        <Button>Add Roles</Button>
+                    </div>
+                    <div className='scroll'>
                         <Table
                             columns={columns}
                             expandable={{

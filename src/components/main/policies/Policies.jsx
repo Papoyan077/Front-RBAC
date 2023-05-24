@@ -54,7 +54,7 @@ const Policies = () => {
             render:
                 (record) => {
                     return (
-                        <div className='actionsIcons'>
+                        <div className='icons'>
                             <UpdatePolicy render={render} setRender={setRender} id={record.id} record={record}
                                 moduleTitle={record.title} changeUpload={changeUpload} />
                         </div>
