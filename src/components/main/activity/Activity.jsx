@@ -33,7 +33,7 @@ const Activity = () => {
         {
             render: (record) => {
                 return (
-                    <div className='icons'>
+                    <div className='actionsIcons'>
                         <UpdateActivity titl={record.title} render={render} setRender={setRender} id={record.id} />
                         <DeleteOutlined onClick={() => {
                             showDeleteConfirm(record, 'activity', 'activity', setActivityData);

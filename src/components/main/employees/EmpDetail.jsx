@@ -43,7 +43,7 @@ const EmpDetail = () => {
             <div className='mainTitle'>
                 <div className='mainTitleText'>
                     <Link
-                        to="/layout/employees"><Button>Back</Button>
+                        to="/employees"><Button>Back</Button>
                     </Link>
                     <div className='d-flex'>
                     <span className='d-flex'>Employee :</span>

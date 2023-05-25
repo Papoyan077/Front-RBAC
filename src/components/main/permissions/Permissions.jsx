@@ -50,7 +50,7 @@ const Permissions = () => {
     {
       render: (record) => {
         return (
-          <div className='icons'>
+          <div className='actionsIcons'>
             <UpdatePermission titl={record.title} render={render} setRender={setRender} id={record.id} policies={record.policies}/>
             <DeleteOutlined onClick={() => { showDeleteConfirm(record, 'permission', 'permission', setPermissionData) }} className='deleteIcons' />
           </div>

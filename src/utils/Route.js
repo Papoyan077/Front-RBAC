@@ -5,10 +5,10 @@ import instance from "./axios";
 const login = async (username, password, navigate) => {
   instance.post(`/login/`, { "login": username, "password": password })
     .then(resp => {
-      setCookie('token', resp.data.token, 55555555);
+      setCookie('token', resp.data.token, 1800000);
       if (resp.status === 200) {
         succesLogin(username)
-        navigate("/layout/")
+        navigate("/")
       }
     }).catch(() => {
       loginError()

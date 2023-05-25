@@ -36,12 +36,12 @@ const Roles = () => {
       render: (record) => {
         return (
           <>
-            {record.permissions?.slice(0, 1).map(perm => {
+            {record.permissions?.map(perm => {
               return (
-                <span key={`action${updateIndex()}`}>{perm.title}</span>
+                <span key={`action${updateIndex()}`}>{perm.title} ,</span>
               )
             })}
-            ({record.permissions.length > 0 ? record.permissions.length : null}) <RolePermissionMore permissions={record.permissions} />
+            {/* ({record.permissions.length > 0 ? record.permissions.length : null}) <RolePermissionMore permissions={record.permissions} /> */}
           </>
         )
       }
@@ -49,7 +49,7 @@ const Roles = () => {
     {
       render: (record) => {
         return (
-          <div className='icons'>
+          <div className='actionsIcons'>
             <UpdateRole titl={record.title} render={render} setRender={setRender} id={record.id} permissions={record.permissions}/>
             <DeleteOutlined onClick={() => { showDeleteConfirm(record, 'role', 'role', setRoleData) }} className='deleteIcons' />
           </div>

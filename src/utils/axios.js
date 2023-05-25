@@ -1,6 +1,6 @@
 import axios from "axios";
 import { getCookie } from "../components/login/LoginAcces";
-const BASE_URL = 'http://localhost:8081/';
+const BASE_URL = 'http://localhost:8080/';
 
 // export const redirectToHomePage = () => {
 //   let token = getCookie();

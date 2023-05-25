@@ -11,7 +11,7 @@ export default function Header() {
             <div className="border-table headerDirection">
                 <div>INSTIGATE MOBILE</div>
                 <div className="headerButton">
-                    <Link to='/'>
+                    <Link to='/login'>
                         <Button onClick={() => {
                             setCookie('token', null, null);
                             getCookie('token');

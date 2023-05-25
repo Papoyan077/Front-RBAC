@@ -14,7 +14,7 @@ const Employees = () => {
     return lastIndex
   }
   const LoadDetail = (id) => {
-    navigate("/layout/detail/" + id);
+    navigate("/detail/" + id);
   }
   useEffect(() => {
     getEmployees(setEmployeesData)
@@ -39,7 +39,7 @@ const Employees = () => {
     {
       render: (record) => {
         return (
-          <div className='icons'>
+          <div className='actionsIcons'>
             <MoreOutlined onClick={() => { LoadDetail(record.id) }} />
           </div>
         );

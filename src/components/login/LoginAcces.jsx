@@ -12,7 +12,7 @@ const getCookie = (name) => {
             return cookie.substring(name.length + 1);
         }
     }
-    return window.location = "/";
+    return window.location = "/login";
 }
 
 const getCookieForReturn = (name) => {
