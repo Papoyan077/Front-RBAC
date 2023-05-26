@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { getEmployeesById } from "../../../utils/Route";
+import {getEmployeesById, getPermissions} from "../../../utils/Route";
 import { ArrowLeftOutlined, DeleteOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Table } from "antd";
 import EmpPermissionEdit from "./EmpPermissionEdit";
 import {showDeleteConfirm} from "../../delete";
+import instance from "../../../utils/axios";
+import {getCookie} from "../../login/LoginAcces";
+import {error} from "../../../utils/Messages";
 
 const EmpDetail = () => {
     let empId = useParams();
@@ -15,7 +18,19 @@ const EmpDetail = () => {
         lastIndex++
         return lastIndex
     }
+    console.log(employeeData)
 
+    const deleteEployeePermission = async (id) => {
+        return (
+            await instance.delete(`/employee/permission?employeeId=${employeeData.id}&permissionId=${id}`, { headers: { "Authorization": `Bearer ${getCookie('token')}` } }).then(resp => {
+                setEmployeeData(resp.data);
+                return true
+            }).catch((err) => {
+                error(err.message)
+                return false
+            })
+        )
+    }
     useEffect(() => {
         getEmployeesById(setEmployeeData, empId)
     }, [empId]);
@@ -32,7 +47,7 @@ const EmpDetail = () => {
             render: (record) => {
                 return (
                     <div className='icons'>
-                        <DeleteOutlined  onClick={() => { showDeleteConfirm(record, 'emploeeDetail', 'emploeeDetail', ) }} className='deleteIcons' />
+                        <DeleteOutlined  onClick={()=>deleteEployeePermission(record.id)} className='deleteIcons' />
                     </div>
                 );
             },
