@@ -82,7 +82,7 @@ const Modules = () => {
                 return (
                     <div className='actionsIcons'>
                         <UpdateModule titl={record.title} render={render} setRender={setRender} id={record.id} activities={record.activities} />
-                        <DeleteOutlined onClick={() => { showDeleteConfirm(record, 'module', 'module', setModulesData) }} className='deleteIcons' />
+                        <DeleteOutlined onClick={() => { showDeleteConfirm(record, 'module', 'module', git setModulesData) }} className='deleteIcons' />
                     </div>
                 );
             },
