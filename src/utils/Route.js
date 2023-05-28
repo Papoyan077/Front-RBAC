@@ -115,6 +115,26 @@ const getEmployeesById = async (empDataChange, empId) => {
   )
 }
 
+const PostEmployeePermission = async (employeeId, permissions , render , setRender) => {
+  await instance.post(`/employee/permission/${employeeId}`, { permissions: permissions }, { headers: { "Authorization": `Bearer ${getCookie('token')}` } })
+    .then(() => {
+      setRender(!render)
+      succesPost()
+    }).catch((err) => {
+      error(err.message)
+    });
+}
+
+const PostEmployeeRole = async (employeeId, roles , render , setRender) => {
+  await instance.post(`/employee/role/${employeeId}`, { roles: roles }, { headers: { "Authorization": `Bearer ${getCookie('token')}` } })
+    .then(() => {
+      setRender(!render)
+      succesPost()
+    }).catch((err) => {
+      error(err.message)
+    });
+}
+
 ////Permissions
 
 const getPermissions = async (permissionDataChange) => {
@@ -287,4 +307,4 @@ const PutPolicy = async (id, activities, render) => {
     });
 }
 
-export { login, getActivity, PostActivity, PutActivity, getClients, PostClients, PutClients, getEmployees, getEmployeesById, getPermissions, PostPermissions, PutPermission, getRoles, PostRoles, PutRoles, getModules, getModuleById , getModulesTree, PostModule, PutModule, getPolicy, getPolicyPermission, PostPolicy, PutPolicy };
+export { login, getActivity, PostActivity, PutActivity, getClients, PostClients, PutClients, getEmployees, getEmployeesById, PostEmployeePermission, PostEmployeeRole, getPermissions, PostPermissions, PutPermission, getRoles, PostRoles, PutRoles, getModules, getModuleById, getModulesTree, PostModule, PutModule, getPolicy, getPolicyPermission, PostPolicy, PutPolicy };

@@ -1,16 +1,15 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import {getEmployeesById, getPermissions} from "../../../utils/Route";
-import { ArrowLeftOutlined, DeleteOutlined, UserOutlined } from "@ant-design/icons";
+import { getEmployeesById } from "../../../utils/Route";
+import { DeleteOutlined } from "@ant-design/icons";
 import { Button, Table } from "antd";
-import EmpPermissionEdit from "./EmpPermissionEdit";
-import {showDeleteConfirm} from "../../delete";
-import instance from "../../../utils/axios";
-import {getCookie} from "../../login/LoginAcces";
-import {error} from "../../../utils/Messages";
+import { deleteEmployeePermission, deleteEmployeeRole } from "../../delete";
+import AddEmployeeRole from "./AddEmployeeRole";
+import AddEmployeePermission from "./AddEmployeePermission";
 
 const EmpDetail = () => {
-    let empId = useParams();
+    const [render, setRender] = useState(false);
+    let employeeId = useParams();
     const [employeeData, setEmployeeData] = useState({});
 
     let lastIndex = 0
@@ -18,24 +17,15 @@ const EmpDetail = () => {
         lastIndex++
         return lastIndex
     }
-    console.log(employeeData)
 
-    const deleteEployeePermission = async (id) => {
-        return (
-            await instance.delete(`/employee/permission?employeeId=${employeeData.id}&permissionId=${id}`, { headers: { "Authorization": `Bearer ${getCookie('token')}` } }).then(resp => {
-                setEmployeeData(resp.data);
-                return true
-            }).catch((err) => {
-                error(err.message)
-                return false
-            })
-        )
-    }
     useEffect(() => {
-        getEmployeesById(setEmployeeData, empId)
-    }, [empId]);
+        async function fetchData() {
+            await getEmployeesById(setEmployeeData, employeeId)
+        }
+        fetchData();
+    }, [render]);
+
     let rolesData = employeeData.roles
-    console.log(employeeData);
 
     const columns = [
         {
@@ -47,7 +37,7 @@ const EmpDetail = () => {
             render: (record) => {
                 return (
                     <div className='icons'>
-                        <DeleteOutlined  onClick={()=>deleteEployeePermission(record.id)} className='deleteIcons' />
+                        <DeleteOutlined onClick={() => deleteEmployeeRole(record.id, employeeData, setEmployeeData)} className='deleteIcons' />
                     </div>
                 );
             },
@@ -61,15 +51,15 @@ const EmpDetail = () => {
                         to="/employees"><Button>Back</Button>
                     </Link>
                     <div className='d-flex'>
-                    <span className='d-flex'>Employee :</span>
-                    {employeeData &&
-                        <div>
-                            <div className='d-flex'>
-                                <span>{employeeData.firstName}</span>
-                                <span className='ml-5'>{employeeData.lastName}</span>
+                        <span className='d-flex'>Employee :</span>
+                        {employeeData &&
+                            <div>
+                                <div className='d-flex'>
+                                    <span>{employeeData.firstName}</span>
+                                    <span className='ml-5'>{employeeData.lastName}</span>
+                                </div>
                             </div>
-                        </div>
-                    }
+                        }
                     </div>
                 </div>
             </div>
@@ -79,7 +69,7 @@ const EmpDetail = () => {
                         <span>
                             Permissions
                         </span>
-                        <Button>Add Permissions</Button>
+                        <AddEmployeePermission employeeData={employeeData} render={render}  setRender={setRender} />
                     </div>
                     <div className='scroll'>
                         <Table
@@ -105,7 +95,7 @@ const EmpDetail = () => {
                         <span>
                             Roles
                         </span>
-                        <Button>Add Roles</Button>
+                        <AddEmployeeRole employeeData={employeeData} render={render}  setRender={setRender} />
                     </div>
                     <div className='scroll'>
                         <Table

@@ -3,7 +3,6 @@ import { DeleteOutlined } from "@ant-design/icons";
 import { useEffect, useState } from 'react';
 import AddRole from "./AddRole"
 import UpdateRole from "./UpdateRole"
-import RolePermissionMore from "./RolePermissionMore";
 import SearchFunc from '../../search';
 import { getRoles } from '../../../utils/Route';
 import { showDeleteConfirm } from '../../delete';

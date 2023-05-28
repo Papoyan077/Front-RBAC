@@ -30,4 +30,52 @@ const showDeleteConfirm = (record, apiName, name, data) => {
     });
 };
 
-export { showDeleteConfirm };
+const deleteEmployeePermission = (id, employeeData, setEmployeeData) => {
+    confirm({
+        title: 'Are you sure delete this Permission?',
+        icon: <ExclamationCircleFilled />,
+        content: ` Permission delete:`,
+        okText: 'Yes',
+        okType: 'danger',
+        cancelText: 'No',
+        onOk() {
+            instance.delete(`/employee/permission?employeeId=${employeeData.id}&permissionId=${id}`, { headers: { "Authorization": `Bearer ${getCookie('token')}` } }).then(resp => {
+                setEmployeeData(resp.data);
+                succesDelete();
+                return true
+            }).catch((err) => {
+                error(err.message)
+                return false
+            })
+        },
+        onCancel() {
+            cancel();
+        },
+    });
+};
+
+const deleteEmployeeRole = (id, employeeData, setEmployeeData) => {
+    confirm({
+        title: 'Are you sure delete this Role?',
+        icon: <ExclamationCircleFilled />,
+        content: ` Role delete:`,
+        okText: 'Yes',
+        okType: 'danger',
+        cancelText: 'No',
+        onOk() {
+            instance.delete(`/employee/role?employeeId=${employeeData.id}&roleId=${id}`, { headers: { "Authorization": `Bearer ${getCookie('token')}` } }).then(resp => {
+                setEmployeeData(resp.data);
+                succesDelete();
+                return true
+            }).catch((err) => {
+                error(err.message)
+                return false
+            })
+        },
+        onCancel() {
+            cancel();
+        },
+    });
+};
+
+export { showDeleteConfirm, deleteEmployeePermission, deleteEmployeeRole };
