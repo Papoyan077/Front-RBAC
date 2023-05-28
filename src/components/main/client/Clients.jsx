@@ -47,7 +47,7 @@ const Clients = () => {
         <span>Clients</span>
         <AddClient render={render} setRender={setRender} />
       </div>
-      <Table columns={columns} dataSource={clientData} rowKey={updateIndex} scroll={{ y: 445 }} className='tableStyle' />
+      <Table columns={columns} dataSource={clientData} rowKey={updateIndex} scroll={{ y: 445 }} loading={clientData ? false : true} className='tableStyle' />
     </div>
   )
 };

@@ -49,7 +49,7 @@ const Activity = () => {
             <div className="mainTitle">
                 <span>Activities</span>
                 <AddActivity render={render} setRender={setRender} /></div>
-            <Table columns={columns} dataSource={ActivityData} scroll={{ y: 445 }} rowKey={updateIndex} className='tableStyle' />
+            <Table columns={columns} dataSource={ActivityData} scroll={{ y: 445 }} rowKey={updateIndex} loading={ActivityData ? false : true} className='tableStyle' />
         </div>
     )
 };

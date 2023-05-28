@@ -74,6 +74,7 @@ const Policies = () => {
                 scroll={{ y: 445 }}
                 className='tableStyle'
                 rowKey={updateIndex}
+                loading={policiesData ? false : true}
             />
 
         </div>

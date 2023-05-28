@@ -52,7 +52,7 @@ const Employees = () => {
       <div className="mainTitle">
         <span>Employees</span>
       </div>
-      <Table columns={columns} rowKey={updateIndex} dataSource={employeesData} scroll={{ y: 445 }} className='tableStyle' />
+      <Table columns={columns} rowKey={updateIndex} dataSource={employeesData} scroll={{ y: 445 }} loading={employeesData ? false : true} className='tableStyle' />
     </div>
   )
 };

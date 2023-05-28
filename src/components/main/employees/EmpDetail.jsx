@@ -113,7 +113,7 @@ const EmpDetail = () => {
                                 rowExpandable: (record) => record.id !== 'Not Expandable',
                             }}
                             dataSource={rolesData}
-                            rowKey={"ID"}
+                            rowKey={updateIndex}
                         />
                     </div>
                 </div>

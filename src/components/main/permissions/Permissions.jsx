@@ -71,7 +71,7 @@ const Permissions = () => {
         scroll={{ y: 445 }}
         className='tableStyle'
         rowKey={updateIndex}
-        loading="true"
+        loading={permissionData ? false : true}
       />
 
     </div>

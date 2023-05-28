@@ -98,7 +98,9 @@ const Modules = () => {
             <Table
                 columns={columns}
                 dataSource={modulesData}
+                loading={modulesData ? false : true}
                 scroll={{ y: 445 }}
+                rowKey={updateIndex}
                 className='tableStyle'
             />
         </div>

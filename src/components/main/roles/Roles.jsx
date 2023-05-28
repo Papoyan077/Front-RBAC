@@ -70,6 +70,7 @@ const Roles = () => {
         style={{ width: "98%" }}
         className='tableStyle'
         rowKey={updateIndex}
+        loading={roleData ? false : true}
       />
 
     </div>
