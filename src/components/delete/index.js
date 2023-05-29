@@ -30,17 +30,16 @@ const showDeleteConfirm = (record, apiName, name, data) => {
     });
 };
 
-const deleteEmployeePermission = (id, employeeData, setEmployeeData) => {
+const deleteEmployeePermission = (id, employeeData , render , setRender) => {
     confirm({
-        title: 'Are you sure delete this Permission?',
+        title: 'Are you sure delete this Item?',
         icon: <ExclamationCircleFilled />,
-        content: ` Permission delete:`,
         okText: 'Yes',
         okType: 'danger',
         cancelText: 'No',
         onOk() {
             instance.delete(`/employee/permission?employeeId=${employeeData.id}&permissionId=${id}`, { headers: { "Authorization": `Bearer ${getCookie('token')}` } }).then(resp => {
-                setEmployeeData(resp.data);
+                setRender(!render)
                 succesDelete();
                 return true
             }).catch((err) => {
@@ -54,17 +53,16 @@ const deleteEmployeePermission = (id, employeeData, setEmployeeData) => {
     });
 };
 
-const deleteEmployeeRole = (id, employeeData, setEmployeeData) => {
+const deleteEmployeeRole = async (id, employeeData, render , setRender) => {
     confirm({
-        title: 'Are you sure delete this Role?',
+        title: 'Are you sure delete this Item?',
         icon: <ExclamationCircleFilled />,
-        content: ` Role delete:`,
         okText: 'Yes',
         okType: 'danger',
         cancelText: 'No',
         onOk() {
             instance.delete(`/employee/role?employeeId=${employeeData.id}&roleId=${id}`, { headers: { "Authorization": `Bearer ${getCookie('token')}` } }).then(resp => {
-                setEmployeeData(resp.data);
+                setRender(!render)
                 succesDelete();
                 return true
             }).catch((err) => {
@@ -76,6 +74,6 @@ const deleteEmployeeRole = (id, employeeData, setEmployeeData) => {
             cancel();
         },
     });
-};
+}
 
 export { showDeleteConfirm, deleteEmployeePermission, deleteEmployeeRole };
