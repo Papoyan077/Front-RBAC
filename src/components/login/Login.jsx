@@ -3,6 +3,7 @@ import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Input, Form } from 'antd';
 import { useNavigate } from "react-router-dom";
 import { login } from '../../utils/Route';
+import logo from "../../assets/Logo.png"
 
 function Login() {
     const navigate = useNavigate();
@@ -12,7 +13,7 @@ function Login() {
     return (
         <div className="login">
             <div>
-                <img src="#" alt="Logo" />
+                <img src={logo} alt="Logo" />
             </div>
             <Form
                 name="normal_login"

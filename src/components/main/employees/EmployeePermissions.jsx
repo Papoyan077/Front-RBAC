@@ -25,7 +25,7 @@ const EmployeePermissions = ({ employeeData, render, setRender }) => {
             render: (record) => {
                 return (
                     <div className='icons'>
-                        <DeleteOutlined onClick={() => deleteEmployeePermission(record.id, employeeData , render , setRender)} className='deleteIcons' />
+                        <DeleteOutlined onClick={() => deleteEmployeePermission(record.id, employeeData, render, setRender)} className='deleteIcons' />
                     </div>
                 );
             },
@@ -48,6 +48,7 @@ const EmployeePermissions = ({ employeeData, render, setRender }) => {
                     rowExpandable: (record) => record.id !== 'Not Expandable',
                 }}
                 dataSource={employeeData.permissions}
+                loading={employeeData.permissions ? false : true}
             />
         </div>
     );

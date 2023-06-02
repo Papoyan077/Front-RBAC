@@ -50,6 +50,7 @@ const EmployeeRoles = ({ employeeData, render , setRender}) => {
                     rowExpandable: (record) => record.id !== 'Not Expandable',
                 }}
                 dataSource={rolesData}
+                loading={rolesData ? false : true}
             />
         </div>
     );

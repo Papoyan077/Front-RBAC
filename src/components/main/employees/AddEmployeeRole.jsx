@@ -1,9 +1,9 @@
-import { Button, Form, Input, Modal, Select, Space } from 'antd';
+import { Button, Form, Modal, Select, Space } from 'antd';
 import { useCallback, useState } from 'react';
-import { getRoles, PostEmployeeRole, PostRoles } from '../../../utils/Route';
+import { getRoles, PostEmployeeRole } from '../../../utils/Route';
 import { cancel } from '../../../utils/Messages';
 
-const AddEmployeeRole = ({ employeeData , render , setRender }) => {
+const AddEmployeeRole = ({ employeeData, render, setRender }) => {
     const [open, setOpen] = useState(false);
     const [title, setTitle] = useState('');
     const [role, setRole] = useState([]);
@@ -18,7 +18,7 @@ const AddEmployeeRole = ({ employeeData , render , setRender }) => {
     }, []);
 
     const addEmployeeRole = async () => {
-        PostEmployeeRole(employeeData.id, role , render , setRender);
+        PostEmployeeRole(employeeData.id, role, render, setRender);
         setOpen(false);
         setTitle('');
     }

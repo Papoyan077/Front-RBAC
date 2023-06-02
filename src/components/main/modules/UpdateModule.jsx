@@ -23,16 +23,17 @@ const UpdateModule = ({ render, setRender, id, titl, activities }) => {
     return getActivity(setActivityData);
   }, []);
 
+
+  const ChangeActivity = useCallback((value) => {
+    setActivitys(value);
+  }, []);
+
   const UpdateModule = async () => {
     const result = await PutModule(id, title, render, activitys);
     setRender(result);
     setOpen(false);
     setTitle(titl);
   }
-
-  const ChangeActivity = useCallback((value) => {
-    setActivitys(value);
-  }, []);
 
   const Cancel = () => {
     cancel();
@@ -94,7 +95,7 @@ const UpdateModule = ({ render, setRender, id, titl, activities }) => {
               rules={[{ required: true, message: 'Please select activities!' }]}
               hasFeedback
             >
-              <Select defaultValue={getSelected()} mode='multiple' className="w-100" onChange={ChangeActivity} maxTagCount='responsive'>
+              <Select defaultValue={getSelected()} mode='multiple' className="w-100" onChange={ChangeActivity}>
                 {activity ?
                   activity.map(item => {
                     return (

@@ -39,7 +39,7 @@ const Permissions = () => {
           <div>
             {record.policies?.map((policy, index) => {
               return (
-                <span key={`policy_${index}`}>{policy.policyModule.title} </span>
+                <span key={`policy_${index}`}>{policy.policyModule.title}, </span>
 
               )
             })}

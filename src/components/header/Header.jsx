@@ -9,7 +9,7 @@ export default function Header() {
     return (
         <div className="header">
             <div className="border-table headerDirection">
-                <div>INSTIGATE MOBILE</div>
+                <div>Zealous</div>
                 <div className="headerButton">
                     <Link to='/login'>
                         <Button onClick={() => {

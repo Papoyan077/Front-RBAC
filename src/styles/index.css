@@ -118,6 +118,11 @@ body {
     font-size: 25px;
     margin-right: 2%;
 }
+.mainTitleText{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
 .ant-form-item{
     margin-bottom: 0;
 }

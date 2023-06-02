@@ -1,7 +1,6 @@
 import { Table } from 'antd';
 import { useEffect, useState } from 'react';
 import UpdatePolicy from "./UpdatePolicy.jsx";
-import PolicyActionsMore from './PolicyActionsMore';
 import SearchFunc from '../../search';
 import { getPolicy } from '../../../utils/Route';
 
@@ -39,12 +38,12 @@ const Policies = () => {
             render: (record) => {
                 return (
                     <>
-                        {record.activities?.slice(0, 1).map(activity => {
+                        {record.activities?.map(activity => {
                             return (
-                                <span key={`Activities${updateIndex()}`}>{activity.title}</span>
+                                <span key={`Activities${updateIndex()}`}>{activity.title},</span>
                             )
                         })}
-                        ({record.activities.length >= 0 ? record.activities.length : 0}) <PolicyActionsMore actions={record.activities} />
+                        {/* ({record.activities.length >= 0 ? record.activities.length : 0}) <PolicyActionsMore actions={record.activities} /> */}
                     </>
                 );
             },

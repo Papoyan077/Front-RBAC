@@ -66,6 +66,7 @@ const Modules = () => {
         {
             title: "Activities",
             render: (record) => {
+                console.log(record);
                 return (
                     <>
                         {record.activities?.map(item => {
@@ -100,7 +101,7 @@ const Modules = () => {
                 dataSource={modulesData}
                 loading={modulesData ? false : true}
                 scroll={{ y: 445 }}
-                rowKey={updateIndex}
+                // rowKey={updateIndex}
                 className='tableStyle'
             />
         </div>
