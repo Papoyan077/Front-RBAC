@@ -20,11 +20,14 @@ const UpdatePolicy = ({ render, setRender, id, moduleTitle, record }) => {
         return lastIndex
     }
 
+    // && !activity.includes(checkedValues.target.value)
     const onChange = (checkedValues) => {
-        if (checkedValues.target.checked && !activity.includes(checkedValues.target.value)) {
+        if (checkedValues.target.checked) {
+            console.log(true);
             activity.push(checkedValues.target.value);
         }
         else {
+            console.log(false);
             activity.pop(checkedValues.target.value)
         }
     }
@@ -34,12 +37,14 @@ const UpdatePolicy = ({ render, setRender, id, moduleTitle, record }) => {
         setRender(result)
         setOpen(false);
     }
+    // console.log("IDDDD" , id);
+    // console.log("activities" , activity);
 
     const ids = record.activities.map((m) => {
         activity.push(m.id)
         return m.id
     });
-    
+
     const Cancel = () => {
         cancel();
         setActivity([]);
@@ -83,7 +88,7 @@ const UpdatePolicy = ({ render, setRender, id, moduleTitle, record }) => {
                             <div style={{ marginTop: "5%", display: "flex" }}>
                                 Select Activities : {activityData.map((activity) =>
                                     <Checkbox onChange={onChange} defaultChecked={ids.includes(activity.id)}
-                                        key={`activity${updateIndex()}`} value={activity.id}>{activity.title}</Checkbox>
+                                        value={activity.id}>{activity.title}</Checkbox>
                                 )}</div>
                         </div>
                     </Form.Item>
@@ -103,3 +108,5 @@ const UpdatePolicy = ({ render, setRender, id, moduleTitle, record }) => {
     );
 };
 export default UpdatePolicy;
+
+// key={`activity${updateIndex()}`}

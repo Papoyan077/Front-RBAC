@@ -66,7 +66,6 @@ const Modules = () => {
         {
             title: "Activities",
             render: (record) => {
-                console.log(record);
                 return (
                     <>
                         {record.activities?.map(item => {

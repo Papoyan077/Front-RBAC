@@ -9,7 +9,7 @@ const UpdateModule = ({ render, setRender, id, titl, activities }) => {
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState(titl);
   const [activity, setActivityData] = useState(null);
-  const [activitys, setActivitys] = useState(null);
+  const [activitys, setActivitys] = useState('');
 
   const getSelected = () => {
     let selected = [];
@@ -24,9 +24,10 @@ const UpdateModule = ({ render, setRender, id, titl, activities }) => {
   }, []);
 
 
-  const ChangeActivity = useCallback((value) => {
+  const ChangeActivity = (value) => {
     setActivitys(value);
-  }, []);
+  }
+  console.log(activitys);
 
   const UpdateModule = async () => {
     const result = await PutModule(id, title, render, activitys);

@@ -251,8 +251,8 @@ const PostModule = async (title, render, setRender, clientId, parentId, activity
     });
 }
 
-const PutModule = async (id, title, render, activity) => {
-  await instance.put(`/module/${id}`, { title: title, activity: activity, status: "published" }, { headers: { "Authorization": `Bearer ${getCookie('token')}` } })
+const PutModule = async (id, title, render, activities) => {
+  await instance.put(`/module/${id}`, { title: title, activities: activities, status: "published" }, { headers: { "Authorization": `Bearer ${getCookie('token')}` } })
     .then(() => {
       succesPut();
       return !render
