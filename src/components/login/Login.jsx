@@ -3,7 +3,7 @@ import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Input, Form } from 'antd';
 import { useNavigate } from "react-router-dom";
 import { login } from '../../utils/Route';
-import logo from "../../assets/Logo.png"
+import logo from "../../assets/logo.png"
 
 function Login() {
     const navigate = useNavigate();
