@@ -12,12 +12,15 @@ function Login() {
     }
     return (
         <div className="login">
-            <div>
+            <div className='loginBqg'>
+            <div className='m-15'>
+            <div className="logo">
                 <img src={logo} alt="Logo" />
             </div>
+            <div>
             <Form
                 name="normal_login"
-                className="login-form"
+                className="loginForm"
                 initialValues={{
                     remember: true,
                 }}
@@ -25,6 +28,7 @@ function Login() {
             >
                 <Form.Item
                     name="username"
+                    className="m-5"
                     label='Username'
                     rules={[
                         {
@@ -36,6 +40,7 @@ function Login() {
                 </Form.Item>
                 <Form.Item
                     name="password"
+                    className="m-5"
                     label='Password'
                     rules={[
                         {
@@ -49,12 +54,17 @@ function Login() {
                     />
                 </Form.Item>
 
-                <Form.Item>
+                <Form.Item
+                className="m-5"
+                >
                     <Button type="primary" htmlType="submit" className="login-form-button">
                         Log in
                     </Button>
                 </Form.Item>
             </Form>
+            </div>
+            </div>
+            </div>
         </div>
     )
 }

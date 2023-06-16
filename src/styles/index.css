@@ -10,6 +10,9 @@
 body {
     background-color: rgba(64, 150, 255, 0.04);
 }
+.logo{
+    margin-bottom: 5vh;
+}
 
 .login {
     display: flex;
@@ -17,7 +20,7 @@ body {
     align-items: center;
     flex-direction: column;
     width: 100vw;
-    height: 100vh;
+    height: 90vh;
     text-align: center;
 }
 
@@ -111,6 +114,14 @@ body {
 .ml-5{
     margin-left: 5px;
 }
+
+.m-5{
+    margin-top: 10px;
+}
+.m-15{
+    margin: 15px;
+}
+
 .mainTitle {
     display: flex;
     align-items: center;
@@ -135,6 +146,9 @@ body {
 .tbBgc:hover {
     background-color: rgba(64, 150, 255, 0.04) !important;
 
+}
+.loginBqg{
+    background-color: white;
 }
 
 .btnLogout {
@@ -166,7 +180,12 @@ body {
 ::-webkit-scrollbar-thumb:hover {
     background: rgba(85, 85, 85, 0.63);
 }
-
+.loginForm{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
 .LoginPage {
     width: 100vw;
     height: 100vh;
