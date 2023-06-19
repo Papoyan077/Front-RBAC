@@ -4,6 +4,7 @@ import { deleteEmployeeRole } from "../../delete";
 
 const EmployeeRoles = ({ employeeData, render , setRender}) => {
     let rolesData = employeeData.roles
+    console.log(rolesData);
 
     let lastIndex = 0
     const updateIndex = () => {

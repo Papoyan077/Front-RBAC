@@ -1,6 +1,5 @@
 import { Table } from 'antd';
 import { useEffect, useState } from 'react';
-import UpdatePolicy from "./UpdatePolicy.jsx";
 import SearchFunc from '../../search';
 import { getPolicy } from '../../../utils/Route';
 
@@ -8,9 +7,9 @@ const Policies = () => {
     const [render, setRender] = useState(false);
     const [policiesData, setPoliciesData] = useState([]);
 
-    const changeUpload = (state) => {
-        setRender(state)
-    };
+    // const changeUpload = (state) => {
+    //     setRender(state)
+    // };
 
     useEffect(() => {
         async function fetchData() {
@@ -49,17 +48,17 @@ const Policies = () => {
             },
         },
 
-        {
-            render:
-                (record) => {
-                    return (
-                        <div className='actionsIcons'>
-                            <UpdatePolicy render={render} setRender={setRender} id={record.id} record={record}
-                                moduleTitle={record.title} changeUpload={changeUpload} />
-                        </div>
-                    );
-                },
-        },
+        // {
+        //     render:
+        //         (record) => {
+        //             return (
+        //                 <div className='actionsIcons'>
+        //                     <UpdatePolicy render={render} setRender={setRender} id={record.id} record={record}
+        //                         moduleTitle={record.title} changeUpload={changeUpload} />
+        //                 </div>
+        //             );
+        //         },
+        // },
     ])
 
     return (

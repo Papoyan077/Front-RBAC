@@ -19,6 +19,7 @@ const Employees = () => {
   useEffect(() => {
     getEmployees(setEmployeesData)
   }, []);
+  console.log(employeesData);
 
   const [columns] = useState([
     {
@@ -35,6 +36,25 @@ const Employees = () => {
       title: "LastName",
       dataIndex: "lastName",
       ...SearchFunc('lastName'),
+    },
+    // {
+    //   title: "Temporary Permission",
+    //   dataIndex: "permissions",
+    //   // ...SearchFunc('lastName'),
+    // },
+    {
+      title: "Temporary Permissions",
+      render: (record) => {
+        return (
+          <div className='tempPermissionTitle'>
+            {record.permissions?.map(item => {
+              return (
+                <span key={`permission${updateIndex()}`}>{item.title},</span>
+              )
+            })}
+          </div>
+        )
+      }
     },
     {
       render: (record) => {

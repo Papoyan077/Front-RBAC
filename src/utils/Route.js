@@ -87,7 +87,7 @@ const PutClients = async (id, title, render) => {
 
 const getEmployees = async (employeesDataChange) => {
   return (
-    await instance.get(`/employees/`, { headers: { "Authorization": `Bearer ${getCookie('token')}` } })
+    await instance.get(`/employees/?expandTempPermission=true`, { headers: { "Authorization": `Bearer ${getCookie('token')}` } })
       .then(resp => {
         employeesDataChange(resp.data);
       }).catch((err) => {
@@ -115,7 +115,7 @@ const getEmployeesById = async (empDataChange, empId) => {
   )
 }
 
-const PostEmployeePermission = async (employeeId, permissions , render , setRender) => {
+const PostEmployeePermission = async (employeeId, permissions, render, setRender) => {
   await instance.post(`/employee/permission/${employeeId}`, { permissions: permissions }, { headers: { "Authorization": `Bearer ${getCookie('token')}` } })
     .then(() => {
       setRender(!render)
@@ -125,7 +125,7 @@ const PostEmployeePermission = async (employeeId, permissions , render , setRend
     });
 }
 
-const PostEmployeeRole = async (employeeId, roles , render , setRender) => {
+const PostEmployeeRole = async (employeeId, roles, render, setRender) => {
   await instance.post(`/employee/role/${employeeId}`, { roles: roles }, { headers: { "Authorization": `Bearer ${getCookie('token')}` } })
     .then(() => {
       setRender(!render)
@@ -286,25 +286,25 @@ const getPolicyPermission = async (policiesDataChange) => {
   )
 }
 
-const PostPolicy = async (render, setRender, actionId, moduleId) => {
-  await instance.post('/policy/', { actionId: actionId, moduleId: moduleId }, { headers: { "Authorization": `Bearer ${getCookie('token')}` } })
-    .then(() => {
-      setRender(!render)
-      succesPost();
-    }).catch((err) => {
-      error(err.message);
-    });
-}
+// const PostPolicy = async (render, setRender, actionId, moduleId) => {
+//   await instance.post('/policy/', { actionId: actionId, moduleId: moduleId }, { headers: { "Authorization": `Bearer ${getCookie('token')}` } })
+//     .then(() => {
+//       setRender(!render)
+//       succesPost();
+//     }).catch((err) => {
+//       error(err.message);
+//     });
+// }
 
-const PutPolicy = async (id, activities, render) => {
-  await instance.put(`/policy/${id}`, { activities: activities, status: "published" }, { headers: { "Authorization": `Bearer ${getCookie('token')}` } })
-    .then(() => {
-      succesPut();
-      return !render
-    }).catch((err) => {
-      error(err.message);
-      return false;
-    });
-}
+// const PutPolicy = async (id, activities, render) => {
+//   await instance.put(`/policy/${id}`, { activities: activities, status: "published" }, { headers: { "Authorization": `Bearer ${getCookie('token')}` } })
+//     .then(() => {
+//       succesPut();
+//       return !render
+//     }).catch((err) => {
+//       error(err.message);
+//       return false;
+//     });
+// }
 
-export { login, getActivity, PostActivity, PutActivity, getClients, PostClients, PutClients, getEmployees, getEmployeesById, PostEmployeePermission, PostEmployeeRole, getPermissions, PostPermissions, PutPermission, getRoles, PostRoles, PutRoles, getModules, getModuleById, getModulesTree, PostModule, PutModule, getPolicy, getPolicyPermission, PostPolicy, PutPolicy };
+export { login, getActivity, PostActivity, PutActivity, getClients, PostClients, PutClients, getEmployees, getEmployeesById, PostEmployeePermission, PostEmployeeRole, getPermissions, PostPermissions, PutPermission, getRoles, PostRoles, PutRoles, getModules, getModuleById, getModulesTree, PostModule, PutModule, getPolicy, getPolicyPermission };
