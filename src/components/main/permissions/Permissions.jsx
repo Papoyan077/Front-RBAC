@@ -36,7 +36,7 @@ const Permissions = () => {
       title: "Policies",
       render: (record) => {
         return (
-          <div>
+          <div className='columnScroll'>
             {record.policies?.map((policy, index) => {
               return (
                 <span key={`policy_${index}`}>{policy.policyModule.title}, </span>

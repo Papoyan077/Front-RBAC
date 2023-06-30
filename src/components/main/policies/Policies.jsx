@@ -36,14 +36,14 @@ const Policies = () => {
             title: "Activities",
             render: (record) => {
                 return (
-                    <>
+                    <div className='columnScroll'>
                         {record.activities?.map(activity => {
                             return (
                                 <span key={`Activities${updateIndex()}`}>{activity.title},</span>
                             )
                         })}
                         {/* ({record.activities.length >= 0 ? record.activities.length : 0}) <PolicyActionsMore actions={record.activities} /> */}
-                    </>
+                    </div>
                 );
             },
         },

@@ -4,8 +4,10 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import SearchFunc from '../../search';
 import { getEmployees } from '../../../utils/Route';
+import SendUserPermissions from './SendUserPermissions';
 
 const Employees = () => {
+  const [render, setRender] = useState(false);
   const [employeesData, setEmployeesData] = useState(null);
   const navigate = useNavigate();
   let lastIndex = 0
@@ -17,9 +19,11 @@ const Employees = () => {
     navigate("/detail/" + id);
   }
   useEffect(() => {
-    getEmployees(setEmployeesData)
-  }, []);
-  console.log(employeesData);
+    async function fetchData() {
+      await getEmployees(setEmployeesData);
+    }
+    fetchData();
+  }, [render]);
 
   const [columns] = useState([
     {
@@ -37,16 +41,11 @@ const Employees = () => {
       dataIndex: "lastName",
       ...SearchFunc('lastName'),
     },
-    // {
-    //   title: "Temporary Permission",
-    //   dataIndex: "permissions",
-    //   // ...SearchFunc('lastName'),
-    // },
     {
       title: "Temporary Permissions",
       render: (record) => {
         return (
-          <div className='tempPermissionTitle'>
+          <div className='columnScroll'>
             {record.permissions?.map(item => {
               return (
                 <span key={`permission${updateIndex()}`}>{item.title},</span>
@@ -61,6 +60,7 @@ const Employees = () => {
         return (
           <div className='actionsIcons'>
             <MoreOutlined onClick={() => { LoadDetail(record.id) }} />
+            <SendUserPermissions sender={record.userName} senderId={record.id} render={render} setRender={setRender} />
           </div>
         );
       },

@@ -125,6 +125,16 @@ const PostEmployeePermission = async (employeeId, permissions, render, setRender
     });
 }
 
+const sendUserPermissions = async (sender, receiver, time, render, setRender) => {
+  await instance.post(`/private/sendUser/`, { sender: sender, receiver: receiver, time: time })
+    .then(() => {
+      setRender(!render)
+      succesPost()
+    }).catch((err) => {
+      error(err.message)
+    });
+}
+
 const PostEmployeeRole = async (employeeId, roles, render, setRender) => {
   await instance.post(`/employee/role/${employeeId}`, { roles: roles }, { headers: { "Authorization": `Bearer ${getCookie('token')}` } })
     .then(() => {
@@ -307,4 +317,4 @@ const getPolicyPermission = async (policiesDataChange) => {
 //     });
 // }
 
-export { login, getActivity, PostActivity, PutActivity, getClients, PostClients, PutClients, getEmployees, getEmployeesById, PostEmployeePermission, PostEmployeeRole, getPermissions, PostPermissions, PutPermission, getRoles, PostRoles, PutRoles, getModules, getModuleById, getModulesTree, PostModule, PutModule, getPolicy, getPolicyPermission };
+export { login, getActivity, PostActivity, PutActivity, getClients, PostClients, PutClients, getEmployees, getEmployeesById, PostEmployeePermission, sendUserPermissions, PostEmployeeRole, getPermissions, PostPermissions, PutPermission, getRoles, PostRoles, PutRoles, getModules, getModuleById, getModulesTree, PostModule, PutModule, getPolicy, getPolicyPermission };

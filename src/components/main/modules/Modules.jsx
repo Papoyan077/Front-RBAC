@@ -67,13 +67,13 @@ const Modules = () => {
             title: "Activities",
             render: (record) => {
                 return (
-                    <>
+                    <div className='columnScroll'>
                         {record.activities?.map(item => {
                             return (
                                 <span key={`activity${updateIndex()}`}>{item.title},</span>
                             )
                         })}
-                    </>
+                    </div>
                 )
             }
         },

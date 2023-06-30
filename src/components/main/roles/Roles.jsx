@@ -34,14 +34,14 @@ const Roles = () => {
       title: "Permissions",
       render: (record) => {
         return (
-          <>
+          <div className='columnScroll'>
             {record.permissions?.map(perm => {
               return (
                 <span key={`action${updateIndex()}`}>{perm.title} ,</span>
               )
             })}
             {/* ({record.permissions.length > 0 ? record.permissions.length : null}) <RolePermissionMore permissions={record.permissions} /> */}
-          </>
+          </div>
         )
       }
     },
